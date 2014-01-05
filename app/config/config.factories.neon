@@ -1,0 +1,4 @@
+services:
+	- App\Factories\RouterFactory
+	- App\Factories\TemplateFactory(%appDir%, null)
+	- App\Factories\FormFactory

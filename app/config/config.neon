@@ -1,0 +1,38 @@
+extensions:
+	webloader: WebLoader\Nette\Extension
+
+php:
+	date.timezone: Europe/Prague
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\*Presenter
+
+	session:
+		expiration: 14 days
+		save_path: '%appDir%/../temp/sessions'
+
+webloader:
+	css:
+		default:
+			files:
+				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "backend/*", "*print*"], from: %wwwDir%/css}
+			fileFilters:
+				- @lessFilter
+
+	js:
+		default:
+			remoteFiles:
+				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+			files:
+				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- {files: ["*.js"], exclude: ["html5shiv.js"], from: %wwwDir%/js}
+				- {files: ["*.js"], in: %appDir%/../packagist/twbs/bootstrap/js}
+
+includes:
+	- config.parameters.neon
+	- config.models.neon
+	- config.services.neon
+	- config.factories.neon

@@ -1,0 +1,16 @@
+{
+	"config": {
+        "vendor-dir": "packagist"
+    },
+	"require": {
+		"php": ">= 5.4.0",
+		"nette/nette": "2.1.*",
+		"janmarek/WebLoader": "2.2.*",
+		"leafo/lessphp": "0.4.*",
+		"kdyby/autowired": "@dev",
+		"twbs/bootstrap": "3.0.*"
+	},
+	"require-dev": {
+		"nette/tester": "~0.9.5"
+	}
+}

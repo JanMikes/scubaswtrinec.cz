@@ -1,0 +1,6 @@
+services:
+	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
+	lessFilter: WebLoader\Filter\LessFilter
+	router: @App\Factories\RouterFactory::createRouter
+
+	- App\Services\TemplateHelper

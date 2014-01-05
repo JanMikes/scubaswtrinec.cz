@@ -1,0 +1,11 @@
+log/*
+temp/*
+packagist/*
+
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+app/config/config.local.neon
+
+www/webtemp/*
