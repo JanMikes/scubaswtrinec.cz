@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Jan Mikes -- Developer -- janmikes.cz
+
+# THANKS
+
+    nette.org
+    kdyby.org
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, PHP, JavaScript, Bash
+    Nette Framework, jQuery
