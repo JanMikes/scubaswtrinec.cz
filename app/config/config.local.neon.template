@@ -1,5 +1,3 @@
-parameters:
-
 nette:
 	database:
 		dsn: 'mysql:host=localhost;dbname=test'
@@ -7,3 +5,15 @@ nette:
 		password:
 		options:
 			lazy: yes
+
+	mailer:
+		smtp: true
+		host: 
+		port: 465
+		username: 
+		password: 
+		secure: ssl
+
+parameters:
+	mailer:
+		developRecipients: []

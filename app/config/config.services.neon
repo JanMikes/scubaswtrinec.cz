@@ -4,3 +4,4 @@ services:
 	router: @App\Factories\RouterFactory::createRouter
 
 	- App\Services\TemplateHelper
+	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
