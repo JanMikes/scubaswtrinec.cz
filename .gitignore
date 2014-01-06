@@ -1,11 +1,10 @@
-packagist/*
-
 .DS_Store
 !.gitignore
 !.htaccess
 !web.config
 app/config/config.local.neon
 
+packagist/*
 log/*
 temp/*
 www/webtemp/*
