@@ -1,4 +1,6 @@
 parameters:
 
+	cacheDir: %appDir%/../temp/cache/
+
 	mailer:
 		from:

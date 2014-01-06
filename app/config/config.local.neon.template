@@ -1,11 +1,4 @@
 nette:
-	database:
-		dsn: 'mysql:host=localhost;dbname=test'
-		user:
-		password:
-		options:
-			lazy: yes
-
 	mailer:
 		smtp: true
 		host: 
@@ -17,3 +10,11 @@ nette:
 parameters:
 	mailer:
 		developRecipients: []
+
+	database:
+		default:
+			driver: mysql
+			host: 127.0.0.1
+			dbname:
+			user:
+			password:

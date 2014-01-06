@@ -5,3 +5,4 @@ services:
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
+	- App\Database\ContextPool(%productionMode%, %database%, Nette\Caching\Storages\FileStorage(%cacheDir%))

@@ -3,3 +3,4 @@ services:
 	- App\Factories\TemplateFactory(%appDir%, null)
 	- App\Factories\FormFactory
 	- App\Factories\EmailMessageFactory
+	- App\Factories\SelectionFactory(..., Nette\Caching\Storages\FileStorage(%cacheDir%))
