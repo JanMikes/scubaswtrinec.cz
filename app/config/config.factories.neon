@@ -4,3 +4,4 @@ services:
 	- App\Factories\FormFactory
 	- App\Factories\EmailMessageFactory
 	- App\Factories\SelectionFactory(..., Nette\Caching\Storages\FileStorage(%cacheDir%))
+	- App\Factories\GAFactory
