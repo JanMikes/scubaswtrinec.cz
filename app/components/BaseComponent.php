@@ -2,7 +2,8 @@
 
 namespace App\Components;
 
-use Nette;
+use Nette,
+	Kdyby;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
