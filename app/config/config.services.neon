@@ -1,8 +1,9 @@
 services:
 	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
 	lessFilter: WebLoader\Filter\LessFilter
-	router: @App\Factories\RouterFactory::createRouter
+	router: @App\Factories\RouterFactory::create
+	cacheStorage: Nette\Caching\Storages\FileStorage(%cacheDir%)
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
-	- App\Database\ContextPool(%productionMode%, %database%, Nette\Caching\Storages\FileStorage(%cacheDir%))
+	- App\Database\ContextPool(%productionMode%, %database%, @cacheStorage)

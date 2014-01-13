@@ -1,8 +1,6 @@
 <?php
 
-namespace App;
-
-use Nette;
+namespace App\FrontendModule;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>

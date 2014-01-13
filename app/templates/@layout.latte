@@ -5,38 +5,27 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<meta name="robots" content="{$robots}" n:ifset="$robots">
+	<meta name="description" content="{block metaDescription}{/block}">
+	<meta name="keywords" content="{block metaKeywords}{/block}">
+	<meta name="robots" content="{block robots}{/block}">
 	<meta name="author" content="Jan Mikes <j.mikes@me.com>">
 
 	<title>{block|striptags}{ifset #title}{include title}{/ifset}{/block}</title>
 
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+	<link rel="canonical" n:ifset="$canonical" href="{$canonical}">
 	{control css}
 	
 	<!--[if lt IE 9]>
 		<script src="{$baseUri}/js/html5shiv.js"></script>
 	<![endif]-->
 </head>
-
 <body>
 
-	<!--[if lt IE 7]>
-		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
-
-	<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		{$flash->message}
-	</div>
-
-	{block content|orphans}{/block}
+	{block layout|orphans}{/block}
 
 	{control js}
 	{block js}{/block}
-
-	{control ga, null}
 
 </body>
 </html>

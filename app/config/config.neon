@@ -16,20 +16,32 @@ nette:
 
 webloader:
 	css:
-		default:
+		frontend:
 			files:
 				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "backend/*", "*print*"], from: %wwwDir%/css}
 			fileFilters:
 				- @lessFilter
 
+		backend:
+			files:
+				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "frontend/*", "*print*"], from: %wwwDir%/css}
+			fileFilters:
+				- @lessFilter
+
 	js:
-		default:
+		frontend:
 			remoteFiles:
 				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 			files:
 				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
-				- {files: ["*.js"], exclude: ["html5shiv.js"], from: %wwwDir%/js}
-				- {files: ["*.js"], in: %appDir%/../packagist/twbs/bootstrap/js}
+				- {files: ["*.js"], exclude: ["html5shiv.js", "backend/"], from: %wwwDir%/js}
+
+		backend:
+			remoteFiles:
+				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+			files:
+				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- {files: ["*.js"], exclude: ["html5shiv.js", "frontend/"], from: %wwwDir%/js}
 
 includes:
 	- config.parameters.neon

@@ -11,7 +11,6 @@ use Nette,
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-
 	use Kdyby\Autowired\AutowireProperties;
 	use Kdyby\Autowired\AutowireComponentFactories;
 
@@ -38,10 +37,22 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 		
-		if (!$this->hasFlashSession() && $this->getParam(self::FLASH_KEY) ) {
+		if (!$this->hasFlashSession() && $this->getParameter(self::FLASH_KEY) ) {
 			unset($this->params[self::FLASH_KEY]);
 			$this->redirect(301, 'this');
 		}
+	}
+
+
+	protected function beforeRender()
+	{
+		parent::beforeRender();
+
+		$fid = $this->getParam(self::FLASH_KEY);
+		$key = $this->getParam("key");
+        if ($fid !== NULL || $key) {
+            $this->template->canonical = $this->link('//this', array("key" => ""));
+        }
 	}
 
 
@@ -50,19 +61,4 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		return $gaFactory->create();
 	}
-
-
-	/** @return CssLoader */
-	protected function createComponentCss()
-	{
-		return $this->webLoader->createCssLoader('default');
-	}
-
-
-	/** @return JavaScriptLoader */
-	protected function createComponentJs()
-	{
-		return $this->webLoader->createJavaScriptLoader('default');
-	}
-
 }
