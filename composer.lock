@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "efd4faea6e36f4b5bb10b9dccbbd6706",
+    "hash": "dfed567d7fecfd5d581124e6bc64f3af",
     "packages": [
         {
             "name": "janmarek/webloader",
@@ -64,21 +64,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Autowired.git",
-                "reference": "284f0768c0c00ce8d959cd721089b7cbd9ef89e5"
+                "reference": "0e856c95f45f4fb584c0365d7977cacbeea2c242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/284f0768c0c00ce8d959cd721089b7cbd9ef89e5",
-                "reference": "284f0768c0c00ce8d959cd721089b7cbd9ef89e5",
+                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/0e856c95f45f4fb584c0365d7977cacbeea2c242",
+                "reference": "0e856c95f45f4fb584c0365d7977cacbeea2c242",
                 "shasum": ""
             },
             "require": {
-                "nette/nette": "@dev"
+                "nette/nette": "~2.1@dev"
             },
             "require-dev": {
                 "nette/tester": "@dev"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Kdyby\\Autowired": "src/"
@@ -107,7 +112,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2013-11-19 18:51:47"
+            "time": "2014-01-11 16:06:28"
         },
         {
             "name": "leafo/lessphp",
@@ -315,9 +320,9 @@
     "stability-flags": {
         "kdyby/autowired": 20
     },
-    "platform": {
-        "php": ">= 5.4.0"
-    },
+    "platform": [
+
+    ],
     "platform-dev": [
 
     ]
