@@ -158,6 +158,92 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * @param  bool $includeDdeleted
+	 * @return Nette\Database\Table\Selection
+	 */
+	public function findAll($includeDeleted = false)
+	{
+		$tableName = $this->getTableNameFromClassName();
+		$result = $this->getTable();
+
+		if (!$includeDeleted) {
+			$result->where($tableName . '.' . 'del_flag', 0);
+		}
+		return $result;
+	}
+
+		/**
+	 * @param  array $by
+	 * @param  bool  $includeDdeleted
+	 * @return \Nette\Database\Table\Selection
+	 */
+	public function findBy(array $by, $includeDeleted = false)
+	{
+		return $this->findAll($includeDeleted)->where($by);
+	}
+
+
+	/**
+	 * @param  string 		$key
+	 * @param  string|NULL 	$value
+	 * @param  string|NULL 	$order
+	 * @param  bool 		$includeDdeleted
+	 * @return array
+	 */
+	public function fetchPairs($key = "id", $value = "name", $order = "name DESC", $includeDeleted = false)
+	{
+		$result = $this->findAll($includeDeleted);
+		if (!empty($order)) {
+			$result->order($order);
+		}
+		return $result->fetchPairs($key, $value);
+	}
+
+
+		/**
+	 * Shortcut for $this->getTable()->insert()
+	 * @param  array  $data
+	 * @return Nette\Database\Table\ActiveRow
+	 */
+	public function insert(array $data)
+	{
+		if (empty($data["ins_dt"])) {
+			$data["ins_dt"] = new \DateTime;
+		}
+
+		foreach ($data as $key=>$val) {
+			if (!is_object($val)) {
+				$data[$key] = trim($val);
+			}
+			if (empty($val)) {
+				unset ($data[$key]);
+			}
+		}
+
+		$row = $this->getTable()->insert($data);
+
+		try {
+			$row->update(array(
+				"order" => $row->id * 10,
+			));
+		} catch (\Exception $e) {
+			// Dont do anything, everything is okay!
+		}
+
+		return $row;
+	}
+
+
+	public function activateAll()
+	{
+		$this->findAll()->update(array(
+			"upd_process" => __METHOD__,
+			"active_flag" => 1,
+		));
+	}
+
+
 	/////////////////////
 	// PRIVATE METHODS //
 	/////////////////////
