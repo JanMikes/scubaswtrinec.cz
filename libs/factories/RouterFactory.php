@@ -25,7 +25,7 @@ final class RouterFactory extends Nette\Object
 
 			// Backend router
 			$backendRouter = new RouteList("Backend");
-			$backendRouter[] = new Route("backend/<presenter>/<action>[/<id>]", "Homepage:default");
+			$backendRouter[] = new Route("backend/<presenter>/<action>[/<id>]", "Dashboard:default");
 			$router[] = $backendRouter;
 
 			// Frontend router

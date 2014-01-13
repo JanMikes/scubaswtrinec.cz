@@ -3,6 +3,10 @@ services:
 	lessFilter: WebLoader\Filter\LessFilter
 	router: @App\Factories\RouterFactory::create
 	cacheStorage: Nette\Caching\Storages\FileStorage(%cacheDir%)
+	authorizator: App\Services\Authorizator
+	authenticator: Nette\Security\SimpleAuthenticator([
+		admin: 12345
+	])
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)

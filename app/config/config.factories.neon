@@ -5,3 +5,4 @@ services:
 	- App\Factories\EmailMessageFactory
 	- App\Factories\SelectionFactory(..., @cacheStorage)
 	- App\Factories\GAFactory
+	- App\Factories\SignInFormFactory
