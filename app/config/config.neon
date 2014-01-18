@@ -34,6 +34,18 @@ webloader:
 				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 			files:
 				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
+				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
+				- %appDir%/../packagist/twbs/bootstrap/js/button.js
+				- %appDir%/../packagist/twbs/bootstrap/js/carousel.js
+				- %appDir%/../packagist/twbs/bootstrap/js/collapse.js
+				- %appDir%/../packagist/twbs/bootstrap/js/dropdown.js
+				- %appDir%/../packagist/twbs/bootstrap/js/modal.js
+				- %appDir%/../packagist/twbs/bootstrap/js/scrollspy.js
+				- %appDir%/../packagist/twbs/bootstrap/js/tab.js
+				- %appDir%/../packagist/twbs/bootstrap/js/tooltip.js
+				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
+				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
 				- {files: ["*.js"], exclude: ["html5shiv.js", "backend/"], from: %wwwDir%/js}
 
 		backend:
@@ -41,6 +53,18 @@ webloader:
 				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 			files:
 				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
+				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
+				- %appDir%/../packagist/twbs/bootstrap/js/button.js
+				- %appDir%/../packagist/twbs/bootstrap/js/carousel.js
+				- %appDir%/../packagist/twbs/bootstrap/js/collapse.js
+				- %appDir%/../packagist/twbs/bootstrap/js/dropdown.js
+				- %appDir%/../packagist/twbs/bootstrap/js/modal.js
+				- %appDir%/../packagist/twbs/bootstrap/js/scrollspy.js
+				- %appDir%/../packagist/twbs/bootstrap/js/tab.js
+				- %appDir%/../packagist/twbs/bootstrap/js/tooltip.js
+				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
+				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
 				- {files: ["*.js"], exclude: ["html5shiv.js", "frontend/"], from: %wwwDir%/js}
 
 includes:
