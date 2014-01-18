@@ -27,6 +27,16 @@ final class SignPresenter extends BasePresenter
 	}
 
 
+	protected function startup()
+	{
+		parent::startup();
+
+		if ($this->user->loggedIn) {
+			$this->redirect(":Backend:Dashboard:");
+		}
+	}
+
+
 	protected function createComponentSignInForm(App\Factories\SignInFormFactory $signInFormFactory)
 	{
 		return $signInFormFactory->create();
