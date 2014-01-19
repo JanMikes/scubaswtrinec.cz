@@ -31,7 +31,7 @@ final class SignPresenter extends BasePresenter
 	{
 		parent::startup();
 
-		if ($this->user->loggedIn) {
+		if ($this->user->loggedIn) {
 			$this->redirect(":Backend:Dashboard:");
 		}
 	}
