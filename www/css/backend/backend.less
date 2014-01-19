@@ -38,3 +38,38 @@
 @import "../../../packagist/twbs/bootstrap/less/carousel.less";
 @import "../../../packagist/twbs/bootstrap/less/utilities.less";
 @import "../../../packagist/twbs/bootstrap/less/responsive-utilities.less";
+
+.form-message {
+	.alert;
+	padding: 6px 8px;
+	margin: 0 0 0 5px;
+	font-size: 12px;
+}
+
+.form-control-error {
+	border-color: red;
+}
+
+.form-error-message {
+	.form-message;
+	.alert-danger;
+}
+
+.form-warning-message {
+	.form-message;
+	.alert-warning;
+}
+
+.form-success-message {
+	.form-message;
+	.alert-success;
+}
+
+.form-valid-message {
+	.glyphicon;
+	.glyphicon-ok;
+	.text-success;
+	display: inline-block;
+	margin-left: 5px;
+	font-size: 12px;
+}

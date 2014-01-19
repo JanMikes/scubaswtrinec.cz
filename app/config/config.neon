@@ -33,7 +33,7 @@ webloader:
 			remoteFiles:
 				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 			files:
-				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- %wwwDir%/js/jquery-1.10.2.min.js
 				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
 				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
 				- %appDir%/../packagist/twbs/bootstrap/js/button.js
@@ -46,13 +46,14 @@ webloader:
 				- %appDir%/../packagist/twbs/bootstrap/js/tooltip.js
 				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
 				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
-				- {files: ["*.js"], exclude: ["html5shiv.js", "backend/*"], from: %wwwDir%/js}
+				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- {files: ["*.js"], from: [%wwwDir%/js/shared, %wwwDir%/js/frontend]}
 
 		backend:
 			remoteFiles:
 				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 			files:
-				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
+				- %wwwDir%/js/jquery-1.10.2.min.js
 				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
 				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
 				- %appDir%/../packagist/twbs/bootstrap/js/button.js
@@ -65,7 +66,8 @@ webloader:
 				- %appDir%/../packagist/twbs/bootstrap/js/tooltip.js
 				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
 				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
-				- {files: ["*.js"], exclude: ["html5shiv.js", "frontend/*"], from: %wwwDir%/js}
+				- %wwwDir%/js/live-form-validation.js
+				- {files: ["*.js"], from: [%wwwDir%/js/shared, %wwwDir%/js/backend]}
 
 includes:
 	- config.parameters.neon
