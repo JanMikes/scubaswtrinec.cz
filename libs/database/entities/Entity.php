@@ -244,6 +244,14 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	public function findActive()
+	{
+		return $this->findBy(array(
+			"active_flag" => 1,
+		));
+	}
+
+
 	/////////////////////
 	// PRIVATE METHODS //
 	/////////////////////
