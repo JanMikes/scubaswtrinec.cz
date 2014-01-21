@@ -176,7 +176,7 @@ abstract class Entity extends Nette\Object
 		return $result;
 	}
 
-		/**
+	/**
 	 * @param  array $by
 	 * @param  bool  $includeDdeleted
 	 * @return \Nette\Database\Table\Selection
@@ -184,6 +184,16 @@ abstract class Entity extends Nette\Object
 	public function findBy(array $by, $includeDeleted = false)
 	{
 		return $this->findAll($includeDeleted)->where($by);
+	}
+
+	/**
+	 * @param  array $by
+	 * @param  bool  $includeDdeleted
+	 * @return \Nette\Database\Table\Selection
+	 */
+	public function findOneBy(array $by, $includeDeleted = false)
+	{
+		return $this->findBy($by, $includeDeleted)->limit(1)->fetch();
 	}
 
 
@@ -238,19 +248,39 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * Sets active_flag for all non-active records
+	 * @return int
+	 */
 	public function activateAll()
 	{
-		$this->findAll()->update(array(
+		return $this->findInactive()->update(array(
 			"upd_process" => __METHOD__,
 			"active_flag" => 1,
 		));
 	}
 
 
-	public function findActive()
+	/**
+	 * Returns only active and not deleted records
+	 * @return Nette\Database\Table\Selection
+	 */
+	public function findActive($)
 	{
 		return $this->findBy(array(
 			"active_flag" => 1,
+		));
+	}
+
+
+	/**
+	 * Returns only inactive and not deleted records
+	 * @return Nette\Database\Table\Selection
+	 */
+	public function findInactive()
+	{
+		return $this->findBy(array(
+			"active_flag" => 0,
 		));
 	}
 
