@@ -265,7 +265,7 @@ abstract class Entity extends Nette\Object
 	 * Returns only active and not deleted records
 	 * @return Nette\Database\Table\Selection
 	 */
-	public function findActive($)
+	public function findActive()
 	{
 		return $this->findBy(array(
 			"active_flag" => 1,
