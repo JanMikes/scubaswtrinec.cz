@@ -20,9 +20,6 @@ final class ContextPool extends Nette\Object
 	/** @var Nette\Caching\IStorage */
 	private $cacheStorage;
 
-	/** @var Nette\Database\IReflection */
-	private $databaseReflection;
-
 	/** @var bool */
 	private $isProduction;
 
@@ -31,7 +28,6 @@ final class ContextPool extends Nette\Object
 	{
 		$this->settings = $settings;
 		$this->cacheStorage = $cacheStorage;
-		$this->databaseReflection = $databaseReflection;
 		$this->isProduction = $isProduction;
 	}
 
@@ -73,7 +69,7 @@ final class ContextPool extends Nette\Object
 			Nette\Diagnostics\Debugger::addPanel(new NDB\Diagnostics\ConnectionPanel($connection), $name . "Connection");
 		}
 
-		return new NDB\Context($connection, $this->cacheStorage, new NDB\Reflection\DiscoveredReflection($connection, $this->cacheStorage));
+		return new NDB\Context($connection, new NDB\Reflection\DiscoveredReflection($connection, $this->cacheStorage), $this->cacheStorage);
 	}
 
 }

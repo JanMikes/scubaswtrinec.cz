@@ -12,7 +12,7 @@ use Nette,
 final class SelectionFactory extends Nette\Object
 {
 	/** @var Nette\Security\User */
-	private $tuser;
+	private $user;
 
 	/** @var Nette\Caching\IStorage */
 	private $cacheStorage;

@@ -2,7 +2,8 @@
 
 namespace App\Database;
 
-use Nette\Database as NDB;
+use Nette,
+	Nette\Database as NDB;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
