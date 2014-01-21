@@ -17,16 +17,19 @@ abstract class Entity extends Nette\Object
 	const DIRECTION_UP = "UP";
 	const DIRECTION_DOWN = "DOWN";
 
-	/** @var Nette\Database\Context */
-	private $dbContext;
+	/** @var App\Database\ContextPool */
+	private $contextPool;
 
 	/** @var App\Factories\SelectionFactory */
 	private $selectionFactory;
 
+	/** @var string */
+	private $connectionName = "default";
 
-	public function __construct(NDB\Context $dbContext, App\Factories\SelectionFactory $selectionFactory)
+
+	public function __construct(Database\ContextPool $contextPool, App\Factories\SelectionFactory $selectionFactory)
 	{
-		$this->connection = $dbContext;
+		$this->contextPool = $contextPool;
 		$this->selectionFactory = $selectionFactory;
 	}
 
@@ -34,7 +37,7 @@ abstract class Entity extends Nette\Object
 	final public function getTable()
 	{
 		$tableName = $this->getTableNameFromClassName();
-		return $this->selectionFactory->create($tableName, $this->dbContext);
+		return $this->selectionFactory->create($tableName, $this->contextPool->getContext($this->connectionName));
 	}
 
 
