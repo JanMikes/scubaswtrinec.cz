@@ -34,6 +34,9 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * @return Nette\Database\Table\Selection
+	 */
 	final public function getTable()
 	{
 		$tableName = $this->getTableNameFromClassName();
@@ -75,6 +78,10 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * @param  int $id
+	 * @return int
+	 */
 	public function activate($id)
 	{
 		$row = $this->find($id);
@@ -90,6 +97,10 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * @param  int $id
+	 * @return int
+	 */
 	public function deactivate($id)
 	{
 		$row = $this->find($id);
@@ -109,21 +120,22 @@ abstract class Entity extends Nette\Object
 	 * @param  int $id
 	 * @return bool
 	 */
-	public function changeRowOrder($id, $direction)
+	public function changeRowOrder($id, $direction, $additionalConditions = array())
 	{
-		$row = $this->find($id);
+		$row = $this->find($id)->where($additionalConditions);
 
 		if ($row) {
 			if (empty($row->order)) {
 				$row->update(array(
 					"order" => $row->id * 10,
 				));
-				return $this->changeRowOrder($id, $direction);
+				return $this->changeRowOrder($id, $direction, $additionalConditions);
 			}
 
-			$rowSwap = $this->getTable()
-				->where("id != ?", $row->id)
-				->where("del_flag", 0)
+			$rowSwap = $this->findBy(array(
+					"id != ?" => $row->id,
+				))
+				->where($additionalConditions)
 				->limit(1);
 				
 			if ($direction == self::DIRECTION_UP) {
@@ -176,6 +188,7 @@ abstract class Entity extends Nette\Object
 		return $result;
 	}
 
+
 	/**
 	 * @param  array $by
 	 * @param  bool  $includeDdeleted
@@ -185,6 +198,7 @@ abstract class Entity extends Nette\Object
 	{
 		return $this->findAll($includeDeleted)->where($by);
 	}
+
 
 	/**
 	 * @param  array $by
@@ -214,7 +228,7 @@ abstract class Entity extends Nette\Object
 	}
 
 
-		/**
+	/**
 	 * Shortcut for $this->getTable()->insert()
 	 * @param  array  $data
 	 * @return Nette\Database\Table\ActiveRow
