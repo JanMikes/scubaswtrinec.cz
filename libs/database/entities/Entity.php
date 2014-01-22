@@ -299,6 +299,17 @@ abstract class Entity extends Nette\Object
 	}
 
 
+	/**
+	 * @param  Nette\Database\Table\Selection $selection
+	 * @return int
+	 */
+	public function getInactiveCnt(Nette\Database\Table\Selection $selection)
+	{
+		$clone = clone $selection;
+		return $clone->where("active_flag", 0)->count("id");
+	}
+
+
 	/////////////////////
 	// PRIVATE METHODS //
 	/////////////////////
