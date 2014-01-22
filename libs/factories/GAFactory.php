@@ -9,12 +9,12 @@ use Nette,
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-final class GAFactory extends Nette\Object
+final class GAFactory extends ComponentFactory
 {
 
 	public function create()
 	{
-		return new App\Components\GA;
+		return $this->populateComponent(new App\Components\GA);
 	}
 
 }

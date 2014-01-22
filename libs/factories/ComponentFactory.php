@@ -11,7 +11,7 @@ use Nette;
 abstract class ComponentFactory extends Nette\Object
 {
 	/** @var App\Factories\TemplateFactory @inject */
-	protected $templateFactory;
+	public $templateFactory;
 
 
 	public function populateComponent(Nette\Application\UI\Control $component)

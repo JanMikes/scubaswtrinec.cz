@@ -3,7 +3,8 @@
 namespace App\Components;
 
 use Nette,
-	Kdyby;
+	Kdyby,
+	App;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
