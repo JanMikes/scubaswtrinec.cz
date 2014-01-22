@@ -9,9 +9,8 @@ use Nette,
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-abstract class BaseComponent extends Nette\Application\UI\Control
+abstract class Component extends Nette\Application\UI\Control
 {
-
 	use Kdyby\Autowired\AutowireComponentFactories;
 	
 
@@ -62,5 +61,4 @@ abstract class BaseComponent extends Nette\Application\UI\Control
 
 		return $this->template;
 	}
-
 }
