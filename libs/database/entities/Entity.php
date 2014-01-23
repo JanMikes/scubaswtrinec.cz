@@ -122,7 +122,10 @@ abstract class Entity extends Nette\Object
 	 */
 	public function changeRowOrder($id, $direction, $additionalConditions = array())
 	{
-		$row = $this->find($id)->where($additionalConditions);
+		$row = $this->findBy($additionalConditions)
+			->wherePrimary($id)
+			->limit(1)
+			->fetch();
 
 		if ($row) {
 			if (empty($row->order)) {
@@ -139,11 +142,11 @@ abstract class Entity extends Nette\Object
 				->limit(1);
 				
 			if ($direction == self::DIRECTION_UP) {
-				$rowSwap->where("order <= ?", $row->order)
-					->order("order DESC");
-			} elseif ($direction == self::DIRECTION_DOWN) {
 				$rowSwap->where("order >= ?", $row->order)
 					->order("order ASC");
+			} elseif ($direction == self::DIRECTION_DOWN) {
+				$rowSwap->where("order <= ?", $row->order)
+					->order("order DESC");
 			} else {
 				return false;
 			}
@@ -159,13 +162,15 @@ abstract class Entity extends Nette\Object
 						$newOrder--;
 					}
 				}
+				
+				$rowSwap->update(array(
+					"order" => $row->order,
+				));
+
 				$row->update(array(
 					"order" => $newOrder,
 				));
 
-				$rowSwap->update(array(
-					"order" => $row->order,
-				));
 				return true;
 			}
 		}
