@@ -1,5 +1,7 @@
 $(function(){
 
+	$("a[href$='.jpg'],a[href$='.png'],a[href$='.gif'], .fancy a, a.fancy").fancybox();
+
 	$("input[maxlength], textarea[maxlength]").each(function(){
 		$(this).after("<span class=\"maxlength-info\"></span>");
 		maxlengthInfo($(this));
