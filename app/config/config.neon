@@ -6,7 +6,7 @@ php:
 
 nette:
 	application:
-		errorPresenter: Error
+		errorPresenter: Frontend:Error
 		mapping:
 			*: App\*Module\*Presenter
 

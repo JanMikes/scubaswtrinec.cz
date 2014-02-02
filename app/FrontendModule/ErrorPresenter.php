@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\FrontendModule;
 
 use Nette,
 	Nette\Diagnostics\Debugger;
