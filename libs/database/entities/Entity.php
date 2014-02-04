@@ -179,6 +179,17 @@ abstract class Entity extends Nette\Object
 
 
 	/**
+	 * @param  int 		$id
+	 * @param  array  	$values
+	 * @return int
+	 */
+	public function update($id, array $values)
+	{
+		return $this->find($id)->update($values);
+	}
+
+
+	/**
 	 * @param  bool $includeDdeleted
 	 * @return Nette\Database\Table\Selection
 	 */
