@@ -16,8 +16,10 @@ trait TFormSaveHandlers
 		$presenter = $form->presenter;
 		$this->process($form);
 
-		$presenter->flashMessage("Záznam byl úspěšně uložen!", "success");
-		$presenter->redirect("default");
+		if (!$form->hasErrors()) {
+			$presenter->flashMessage("Záznam byl úspěšně uložen!", "success");
+			$presenter->redirect("default");
+		}
 	}
 
 
@@ -27,7 +29,9 @@ trait TFormSaveHandlers
 		$presenter = $form->presenter;
 		$this->process($form);
 
-		$presenter->flashMessage("Záznam byl úšpěšně uložen!", "success");
-		$presenter->redirect("this");
+		if (!$form->hasErrors()) {
+			$presenter->flashMessage("Záznam byl úšpěšně uložen!", "success");
+			$presenter->redirect("this");
+		}
 	}
 }
