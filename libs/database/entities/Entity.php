@@ -297,8 +297,10 @@ abstract class Entity extends Nette\Object
 	 */
 	public function findActive()
 	{
+		$tableName = $this->getTableNameFromClassName();
+
 		return $this->findBy(array(
-			"active_flag" => 1,
+			"$tableName.active_flag" => 1,
 		));
 	}
 
@@ -309,8 +311,10 @@ abstract class Entity extends Nette\Object
 	 */
 	public function findInactive()
 	{
+		$tableName = $this->getTableNameFromClassName();
+
 		return $this->findBy(array(
-			"active_flag" => 0,
+			"$tableName.active_flag" => 0,
 		));
 	}
 
@@ -321,8 +325,10 @@ abstract class Entity extends Nette\Object
 	 */
 	public function getInactiveCnt(Nette\Database\Table\Selection $selection)
 	{
+		$tableName = $this->getTableNameFromClassName();
+
 		$clone = clone $selection;
-		return $clone->where("active_flag", 0)->count("id");
+		return $clone->where("$tableName.active_flag", 0)->count("id");
 	}
 
 
