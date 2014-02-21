@@ -8,3 +8,11 @@ packagist/*
 log/*
 temp/*
 www/webtemp/*
+
+*.sublime-project
+*.sublime-workspace
+
+_DATA/
+_PSD/
+
+www/upload/
