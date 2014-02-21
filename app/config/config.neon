@@ -1,5 +1,6 @@
 extensions:
 	webloader: WebLoader\Nette\Extension
+	renderableComponent: App\RenderableComponent\Extension
 
 php:
 	date.timezone: Europe/Prague

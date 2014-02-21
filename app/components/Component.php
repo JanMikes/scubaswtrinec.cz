@@ -18,15 +18,6 @@ abstract class Component extends Nette\Application\UI\Control
 	/** @var App\Factories\TemplateFactory */
 	protected $templateFactory;
 
-	/** @var Nette\Localization\ITranslator */
-	protected $translator;
-
-
-	public function setTranslator(Nette\Localization\ITranslator $translator)
-	{
-		$this->translator = $translator;
-	}
-
 
 	public function setTemplateFactory(App\Factories\TemplateFactory $templateFactory)
 	{
@@ -41,25 +32,19 @@ abstract class Component extends Nette\Application\UI\Control
 
 
 	protected function createTemplate($class = NULL) {
-		if (!is_null($this->templateFactory)) {
-			return $this->templateFactory->createTemplate($this);
-		}
-		return parent::createTemplate($class);
+		$template = (!is_null($this->templateFactory) ? $this->templateFactory->createTemplate($this) : parent::createTemplate($class));
+		return $this->setupTemplate($template);
 	}
 
 
-	protected function setupTemplate($view = "default", $filename = null)
+	protected function setupTemplate(Nette\Templating\ITemplate $template, $view = "default", $filename = null)
 	{
 		$controlReflection = new Nette\Reflection\ClassType(get_class($this));
 		$controlDir = dirname($controlReflection->getFileName());
 
 		$filename = ($filename? $controlDir . DIRECTORY_SEPARATOR . $filename : $controlDir . DIRECTORY_SEPARATOR . "$view.latte");
-		$this->template->setFile($filename);
+		$template->setFile($filename);
 
-		if (!is_null($this->translator)) {
-			$this->template->setTranslator($this->translator);
-		}
-
-		return $this->template;
+		return $template;
 	}
 }

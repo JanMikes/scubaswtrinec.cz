@@ -57,7 +57,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 	/** @return App\Components\GA */
-	protected function createComponentGa(Factories\GAFactory $gaFactory)
+	protected function createComponentGa(Factories\IGAFactory $gaFactory)
 	{
 		return $gaFactory->create();
 	}

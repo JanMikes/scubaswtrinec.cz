@@ -1,11 +1,11 @@
 services:
+	templateFactory: App\Factories\TemplateFactory(%appDir%, null)
+
 	- App\Factories\RouterFactory
-	- App\Factories\TemplateFactory(%appDir%, null)
 	- App\Factories\FormFactory
 	- App\Factories\EmailMessageFactory
 	- App\Factories\SelectionFactory(..., @cacheStorage)
 	- App\Factories\SignInFormFactory
 
-	GAFactory: 
-		class: App\Factories\GAFactory
-		inject: yes
+	- App\Factories\IGAFactory
+
