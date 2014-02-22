@@ -179,12 +179,15 @@ abstract class Entity extends Nette\Object
 
 
 	/**
-	 * @param  int 		$id
-	 * @param  array  	$values
+	 * @param  int 										$id
+	 * @param  array|App\Database\IDataTransferObject  	$values
 	 * @return int
 	 */
-	public function update($id, array $values)
+	public function update($id, $data)
 	{
+		if ($data instanceof Database\IDataTransferObject) {
+			$data = $data->getValues();
+		}
 		return $this->find($id)->update($values);
 	}
 
@@ -246,11 +249,15 @@ abstract class Entity extends Nette\Object
 
 	/**
 	 * Shortcut for $this->getTable()->insert()
-	 * @param  array  $data
+	 * @param  array|App\Database\IDataTransferObject  	$values
 	 * @return Nette\Database\Table\ActiveRow
 	 */
-	public function insert(array $data)
+	public function insert($data)
 	{
+		if ($data instanceof Database\IDataTransferObject) {
+			$data = $data->getValues();
+		}
+
 		if (empty($data["ins_dt"])) {
 			$data["ins_dt"] = new \DateTime;
 		}
