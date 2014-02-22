@@ -11,7 +11,8 @@ use App,
  */
 final class Test extends Nette\Object implements App\Database\IDataTransferObject
 {
-	use App\Database\TDefaultDataTransferObject;
+	use App\Database\TDefaultDataTransferObject,
+		App\Database\TDefaultDataTransferObjectProperties;
 
 
 	/**
