@@ -9,6 +9,11 @@ $(function(){
 		maxlengthInfo($(this));
 	});
 
+	$("*[data-confirm]").click(function(e) {
+		var msg = $(this).data("confirm");
+		return confirm(msg);
+	});
+
 });
 
 function maxlengthInfo ($el) {
