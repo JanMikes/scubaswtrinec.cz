@@ -188,7 +188,7 @@ abstract class Entity extends Nette\Object
 		if ($data instanceof Database\IDataTransferObject) {
 			$data = $data->getValues();
 		}
-		return $this->find($id)->update($values);
+		return $this->find($id)->update($data);
 	}
 
 
