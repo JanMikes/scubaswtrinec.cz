@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Autowired.git",
-                "reference": "0e856c95f45f4fb584c0365d7977cacbeea2c242"
+                "reference": "1723f8f51f667cee7fd3be6b5e537400b3599726"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/0e856c95f45f4fb584c0365d7977cacbeea2c242",
-                "reference": "0e856c95f45f4fb584c0365d7977cacbeea2c242",
+                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/1723f8f51f667cee7fd3be6b5e537400b3599726",
+                "reference": "1723f8f51f667cee7fd3be6b5e537400b3599726",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2014-01-11 16:06:28"
+            "time": "2014-02-09 01:11:19"
         },
         {
             "name": "leafo/lessphp",
@@ -157,16 +157,16 @@
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "e5af13a9d662972e9e34272771e52b832629bb91"
+                "reference": "9e7e5fc5921053172dbacecda2c06d749f89a71b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/e5af13a9d662972e9e34272771e52b832629bb91",
-                "reference": "e5af13a9d662972e9e34272771e52b832629bb91",
+                "url": "https://api.github.com/repos/nette/nette/zipball/9e7e5fc5921053172dbacecda2c06d749f89a71b",
+                "reference": "9e7e5fc5921053172dbacecda2c06d749f89a71b",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,7 @@
                 "php": ">=5.3.1"
             },
             "require-dev": {
-                "nette/tester": "~0.9.5"
+                "nette/tester": "~1.0.0"
             },
             "suggest": {
                 "ext-fileinfo": "*",
@@ -219,7 +219,7 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2013-12-31 00:08:21"
+            "time": "2014-02-11 04:51:20"
         },
         {
             "name": "twbs/bootstrap",
