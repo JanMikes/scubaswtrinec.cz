@@ -18,11 +18,17 @@ final class SelectionFactory extends Nette\Object
 	private $cacheStorage;
 
 
-	public function __construct(Nette\Security\User $user, Nette\Caching\IStorage $cacheStorage = null)
+	public function __construct(Nette\Caching\IStorage $cacheStorage = null)
 	{
-		$this->user = $user;
 		$this->cacheStorage = $cacheStorage;
 	}
+
+
+	public function setUser(Nette\Security\User $user)
+	{
+		$this->user = $user;
+	}
+
 
 	public function create($tableName, Nette\Database\Context $dbContext){
 		return new App\Database\Selection($this->user, $dbContext->getConnection(), $tableName, $dbContext->getDatabaseReflection(), $this->cacheStorage);

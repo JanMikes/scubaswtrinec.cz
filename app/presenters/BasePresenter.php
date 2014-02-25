@@ -21,6 +21,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/** @var App\Factories\TemplateFactory @autowire */
 	protected $templateFactory;
 
+	/** @var App\Factories\SelectionFactory @autowire */
+	protected $selectionFactory;
+
 
 	/**
 	 * Overwrites original nette creating template
@@ -36,6 +39,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	protected function startup()
 	{
 		parent::startup();
+
+		// Selection factory has to use setter instead of constructor injection, because of circular references with authenticator
+		$this->selectionFactory->setUser($this->getUser());
 		
 		if (!$this->hasFlashSession() && $this->getParameter(self::FLASH_KEY) ) {
 			unset($this->params[self::FLASH_KEY]);
