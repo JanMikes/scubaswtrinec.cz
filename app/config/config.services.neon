@@ -1,4 +1,8 @@
 services:
+	nette.userStorage:
+		setup:
+			- setNamespace("AppName")
+
 	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
 	lessFilter: WebLoader\Filter\LessFilter
 	router: @App\Factories\RouterFactory::create
