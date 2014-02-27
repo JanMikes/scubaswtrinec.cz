@@ -32,9 +32,9 @@ webloader:
 	js:
 		frontend:
 			remoteFiles:
-				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+				- "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
 			files:
-				- %wwwDir%/js/jquery-1.10.2.min.js
+				- %wwwDir%/js/jquery-1.11.0.min.js
 				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
 				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
 				- %appDir%/../packagist/twbs/bootstrap/js/button.js
@@ -52,9 +52,9 @@ webloader:
 
 		backend:
 			remoteFiles:
-				- "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+				- "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
 			files:
-				- %wwwDir%/js/jquery-1.10.2.min.js
+				- %wwwDir%/js/jquery-1.11.0.min.js
 				- %appDir%/../packagist/twbs/bootstrap/js/transition.js
 				- %appDir%/../packagist/twbs/bootstrap/js/alert.js
 				- %appDir%/../packagist/twbs/bootstrap/js/button.js
