@@ -23,10 +23,12 @@ trait TDefaultDataTransferObject
 					throw new DuplicatedColumnException("Column '$column' has already its value set, please check your annotations!");
 				}
 
-				$values[$column] = $this->{$property->name};
+				if (!$property->hasAnnotation(IDataTransferObject::DEFAULT_VALUE_ANNOTATION_NAME) || !empty($this->{$property->name})) {
+					$values[$column] = $this->{$property->name};
 
-				if (is_array($values[$column])) {
-					$values[$column] = Nette\Utils\Json::encode($values[$column]);
+					if (is_array($values[$column])) {
+						$values[$column] = Nette\Utils\Json::encode($values[$column]);
+					}
 				}
 			}
 		}
