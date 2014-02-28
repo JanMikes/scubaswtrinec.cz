@@ -4,7 +4,7 @@ services:
 			- setNamespace("AppName")
 
 	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
-	lessFilter: App\WebLoader\LessFilter
+	lessFilter: WebLoader\Filter\LessFilter
 	router: @App\Factories\RouterFactory::create
 	cacheStorage: Nette\Caching\Storages\FileStorage(%cacheDir%)
 	authorizator: App\Services\Authorizator

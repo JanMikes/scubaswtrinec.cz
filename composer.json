@@ -5,9 +5,9 @@
 	"require": {
 		"nette/nette": "2.1.*",
 		"janmarek/WebLoader": "2.2.*",
-		"oyejorge/less.php": "~1.5",
+		"leafo/lessphp" : "0.4.0",
 		"kdyby/autowired": "@dev",
-		"twbs/bootstrap": "3.0.3"
+		"twbs/bootstrap": "3.0.0"
 	},
 	"require-dev": {
 		"nette/tester": "~0.9.5"
