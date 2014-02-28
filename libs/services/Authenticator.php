@@ -18,7 +18,7 @@ final class Authenticator extends Nette\Object implements Security\IAuthenticato
 
 	/** @var App\Services\HashService */
 	private $hashService;
-	
+
 
 	public function __construct(UserEntity $userEntity, HashService $hashService)
 	{
@@ -48,7 +48,7 @@ final class Authenticator extends Nette\Object implements Security\IAuthenticato
 
 		$identity = $user->toArray();
 		unset($identity["password"]);
-		
+
 		return new Security\Identity($user->id, null, $identity);
 	}
 

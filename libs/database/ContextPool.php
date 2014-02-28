@@ -64,7 +64,7 @@ final class ContextPool extends Nette\Object
 		$config = $this->settings[$name];
 		$connection = new NDB\Connection("$config[driver]:host=$config[host];dbname=$config[dbname]", $config["user"], $config["password"]);
 
-		// Panels will be created and logged only 
+		// Panels will be created and logged only
 		if (Nette\Diagnostics\Debugger::isEnabled()) {
 			Nette\Diagnostics\Debugger::addPanel(new NDB\Diagnostics\ConnectionPanel($connection), $name . "Connection");
 		}

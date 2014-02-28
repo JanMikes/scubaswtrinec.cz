@@ -8,7 +8,7 @@ use Nette;
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-trait TFormSaveHandlers 
+trait TFormSaveHandlers
 {
 	public function save(Nette\Forms\Controls\Button $button)
 	{

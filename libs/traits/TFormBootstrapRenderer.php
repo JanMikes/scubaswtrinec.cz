@@ -8,7 +8,7 @@ use Nette;
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-trait TFormBootstrapRenderer 
+trait TFormBootstrapRenderer
 {
 	public function activateBootstrapRenderer(Nette\Forms\Form $form)
 	{
@@ -37,6 +37,6 @@ trait TFormBootstrapRenderer
 				$control->getSeparatorPrototype()->setName('div')->class($control->getControlPrototype()->type);
 			}
 		}
-		
+
 	}
 }

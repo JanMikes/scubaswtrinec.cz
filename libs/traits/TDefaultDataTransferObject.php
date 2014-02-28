@@ -8,7 +8,7 @@ use Nette;
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-trait TDefaultDataTransferObject 
+trait TDefaultDataTransferObject
 {
 	public function getValues()
 	{
@@ -42,7 +42,7 @@ trait TDefaultDataTransferObject
 		$object = new self;
 
 		$class = Nette\Reflection\ClassType::from($object);
-		
+
 		foreach ($class->getProperties() as $property) {
 			if ($property->hasAnnotation(IDataTransferObject::COLUMN_ANNOTATION_NAME)) {
 				$column = $property->getAnnotation(IDataTransferObject::COLUMN_ANNOTATION_NAME);

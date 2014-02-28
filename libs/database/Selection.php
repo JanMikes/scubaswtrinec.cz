@@ -53,7 +53,7 @@ final class Selection extends NDB\Table\Selection
 
 		return parent::insert($data);
 	}
-	
+
 
 	/**
 	 * Overrides default update method for adding information who updated to each table

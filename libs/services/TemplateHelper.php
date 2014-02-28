@@ -42,7 +42,7 @@ final class TemplateHelper extends Nette\Object
 	* @param  string $s
 	* @return string
 	*/
-	public function orphans($s) 
+	public function orphans($s)
 	{
 		return preg_replace('~( +(a|cca|č.|či|do|i|k|ke|na|o|od|po|s|tj.|u|v|z|za) +)~i', ' $2&nbsp;', $s);
 	}

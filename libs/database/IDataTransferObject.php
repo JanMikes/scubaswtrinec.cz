@@ -12,6 +12,6 @@ interface IDataTransferObject
 
 	const DEFAULT_VALUE_ANNOTATION_NAME = "default";
 
-	
+
 	public function getValues();
 }

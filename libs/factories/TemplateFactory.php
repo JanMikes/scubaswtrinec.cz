@@ -111,7 +111,7 @@ final class TemplateFactory extends Nette\Object {
 		if (!isset($template->flashes) || !is_array($template->flashes)) {
 			$template->flashes = array();
 		}
-	
+
 		$template->registerHelperLoader('\Nette\Templating\Helpers::loader');
 		$template->registerHelperLoader($this->templateHelper->loader);
 

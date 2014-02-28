@@ -28,7 +28,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * Overwrites original nette creating template
 	 * @param  string $class
-	 * @return 
+	 * @return
 	 */
 	public function createTemplate($class = null)
 	{
@@ -42,7 +42,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 		// Selection factory has to use setter instead of constructor injection, because of circular references with authenticator
 		$this->selectionFactory->setUser($this->getUser());
-		
+
 		if (!$this->hasFlashSession() && $this->getParameter(self::FLASH_KEY) ) {
 			unset($this->params[self::FLASH_KEY]);
 			$this->redirect(301, 'this');

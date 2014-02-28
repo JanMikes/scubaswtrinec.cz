@@ -15,7 +15,7 @@ final class GA extends Component
 		$template = $this->createTemplate();
 
 		$template->code = $code;
-		
+
 		$template->render();
 	}
 }

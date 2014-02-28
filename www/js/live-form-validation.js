@@ -54,11 +54,11 @@ LiveForm.setUpHandlers = function(el) {
 			// Hide validation span tag.
 			self.removeClass(this, self.options.controlErrorClass);
 			self.removeClass(this, self.options.validMessageClass);
-			
+
 			var error = self.getMessageElement(this);
 			error.innerHTML = '';
 			error.className = '';
-			
+
 			// Cancel timeout to run validation handler
 			if (self.timeout) {
 				clearTimeout(self.timeout);
@@ -112,7 +112,7 @@ LiveForm.showValid = function(el) {
 			return false;
 		}
 	}
-	
+
 	var rules = Nette.getRules(null, el);
 	if(rules.length == 0) {
 		return false;
@@ -146,7 +146,7 @@ LiveForm.getMessageElement = function(el) {
 
 	error.className = this.options.errorMessageClass;
 	error.innerHTML = '';
-	
+
 	return error;
 };
 

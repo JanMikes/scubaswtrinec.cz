@@ -28,13 +28,13 @@ final class SignInFormFactory extends Nette\Object
 	public function create()
 	{
 		$form = $this->formFactory->create();
-	
+
 		$form->addText("username", "Uživatelské jméno", 30)
 			->setRequired("Prosím vyplňte uživatelské jméno!");
 
 		$form->addPassword("password", "Heslo", 30)
 			->setRequired("Prosím vyplňte heslo!");
-		
+
 		$form->addCheckbox("persistent", "Trvalé přihlášení");
 		$form->addHidden("backlink");
 		$form->addSubmit("send", "Přihlásit se");

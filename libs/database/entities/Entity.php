@@ -136,7 +136,7 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 				))
 				->where($additionalConditions)
 				->limit(1);
-				
+
 			if ($direction == self::MOVE_RECORD_UP) {
 				$rowSwap->where("order >= ?", $row->order)
 					->order("order ASC");
@@ -146,7 +146,7 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 			} else {
 				return false;
 			}
-				
+
 			$rowSwap = $rowSwap->fetch();
 
 			if ($rowSwap) {
@@ -158,7 +158,7 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 						$newOrder--;
 					}
 				}
-				
+
 				$rowSwap->update(array(
 					"order" => $row->order,
 				));

@@ -13,7 +13,7 @@ use Nette,
 abstract class Component extends Nette\Application\UI\Control
 {
 	use Kdyby\Autowired\AutowireComponentFactories;
-	
+
 
 	/** @var App\Factories\TemplateFactory */
 	protected $templateFactory;
