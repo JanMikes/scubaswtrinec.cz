@@ -1,6 +1,5 @@
 extensions:
 	webloader: WebLoader\Nette\Extension
-	renderableComponent: App\RenderableComponent\Extension
 	injectEnabler: App\InjectEnabler\Extension
 
 php:

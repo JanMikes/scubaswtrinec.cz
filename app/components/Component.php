@@ -4,7 +4,7 @@ namespace App\Components;
 
 use Nette,
 	Kdyby,
-	App;
+	App\Factories\TemplateFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -18,16 +18,9 @@ abstract class Component extends Nette\Application\UI\Control
 	/** @var App\Factories\TemplateFactory */
 	protected $templateFactory;
 
-
-	public function setTemplateFactory(App\Factories\TemplateFactory $templateFactory)
+	public function injectTemplateFactory(TemplateFactory $templateFactory)
 	{
 		$this->templateFactory = $templateFactory;
-	}
-
-
-	public function render()
-	{
-		return $this->setupTemplate();
 	}
 
 

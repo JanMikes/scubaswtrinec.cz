@@ -24,7 +24,6 @@ final class Extension extends CompilerExtension
 	public function beforeCompile()
 	{
 		$builder = $this->getContainerBuilder();
-		$definitions = $builder->getDefinitions();
 
 		foreach ($builder->definitions as $definition) {
 			if ($definition->implement && method_exists($definition->implement, 'create')) {

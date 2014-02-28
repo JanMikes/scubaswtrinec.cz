@@ -8,7 +8,7 @@ use App;
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-final class GA extends Component implements App\RenderableComponent\IComponent
+final class GA extends Component
 {
 	public function render($code = null)
 	{
