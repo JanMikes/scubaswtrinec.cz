@@ -11,12 +11,8 @@ use Nette,
  *  @author Jan Mikes <j.mikes@me.com>
  *  @copyright Jan Mikes - janmikes.cz
  */
-abstract class Entity extends Nette\Object
+abstract class Entity extends Nette\Object implements Database\IEntity
 {
-	const INCLUDE_DELETED = true;
-	const DIRECTION_UP = "UP";
-	const DIRECTION_DOWN = "DOWN";
-
 	/** @var App\Database\ContextPool */
 	private $contextPool;
 
@@ -141,10 +137,10 @@ abstract class Entity extends Nette\Object
 				->where($additionalConditions)
 				->limit(1);
 				
-			if ($direction == self::DIRECTION_UP) {
+			if ($direction == self::MOVE_RECORD_UP) {
 				$rowSwap->where("order >= ?", $row->order)
 					->order("order ASC");
-			} elseif ($direction == self::DIRECTION_DOWN) {
+			} elseif ($direction == self::MOVE_RECORD_DOWN) {
 				$rowSwap->where("order <= ?", $row->order)
 					->order("order DESC");
 			} else {
@@ -156,7 +152,7 @@ abstract class Entity extends Nette\Object
 			if ($rowSwap) {
 				$newOrder = $rowSwap->order;
 				if ($newOrder == $row->order) {
-					if ($direction == self::DIRECTION_UP) {
+					if ($direction == self::MOVE_RECORD_UP) {
 						$newOrder++;
 					} else {
 						$newOrder--;
