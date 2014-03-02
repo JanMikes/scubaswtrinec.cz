@@ -19,13 +19,13 @@ webloader:
 	css:
 		frontend:
 			files:
-				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "backend/*", "*print*"], from: %wwwDir%/css}
+				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "backend/*", "custom/*", "*print*"], from: %wwwDir%/css}
 			fileFilters:
 				- @lessFilter
 
 		backend:
 			files:
-				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "frontend/*", "*print*"], from: %wwwDir%/css}
+				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "frontend/*", "custom/*", "*print*"], from: %wwwDir%/css}
 			fileFilters:
 				- @lessFilter
 
