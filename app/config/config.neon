@@ -19,13 +19,13 @@ webloader:
 	css:
 		frontend:
 			files:
-				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "backend/*", "custom/*", "*print*"], from: %wwwDir%/css}
+				- {files: ["*.css", "*.less"], exclude: ["*print*"], in: [%wwwDir%/css, %wwwDir%/css/frontend]}
 			fileFilters:
 				- @lessFilter
 
 		backend:
 			files:
-				- {files: ["*.css", "*.less"], exclude: ["bootstrap/*", "frontend/*", "custom/*", "*print*"], from: %wwwDir%/css}
+				- {files: ["*.css", "*.less"], exclude: ["*print*"], in: [%wwwDir%/css, %wwwDir%/css/backend]}
 			fileFilters:
 				- @lessFilter
 
@@ -48,7 +48,7 @@ webloader:
 				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
 				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
 				- %appDir%/../packagist/nette/nette/client-side/netteForms.js
-				- {files: ["*.js"], from: [%wwwDir%/js/shared, %wwwDir%/js/frontend]}
+				- {files: ["*.js"], in: [%wwwDir%/js/shared, %wwwDir%/js/frontend]}
 
 		backend:
 			remoteFiles:
@@ -68,7 +68,7 @@ webloader:
 				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
 				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
 				- %wwwDir%/js/live-form-validation.js
-				- {files: ["*.js"], from: [%wwwDir%/js/shared, %wwwDir%/js/backend]}
+				- {files: ["*.js"], in: [%wwwDir%/js/shared, %wwwDir%/js/backend]}
 
 includes:
 	- config.parameters.neon
