@@ -182,16 +182,16 @@
         },
         {
             "name": "oyejorge/less.php",
-            "version": "v1.6.3.1",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oyejorge/less.php.git",
-                "reference": "3350ddb9c53749838bbc6e9934218faee0c3e61c"
+                "reference": "2a18bec4b1753ffe5cad9e7ae1586b7990297316"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/3350ddb9c53749838bbc6e9934218faee0c3e61c",
-                "reference": "3350ddb9c53749838bbc6e9934218faee0c3e61c",
+                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/2a18bec4b1753ffe5cad9e7ae1586b7990297316",
+                "reference": "2a18bec4b1753ffe5cad9e7ae1586b7990297316",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "php",
                 "stylesheet"
             ],
-            "time": "2014-02-23 19:36:57"
+            "time": "2014-03-04 19:02:04"
         },
         {
             "name": "twbs/bootstrap",
