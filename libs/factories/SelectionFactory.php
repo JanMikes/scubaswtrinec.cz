@@ -33,5 +33,4 @@ final class SelectionFactory extends Nette\Object
 	public function create($tableName, Nette\Database\Context $dbContext){
 		return new App\Database\Selection($this->user, $dbContext->getConnection(), $tableName, $dbContext->getDatabaseReflection(), $this->cacheStorage);
 	}
-
 }

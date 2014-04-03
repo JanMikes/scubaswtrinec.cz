@@ -4,3 +4,9 @@ parameters:
 
 	mailer:
 		from:
+
+	database:
+		logs:
+			dsn: "sqlite:%appDir%/../databases/logs.db"
+			user:
+			password:

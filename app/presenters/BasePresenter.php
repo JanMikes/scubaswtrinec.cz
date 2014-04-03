@@ -3,7 +3,9 @@
 namespace App;
 
 use Nette,
-	Kdyby;
+	Nette\Diagnostics\Debugger,
+	Kdyby\Autowired,
+	App\Factories\IGAFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -11,8 +13,8 @@ use Nette,
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-	use Kdyby\Autowired\AutowireProperties;
-	use Kdyby\Autowired\AutowireComponentFactories;
+	use Autowired\AutowireProperties;
+	use Autowired\AutowireComponentFactories;
 
 
 	/** @var WebLoader\LoaderFactory @autowire */
@@ -21,8 +23,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/** @var App\Factories\TemplateFactory @autowire */
 	protected $templateFactory;
 
-	/** @var App\Factories\SelectionFactory @autowire */
-	protected $selectionFactory;
+	/** @var App\Services\VisitLogger @autowire */
+	protected $visitLogger;
 
 
 	/**
@@ -36,12 +38,20 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	}
 
 
+	public function shutdown($response)
+	{
+		parent::shutdown($response);
+
+		$this->visitLogger->updateElapsedTime(Debugger::timer("global"));
+	}
+
+
 	protected function startup()
 	{
 		parent::startup();
+		Debugger::timer("global");
 
-		// Selection factory has to use setter instead of constructor injection, because of circular references with authenticator
-		$this->selectionFactory->setUser($this->getUser());
+		$this->visitLogger->log();
 
 		if (!$this->hasFlashSession() && $this->getParameter(self::FLASH_KEY) ) {
 			unset($this->params[self::FLASH_KEY]);
@@ -63,8 +73,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 	/** @return App\Components\GA */
-	protected function createComponentGa(Factories\IGAFactory $gaFactory)
+	protected function createComponentGa(IGAFactory $factory)
 	{
-		return $gaFactory->create();
+		return $factory->create();
 	}
 }

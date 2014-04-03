@@ -13,14 +13,17 @@ use Nette,
  */
 abstract class Entity extends Nette\Object implements Database\IEntity
 {
+	/** @var string */
+	public $connectionName = "default";
+
+	/** @var boolean */
+	public $isOrderable = false;
+
 	/** @var App\Database\ContextPool */
 	private $contextPool;
 
 	/** @var App\Factories\SelectionFactory */
 	private $selectionFactory;
-
-	/** @var string */
-	private $connectionName = "default";
 
 
 	public function __construct(Database\ContextPool $contextPool, App\Factories\SelectionFactory $selectionFactory)
@@ -269,14 +272,12 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 
 		$row = $this->getTable()->insert($data);
 
-		try {
+		if ($this->isOrderable) {
 			$row->update(array(
 				"order" => $row->id * 10,
 			));
-		} catch (\Exception $e) {
-			// Dont do anything, everything is okay!
 		}
-
+		
 		return $row;
 	}
 

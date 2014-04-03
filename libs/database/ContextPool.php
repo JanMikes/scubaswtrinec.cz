@@ -20,15 +20,11 @@ final class ContextPool extends Nette\Object
 	/** @var Nette\Caching\IStorage */
 	private $cacheStorage;
 
-	/** @var bool */
-	private $isProduction;
 
-
-	public function __construct($isProduction, array $settings, Nette\Caching\IStorage $cacheStorage = null)
+	public function __construct(array $settings, Nette\Caching\IStorage $cacheStorage = null)
 	{
 		$this->settings = $settings;
 		$this->cacheStorage = $cacheStorage;
-		$this->isProduction = $isProduction;
 	}
 
 
@@ -62,9 +58,9 @@ final class ContextPool extends Nette\Object
 		}
 
 		$config = $this->settings[$name];
-		$connection = new NDB\Connection("$config[driver]:host=$config[host];dbname=$config[dbname]", $config["user"], $config["password"]);
+		$connection = new NDB\Connection(isset($config["dsn"]) ? $config["dsn"] : "$config[driver]:host=$config[host];dbname=$config[dbname]", $config["user"], $config["password"]);
 
-		// Panels will be created and logged only
+		// Panels will be created and logged only if debug mode is enabled
 		if (Nette\Diagnostics\Debugger::isEnabled()) {
 			Nette\Diagnostics\Debugger::addPanel(new NDB\Diagnostics\ConnectionPanel($connection), $name . "Connection");
 		}

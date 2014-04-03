@@ -4,7 +4,7 @@ require __DIR__ . '/../packagist/autoload.php';
 
 $configurator = new Nette\Configurator;
 
-//$configurator->setDebugMode(TRUE);  // debug mode MUST NOT be enabled on production server
+//$configurator->setDebugMode(FALSE);  // debug mode MUST NOT be enabled on production server
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 $configurator->setTempDirectory(__DIR__ . '/../temp');

@@ -14,4 +14,9 @@ services:
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
-	- App\Database\ContextPool(%productionMode%, %database%, @cacheStorage)
+	- App\Services\VisitLogger(%productionMode%)
+
+	- App\Database\ContextPool(%database%, @cacheStorage)
+	-
+		class: App\Database\Entities\LogVisitEntity
+		setup: [$connectionName("logs")]

@@ -4,7 +4,9 @@ services:
 	- App\Factories\RouterFactory
 	- App\Factories\FormFactory
 	- App\Factories\EmailMessageFactory
-	- App\Factories\SelectionFactory(..., @cacheStorage)
+	-
+		class: App\Factories\SelectionFactory(..., @cacheStorage)
+		setup: [setUser]
 	- App\Factories\SignInFormFactory
 
 	- App\Factories\IGAFactory

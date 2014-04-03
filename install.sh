@@ -44,6 +44,20 @@ else
     cp ./app/config/config.local.neon.template ./app/config/config.local.neon && echo "$(tput setaf 2)Local config has been successfully created.$(tput sgr0)" || echo "$(tput setaf 1)Failed creating app/config/config.local.neon!$(tput sgr0)"
 fi
 
+if [ ! -e ./databases/ ]
+then
+    mkdir -p ./databases/ && echo "$(tput setaf 2)Databases directory created successfully.$(tput sgr0)" || echo "$(tput setaf 1)Failed creating databases directory!$(tput sgr0)"
+    chmod -R 777 ./databases/ || echo "$(tput setaf 1)Failed setting write rights to databases!$(tput sgr0)"
+fi
+
+if [ -f ./databases/logs.db ]
+then
+	echo "$(tput setaf 2)Logs SQLite database already exists.$(tput sgr0)"
+else
+	sqlite3 ./databases/logs.db "CREATE TABLE log_visit ( id integer NOT NULL PRIMARY KEY AUTOINCREMENT, ajax_flag numeric NOT NULL DEFAULT '0', url text NULL, http_method text NULL, http_get text NULL, http_post text NULL, remote_ip text NULL, server_ip text NULL, user_agent text NULL, referral text NULL, elapsed real NOT NULL DEFAULT '0', ins_dt datetime default current_timestamp, ins_user_id text NULL );"  && echo "$(tput setaf 2)Logs SQLite database created successfully.$(tput sgr0)" || echo "$(tput setaf 1)Failed creating logs SQLite database!$(tput sgr0)"
+fi
+chmod 777 ./databases/logs.db || echo "$(tput setaf 1)Failed setting write rights to ./databases/logs.db!$(tput sgr0)"
+
 # Installing composer from composer.lock file
 # TODO: Download composer.phar from remote and delete it after installing
 composer install

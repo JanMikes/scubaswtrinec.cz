@@ -26,6 +26,13 @@ trait TDefaultDataTransferObject
 				if (!$property->hasAnnotation(IDataTransferObject::DEFAULT_VALUE_ANNOTATION_NAME) || !empty($this->{$property->name})) {
 					$values[$column] = $this->{$property->name};
 
+					if (!$property->isPublic()) {
+						$methodName = "get" . ucwords($property->getName());
+						$values[$column] = call_user_func(array($this, $methodName));
+					} else {
+						$values[$column] = $this->{$property->name};
+					}
+
 					if (is_array($values[$column])) {
 						$values[$column] = Nette\Utils\Json::encode($values[$column]);
 					}
