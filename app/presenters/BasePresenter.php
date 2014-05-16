@@ -26,6 +26,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/** @var App\Services\VisitLogger @autowire */
 	protected $visitLogger;
 
+	/** @var App\Factories\SelectionFactory @autowire */
+	protected $selectionFactory;
+
 
 	/**
 	 * Overwrites original nette creating template
@@ -49,6 +52,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	protected function startup()
 	{
 		parent::startup();
+
+		// This is required due to circular reference issue
+		$this->selectionFactory->setUser($this->user);
+
 		Debugger::timer("global");
 
 		$this->visitLogger->log();
