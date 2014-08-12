@@ -115,6 +115,12 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 	}
 
 
+	public function getLast()
+	{
+		return $this->findAll()->order("id DESC")->fetch();
+	}
+
+
 	/**
 	 * @param  int $id
 	 * @return bool
@@ -299,13 +305,19 @@ abstract class Entity extends Nette\Object implements Database\IEntity
 	 * Returns only active and not deleted records
 	 * @return Nette\Database\Table\Selection
 	 */
-	public function findActive()
+	public function findActive($id = null)
 	{
 		$tableName = $this->getTableNameFromClassName();
 
-		return $this->findBy(array(
+		$selection = $this->findBy(array(
 			"$tableName.active_flag" => 1,
 		));
+
+		if ($id) {
+			return $selection->wherePrimary($id)->fetch();
+		}
+
+		return $selection;
 	}
 
 

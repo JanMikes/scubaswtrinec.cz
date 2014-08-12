@@ -68,6 +68,8 @@ webloader:
 				- %appDir%/../packagist/twbs/bootstrap/js/popover.js
 				- %appDir%/../packagist/twbs/bootstrap/js/affix.js
 				- %wwwDir%/js/live-form-validation.js
+				- %wwwDir%/ckeditor/ckeditor.js
+				- %wwwDir%/ckeditor/adapters/jquery.js
 				- {files: ["*.js"], in: [%wwwDir%/js/shared, %wwwDir%/js/backend]}
 
 includes:

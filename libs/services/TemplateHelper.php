@@ -19,6 +19,27 @@ final class TemplateHelper extends Nette\Object
 	}
 
 
+	public function weekStart($week, $year)
+	{
+		$week--;
+		$time = strtotime("1 January $year", time());
+		$day = date('w', $time);
+		$time += ((7*$week)+1-$day)*24*3600;
+		return date('Y-n-j', $time);
+	}
+
+
+	public function weekEnd($week, $year)
+	{
+		$week--;
+		$time = strtotime("1 January $year", time());
+		$day = date('w', $time);
+		$time += ((7*$week)+1-$day)*24*3600;
+		$time += 6*24*3600;
+		return date('Y-n-j', $time);
+	}
+
+
 	/**
 	 * @param  string  		$string
 	 * @param  string|NULL 	$text

@@ -142,14 +142,26 @@ final class TemplateFactory extends Nette\Object {
 	/////////////////////
 
 
-	/**
+		/**
 	 * Prepares variables for email template
 	 * @param  Nette\Templating\IFileTemplate$template
 	 * @return Nette\Templating\IFileTemplate
 	 */
 	private function populateEmailTemplate(IFileTemplate $template)
 	{
-		$template->s = array();
+		$default = "color: #333;font-family: Arial, Tahoma, Sans-serif;";
+
+		$template->s = array(
+			"body" => $default . "background: #fff;font-size: 12px;",
+			"h1" => $default . "font-weight: normal;font-size: 24px;",
+			"h2" => $default . "font-weight: normal;font-size: 18px;",
+			"p" => $default . "margin: 1em 0;",
+			"a" => $default . "color: #000;text-decoration: none;",
+			"table" => $default . "border: 1px solid #333;",
+			"th" => $default . "font-weight: bold;font-size: 12px;text-align: left;",
+			"td" => $default . "font-size: 12px;text-align: left;",
+			".odd" => "background: #f3f3f3;",
+		);
 
 		return $template;
 	}

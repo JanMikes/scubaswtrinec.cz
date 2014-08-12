@@ -5,6 +5,24 @@ services:
 	- App\Factories\FormFactory
 	- App\Factories\EmailMessageFactory
 	- App\Factories\SelectionFactory(..., @cacheStorage)
+
 	- App\Factories\SignInFormFactory
 
 	- App\Factories\IGAFactory
+	- App\Factories\IActualitiesListFactory
+
+	- App\Factories\ChangePasswordFormFactory
+	- App\Factories\ManageActualityFormFactory
+	- App\Factories\ManageActualityPhotoFormFactory
+	- App\Factories\ManageArticleFormFactory
+	- App\Factories\ManageArticlePhotoFormFactory
+	- App\Factories\ManageContactFormFactory
+	- App\Factories\ManageGalleryFormFactory
+	- App\Factories\ManageGalleryPhotoFormFactory
+	- App\Factories\ManageDiscussionFormFactory
+	- App\Factories\ManageDiscussionBanFormFactory
+	- App\Factories\ManageInstructorFormFactory
+	- App\Factories\ManageLinkFormFactory
+	- App\Factories\ManageMemberFormFactory
+	- App\Factories\ManageStatementFormFactory
+	- App\Factories\ManageStatuteFormFactory

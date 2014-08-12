@@ -1,8 +1,76 @@
 {extends "../../templates/@layout.latte"}
 
+{block title}Administrace{/block}
+
 {block robots}noindex, nofollow{/block}
 
 {block layout}
-<a n:href="logout!">Odhlásit</a>
+<div class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Otevřít navigaci</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" n:href=":Backend:Dashboard:">ScubaSW</a>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li n:class="$presenter->isLinkCurrent(':Backend:Actuality:*')? active">
+				<a n:href=":Backend:Actuality:">Aktuality</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Article:*')? active">
+				<a n:href=":Backend:Article:">Články</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Statement:*')? active">
+				<a n:href=":Backend:Statement:">Zprávy</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Gallery:*')? active">
+				<a n:href=":Backend:Gallery:">Galerie</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Discussion:*')? active">
+				<a n:href=":Backend:Discussion:">Diskuze</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Contact:*')? active">
+				<a n:href=":Backend:Contact:">Kontakt</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Instructor:*')? active">
+				<a n:href=":Backend:Instructor:">Instruktoři</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Backend:Link:*')? active">
+				<a n:href=":Backend:Link:">Odkazy</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a n:href=":Backend:User:changePassword"><i class="glyphicon glyphicon-user"></i> <strong>{$user->identity->name}</strong></a></li>
+			<li><a n:href="logout!"><span class="glyphicon glyphicon-log-out"></span> Odhlásit</a></li>
+		</ul>
+	</div><!--/.nav-collapse -->
+</div>
 
-{block content}{/block}
+
+	<div class="container-fluid">
+
+		<div class="row">
+			{ifset #sidebar}
+				<div class="col-sm-3 col-md-2 sidebar">
+					{include #sidebar}
+				</div>
+			{/ifset}
+			<div class="{ifset #sidebar}col-sm-9 col-md-10 col-md-offset-2 col-sm-offset-3{else}col-xs-12{/ifset}">
+				<div n:snippet="flashes" n:if="!empty($flashes)" class="flash-messages">
+					{foreach $flashes as $flash}
+						<div class="alert alert-{$flash->type}">{$flash->message}</div>
+					{/foreach}
+				</div>
+
+				{block content}{/block}
+			</div>
+		</div>
+	</div>
+
+
+<script>
+	var CKEDITOR_BASEPATH = "{!$baseUri}/ckeditor/";
+</script>

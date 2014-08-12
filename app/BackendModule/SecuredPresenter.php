@@ -17,7 +17,7 @@ abstract class SecuredPresenter extends BasePresenter
 		if (!$this->user->isLoggedIn()) {
 			$this->user->logout(TRUE); // We want to make sure identity is cleared
 			$backlink = $this->storeRequest();
-			$this->redirect("Sign:", array("backlink" => $backlink));
+			$this->redirect(":Backend:Sign:", array("backlink" => $backlink));
 		}
 	}
 
@@ -25,7 +25,7 @@ abstract class SecuredPresenter extends BasePresenter
 	public function handleLogout()
 	{
 		$this->user->logout();
-		$this->redirect("Sign:");
+		$this->redirect(":Backend:Sign:");
 	}
 
 }

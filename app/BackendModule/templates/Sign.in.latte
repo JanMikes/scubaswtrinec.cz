@@ -1,4 +1,23 @@
-{block title}Přihlášení{/block}
+{block title}Přihlášení do administrace{/block}
 
 {block layout}
-{control signInForm}
+<div class="container">
+
+	{form signInForm, class=>"form-signin"}
+		<h2 class="form-signin-heading">Prosím přihlašte se</h2>
+
+		{if $form->hasErrors()}
+			{foreach $form->getErrors() as $error}
+				<div class="alert alert-danger">{$error}</div>
+			{/foreach}
+		{/if}
+
+		<div class="sign-in-container">
+			{input username, class=>"form-control username", autofocus=>autofocus, placeholder=>"Uživatelské jméno"}
+			{input password, class=>"form-control password", placeholder=>"Heslo"}
+			{input persistent, class=>"checkbox"}
+		</div>
+		{input send, class=>"btn btn-lg btn-primary btn-block"}
+	{/form}
+
+</div>

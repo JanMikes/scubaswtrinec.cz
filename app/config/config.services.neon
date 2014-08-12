@@ -1,16 +1,15 @@
 services:
 	nette.userStorage:
 		setup:
-			- setNamespace("AppName")
+			- setNamespace("ScubaSW")
 
 	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
 	lessFilter: App\WebLoader\LessFilter
 	router: @App\Factories\RouterFactory::create
 	cacheStorage: Nette\Caching\Storages\FileStorage(%cacheDir%)
 	authorizator: App\Services\Authorizator
-	authenticator: Nette\Security\SimpleAuthenticator([
-		admin: 12345
-	])
+	authenticator: App\Services\Authenticator
+	hash: App\Services\HashService(%authentication.leadingSalt%, %authentication.trailingSalt%)
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
@@ -20,3 +19,26 @@ services:
 	-
 		class: App\Database\Entities\LogVisitEntity
 		setup: [$connectionName("logs")]
+
+	- App\Services\ThumbnailService
+	- App\Services\PhotoService
+	- App\Services\ImageService
+	- App\Services\ImageUploadService
+	- App\Database\Entities\UserEntity
+	- App\Database\Entities\PhotoEntity
+	- App\Database\Entities\ThumbnailEntity
+	- App\Database\Entities\LstThumbnailTpEntity
+	- App\Database\Entities\ActualityEntity
+	- App\Database\Entities\ActualityPhotoEntity
+	- App\Database\Entities\ArticleEntity
+	- App\Database\Entities\ArticlePhotoEntity
+	- App\Database\Entities\ContactEntity
+	- App\Database\Entities\DiscussionEntity
+	- App\Database\Entities\DiscussionBanEntity
+	- App\Database\Entities\GalleryEntity
+	- App\Database\Entities\GalleryPhotoEntity
+	- App\Database\Entities\InstructorEntity
+	- App\Database\Entities\LinkEntity
+	- App\Database\Entities\MemberEntity
+	- App\Database\Entities\StatementEntity
+	- App\Database\Entities\StatuteEntity

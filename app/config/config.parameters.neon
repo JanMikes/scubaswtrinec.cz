@@ -3,7 +3,11 @@ parameters:
 	cacheDir: %appDir%/../temp/cache/
 
 	mailer:
-		from:
+		from: j.mikes@me.com
+
+	authentication:
+		leadingSalt: 'scuba'
+		trailingSalt: 'sw'
 
 	database:
 		logs:

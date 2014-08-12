@@ -41,6 +41,51 @@
 @import "../../../packagist/twbs/bootstrap/less/utilities.less";
 @import "../../../packagist/twbs/bootstrap/less/responsive-utilities.less";
 
+@import "../../../packagist/twbs/bootstrap/less/theme.less";
+
+body {
+  padding-top: 70px;
+  padding-bottom: 40px;
+  background-color: #ecf0f1;
+}
+
+.navbar {
+	.box-shadow(0 0 20px 0 #000);
+
+	a {
+		.transition(color .4s ease);
+	}
+
+}
+
+@media (min-width: @screen-md) {
+	.navbar-nav.navbar-right:last-child {
+		margin-right: 15px;
+	}
+}
+
+h1 {
+	margin: 0 0 20px 0;
+	font-size: 30px;
+}
+
+.navbar-brand {
+	img {
+		height: 36px;
+		position: absolute;
+		left: 10px;
+		top: 7px;
+	}
+}
+
+.container-fluid {
+	padding: 0 15px;
+}
+
+input[type=checkbox] {
+	margin-right: 5px;
+}
+
 .form-message {
 	.alert;
 	padding: 6px 8px;
@@ -49,10 +94,11 @@
 }
 
 .form-control-error {
-	border-color: red;
+	border-color: red !important;
 }
 
-.form-error-message {
+.form-error-message,
+form table span.error {
 	.form-message;
 	.alert-danger;
 }
@@ -67,6 +113,11 @@
 	.alert-success;
 }
 
+.form-info-message {
+	.form-message;
+	.alert-info;
+}
+
 .form-valid-message {
 	.glyphicon;
 	.glyphicon-ok;
@@ -74,4 +125,242 @@
 	display: inline-block;
 	margin-left: 5px;
 	font-size: 12px;
+}
+
+
+
+form {
+	table {
+		.table;
+		.table-striped;
+
+		td {
+			small {
+				.form-info-message;
+			}
+
+			img {
+				.img-thumbnail;
+			}
+		}
+
+		th {
+			width: 260px;
+
+			label {
+				&:after {
+					content: ':';
+				}
+
+				&.required {
+					&:before {
+						content: '* ';
+						color: red;
+					}
+				}
+
+				&.checkbox {
+					&:after {
+						content: '';
+					}
+				}
+			}
+		}
+
+		input[type="file"] {
+			display: inline;
+		}
+
+		input[type="checkbox"] {
+			& + label {
+				margin-left: 10px;
+				&:after {
+					content: '';
+				}
+			}
+		}
+
+		input[type="radio"] {
+			margin-right: 7px;
+		}
+
+		select {
+			.form-control;
+			display: inline-block;
+			width: 350px;
+		}
+
+		textarea {
+			.form-control;
+			display: inline-block;
+			width: 700px;
+			height: auto;
+		}
+
+		input {
+			&[type="text"],
+			&[type="date"],
+			&[type="email"],
+			&[type="password"] {
+				.form-control;
+				display: inline-block;
+				width: 350px;
+			}
+
+			&[type="submit"] {
+				.btn;
+				.btn-primary;
+			}
+		}
+
+	}
+}
+
+.record-action {
+	width: 1px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+h2 {
+	margin-bottom: 30px;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+
+	.checkbox {
+		font-weight: normal;
+	}
+
+	.form-control {
+		position: relative;
+		font-size: 16px;
+		height: auto;
+		padding: 10px;
+	}
+
+	.form-signin-heading,
+	.checkbox,
+	.password {
+  		margin-bottom: 10px;
+	}
+
+	.sign-in-container {
+		position: relative;
+	}
+
+	.form-control:focus {
+		z-index: 2;
+	}
+
+	.username {
+		margin-bottom: -1px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.password {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+
+	#frm-signInForm-username_message {
+		position: absolute;
+		left: 304px;
+		top: 8px;
+		display: block;
+		width: 200px;
+	}
+
+	#frm-signInForm-password_message {
+		position: absolute;
+		left: 304px;
+		top: 52px;
+		display: block;
+		width: 200px;
+	}
+}
+
+.table-bordered-around {
+	border: 2px solid #ddd;
+	background: #fff;
+	margin-top: 25px;
+
+	img {
+		.img-thumbnail;
+	}
+}
+
+p.btns {
+	margin: 25px 0;
+}
+
+
+.sidebar {
+	.nav {
+		.nav-pills;
+		margin-bottom: 20px;
+
+		a {
+			.transition(all .4s ease);
+			color: #999;
+
+			&:hover {
+				color: #000;
+			}
+		}
+
+		> li.active > a {
+			color: #fff;
+			background: #000 !important;
+		}
+
+		> li.disabled > a {
+			color: #ccc;
+		}
+	}
+}
+@media (min-width: 768px) {
+	.sidebar {
+		position: fixed;
+		top: 50px;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		padding: 20px;
+		overflow-x: hidden;
+		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+		background-color: #222;
+		border-right: 1px solid #000;
+
+		.nav {
+			margin-right: -21px;
+			margin-bottom: 20px;
+			margin-left: -20px;
+
+			> li {
+				float: none;
+				margin-left: 0 !important;
+			}
+
+			> li > a {
+				.corners(0);
+				padding-right: 20px;
+				padding-left: 20px;
+
+				&:hover {
+					color: #fff;
+					background: none;
+				}
+			}
+
+			> li.disabled > a {
+				color: #505050;
+			}
+		}
+	}
 }
