@@ -3,8 +3,8 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\ILinksListFactory,
+	App\Factories\ManageLinkFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -15,8 +15,8 @@ final class LinkPresenter extends SecuredPresenter
 	/** @persistent int */
 	public $id;
 
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @var App\Database\Entities\LinkEntity @autowire */
+	protected $linkEntity;
 
 
 	public function startup()
@@ -31,25 +31,24 @@ final class LinkPresenter extends SecuredPresenter
 
 	public function actionEdit($id)
 	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
+		$this->template->link = $this->linkEntity->find($id);
+		if (!$this->template->link) {
 			$this->redirect("default");
 		}
 
-		$defaults = $this->template->actuality->toArray();
-		$defaults["date"] = $defaults["date"]->format("d.m.Y");
+		$defaults = $this->template->link->toArray();
 
-		$this["manageActualityForm"]->setDefaults($defaults);
+		$this["manageLinkForm"]->setDefaults($defaults);
 	}
 
 
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentLinksList(ILinksListFactory $factory)
 	{
 		return $factory->create();
 	}
 
 
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
+	protected function createComponentManageLinkForm(ManageLinkFormFactory $factory)
 	{
 		return $factory->create($this->id);
 	}

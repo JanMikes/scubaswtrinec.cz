@@ -3,8 +3,8 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\IArticlePhotosListFactory,
+	App\Factories\ManageArticlePhotoFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -15,8 +15,14 @@ final class ArticlePhotoPresenter extends SecuredPresenter
 	/** @persistent int */
 	public $id;
 
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @persistent int */
+	public $articleId;
+
+	/** @var App\Database\Entities\ArticleEntity @autowire */
+	protected $articleEntity;
+
+	/** @var App\Database\Entities\ArticlePhotoEntity @autowire */
+	protected $articlePhotoEntity;
 
 
 	public function startup()
@@ -26,31 +32,40 @@ final class ArticlePhotoPresenter extends SecuredPresenter
 		if ($this->view != "edit") {
 			$this->id = null;
 		}
+
+		$this->template->article = $this->articleEntity->find($this->articleId);
+		if (!$this->articleId || !$this->template->article) {
+			$this->redirect("Article:");
+		}
+	}
+
+
+	public function renderDefault($articleId)
+	{
 	}
 
 
 	public function actionEdit($id)
 	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
+		$this->template->articlePhoto = $this->articlePhotoEntity->find($id);
+		if (!$this->template->articlePhoto) {
 			$this->redirect("default");
 		}
 
-		$defaults = $this->template->actuality->toArray();
-		$defaults["date"] = $defaults["date"]->format("d.m.Y");
+		$defaults = $this->template->articlePhoto->toArray();
 
-		$this["manageActualityForm"]->setDefaults($defaults);
+		$this["manageArticlePhotoForm"]->setDefaults($defaults);
 	}
 
 
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentArticlePhotosList(IArticlePhotosListFactory $factory)
 	{
-		return $factory->create();
+		return $factory->create($this->articleId);
 	}
 
 
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
+	protected function createComponentManageArticlePhotoForm(ManageArticlePhotoFormFactory $factory)
 	{
-		return $factory->create($this->id);
+		return $factory->create($this->articleId, $this->id);
 	}
 }

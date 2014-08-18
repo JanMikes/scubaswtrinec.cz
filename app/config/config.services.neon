@@ -29,16 +29,28 @@ services:
 	- App\Database\Entities\ThumbnailEntity
 	- App\Database\Entities\LstThumbnailTpEntity
 	- App\Database\Entities\ActualityEntity
-	- App\Database\Entities\ActualityPhotoEntity
 	- App\Database\Entities\ArticleEntity
-	- App\Database\Entities\ArticlePhotoEntity
 	- App\Database\Entities\ContactEntity
 	- App\Database\Entities\DiscussionEntity
 	- App\Database\Entities\DiscussionBanEntity
-	- App\Database\Entities\GalleryEntity
-	- App\Database\Entities\GalleryPhotoEntity
 	- App\Database\Entities\InstructorEntity
-	- App\Database\Entities\LinkEntity
-	- App\Database\Entities\MemberEntity
-	- App\Database\Entities\StatementEntity
-	- App\Database\Entities\StatuteEntity
+	
+	-
+		class: App\Database\Entities\ActualityPhotoEntity
+		setup: [$isOrderable(true)]
+	
+	-
+		class: App\Database\Entities\ArticlePhotoEntity
+		setup: [$isOrderable(true)]
+
+	-
+		class: App\Database\Entities\LinkEntity
+		setup: [$isOrderable(true)]
+
+	-
+		class: App\Database\Entities\GalleryEntity
+		setup: [$isOrderable(true)]
+
+	-
+		class: App\Database\Entities\GalleryPhotoEntity
+		setup: [$isOrderable(true)]

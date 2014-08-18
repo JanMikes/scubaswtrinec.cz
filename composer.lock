@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "5224d61371e94160e7b8a90a499d5bda",
     "packages": [
@@ -60,22 +61,23 @@
         },
         {
             "name": "kdyby/autowired",
-            "version": "dev-master",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Autowired.git",
-                "reference": "1723f8f51f667cee7fd3be6b5e537400b3599726"
+                "reference": "babfa36fb81435630ed925992d8ed9aa40a79d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/1723f8f51f667cee7fd3be6b5e537400b3599726",
-                "reference": "1723f8f51f667cee7fd3be6b5e537400b3599726",
+                "url": "https://api.github.com/repos/Kdyby/Autowired/zipball/babfa36fb81435630ed925992d8ed9aa40a79d4d",
+                "reference": "babfa36fb81435630ed925992d8ed9aa40a79d4d",
                 "shasum": ""
             },
             "require": {
-                "nette/nette": "~2.1@dev"
+                "nette/nette": "2.1.*@dev"
             },
             "require-dev": {
+                "jakub-onderka/php-parallel-lint": "~0.6",
                 "nette/tester": "@dev"
             },
             "type": "library",
@@ -101,6 +103,7 @@
             "authors": [
                 {
                     "name": "Filip Procházka",
+                    "email": "filip@prochazka.su",
                     "homepage": "http://filip-prochazka.com"
                 }
             ],
@@ -112,20 +115,20 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2014-02-09 01:11:19"
+            "time": "2014-06-14 13:07:52"
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.1",
+            "version": "v2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "9e7e5fc5921053172dbacecda2c06d749f89a71b"
+                "reference": "a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/9e7e5fc5921053172dbacecda2c06d749f89a71b",
-                "reference": "9e7e5fc5921053172dbacecda2c06d749f89a71b",
+                "url": "https://api.github.com/repos/nette/nette/zipball/a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604",
+                "reference": "a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604",
                 "shasum": ""
             },
             "require": {
@@ -134,13 +137,13 @@
                 "php": ">=5.3.1"
             },
             "require-dev": {
-                "nette/tester": "~1.0.0"
+                "nette/tester": "~1.1"
             },
             "suggest": {
-                "ext-fileinfo": "*",
-                "ext-gd": "*",
-                "ext-mbstring": "*",
-                "ext-pdo": "*"
+                "ext-fileinfo": "",
+                "ext-gd": "",
+                "ext-mbstring": "",
+                "ext-pdo": ""
             },
             "type": "library",
             "autoload": {
@@ -178,20 +181,20 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2014-02-11 04:51:20"
+            "time": "2014-05-24 20:35:49"
         },
         {
             "name": "oyejorge/less.php",
-            "version": "v1.7.0",
+            "version": "v1.7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oyejorge/less.php.git",
-                "reference": "2a18bec4b1753ffe5cad9e7ae1586b7990297316"
+                "reference": "82372b389386ae1edab55495eae4b400cca3c86c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/2a18bec4b1753ffe5cad9e7ae1586b7990297316",
-                "reference": "2a18bec4b1753ffe5cad9e7ae1586b7990297316",
+                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/82372b389386ae1edab55495eae4b400cca3c86c",
+                "reference": "82372b389386ae1edab55495eae4b400cca3c86c",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +240,7 @@
                 "php",
                 "stylesheet"
             ],
-            "time": "2014-03-04 19:02:04"
+            "time": "2014-06-05 16:09:50"
         },
         {
             "name": "twbs/bootstrap",
@@ -343,6 +346,7 @@
     "stability-flags": {
         "kdyby/autowired": 20
     },
+    "prefer-stable": false,
     "platform": [
 
     ],

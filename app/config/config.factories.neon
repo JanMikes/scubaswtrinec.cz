@@ -10,6 +10,25 @@ services:
 
 	- App\Factories\IGAFactory
 	- App\Factories\IActualitiesListFactory
+	- App\Factories\IArticlesListFactory
+	- App\Factories\IGalleriesListFactory
+	- App\Factories\ILinksListFactory
+	- App\Factories\IDiscussionListFactory
+
+	-
+		implement: App\Factories\IGalleryPhotosListFactory
+		parameters: [galleryId]
+		arguments: [%galleryId%]
+
+	-
+		implement: App\Factories\IActualityPhotosListFactory
+		parameters: [actualityId]
+		arguments: [%actualityId%]
+
+	-
+		implement: App\Factories\IArticlePhotosListFactory
+		parameters: [articleId]
+		arguments: [%articleId%]
 
 	- App\Factories\ChangePasswordFormFactory
 	- App\Factories\ManageActualityFormFactory
@@ -23,6 +42,3 @@ services:
 	- App\Factories\ManageDiscussionBanFormFactory
 	- App\Factories\ManageInstructorFormFactory
 	- App\Factories\ManageLinkFormFactory
-	- App\Factories\ManageMemberFormFactory
-	- App\Factories\ManageStatementFormFactory
-	- App\Factories\ManageStatuteFormFactory

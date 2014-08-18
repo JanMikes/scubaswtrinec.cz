@@ -3,8 +3,8 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\IDiscussionListFactory,
+	App\Factories\ManageDiscussionFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -15,8 +15,8 @@ final class DiscussionPresenter extends SecuredPresenter
 	/** @persistent int */
 	public $id;
 
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @var App\Database\Entities\DiscussionEntity @autowire */
+	protected $discussionEntity;
 
 
 	public function startup()
@@ -31,25 +31,24 @@ final class DiscussionPresenter extends SecuredPresenter
 
 	public function actionEdit($id)
 	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
+		$this->template->discussion = $this->discussionEntity->find($id);
+		if (!$this->template->discussion) {
 			$this->redirect("default");
 		}
 
-		$defaults = $this->template->actuality->toArray();
-		$defaults["date"] = $defaults["date"]->format("d.m.Y");
+		$defaults = $this->template->discussion->toArray();
 
-		$this["manageActualityForm"]->setDefaults($defaults);
+		$this["manageDiscussionForm"]->setDefaults($defaults);
 	}
 
 
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentDiscussionList(IDiscussionListFactory $factory)
 	{
 		return $factory->create();
 	}
 
 
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
+	protected function createComponentManageDiscussionForm(ManageDiscussionFormFactory $factory)
 	{
 		return $factory->create($this->id);
 	}

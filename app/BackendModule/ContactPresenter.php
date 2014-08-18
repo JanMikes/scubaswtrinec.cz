@@ -4,7 +4,7 @@ namespace App\BackendModule;
 
 use App,
 	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\ManageContactFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -12,45 +12,21 @@ use App,
  */
 final class ContactPresenter extends SecuredPresenter
 {
-	/** @persistent int */
-	public $id;
-
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @var App\Database\Entities\ContactEntity @autowire */
+	protected $contactEntity;
 
 
-	public function startup()
+	public function actionDefault()
 	{
-		parent::startup();
-
-		if ($this->view != "edit") {
-			$this->id = null;
+		$row = $this->contactEntity->getLast();		
+		if ($row) {
+			$this["manageContactForm"]->setDefaults($row->toArray());
 		}
 	}
 
 
-	public function actionEdit($id)
-	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
-			$this->redirect("default");
-		}
-
-		$defaults = $this->template->actuality->toArray();
-		$defaults["date"] = $defaults["date"]->format("d.m.Y");
-
-		$this["manageActualityForm"]->setDefaults($defaults);
-	}
-
-
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentManageContactForm(ManageContactFormFactory $factory)
 	{
 		return $factory->create();
-	}
-
-
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
-	{
-		return $factory->create($this->id);
 	}
 }

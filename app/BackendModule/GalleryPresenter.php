@@ -3,8 +3,8 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\IGalleriesListFactory,
+	App\Factories\ManageGalleryFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -15,8 +15,8 @@ final class GalleryPresenter extends SecuredPresenter
 	/** @persistent int */
 	public $id;
 
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @var App\Database\Entities\GalleryEntity @autowire */
+	protected $galleryEntity;
 
 
 	public function startup()
@@ -31,25 +31,24 @@ final class GalleryPresenter extends SecuredPresenter
 
 	public function actionEdit($id)
 	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
+		$this->template->gallery = $this->galleryEntity->find($id);
+		if (!$this->template->gallery) {
 			$this->redirect("default");
 		}
 
-		$defaults = $this->template->actuality->toArray();
-		$defaults["date"] = $defaults["date"]->format("d.m.Y");
+		$defaults = $this->template->gallery->toArray();
 
-		$this["manageActualityForm"]->setDefaults($defaults);
+		$this["manageGalleryForm"]->setDefaults($defaults);
 	}
 
 
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentGalleriesList(IGalleriesListFactory $factory)
 	{
 		return $factory->create();
 	}
 
 
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
+	protected function createComponentManageGalleryForm(ManageGalleryFormFactory $factory)
 	{
 		return $factory->create($this->id);
 	}

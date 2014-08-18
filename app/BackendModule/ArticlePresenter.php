@@ -3,8 +3,8 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
-	App\Factories\ManageActualityFormFactory;
+	App\Factories\IArticlesListFactory,
+	App\Factories\ManageArticleFormFactory;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -15,8 +15,8 @@ final class ArticlePresenter extends SecuredPresenter
 	/** @persistent int */
 	public $id;
 
-	/** @var App\Database\Entities\ActualityEntity @autowire */
-	protected $actualityEntity;
+	/** @var App\Database\Entities\ArticleEntity @autowire */
+	protected $articleEntity;
 
 
 	public function startup()
@@ -31,25 +31,25 @@ final class ArticlePresenter extends SecuredPresenter
 
 	public function actionEdit($id)
 	{
-		$this->template->actuality = $this->actualityEntity->find($id);
-		if (!$this->template->actuality) {
+		$this->template->article = $this->articleEntity->find($id);
+		if (!$this->template->article) {
 			$this->redirect("default");
 		}
 
-		$defaults = $this->template->actuality->toArray();
+		$defaults = $this->template->article->toArray();
 		$defaults["date"] = $defaults["date"]->format("d.m.Y");
 
-		$this["manageActualityForm"]->setDefaults($defaults);
+		$this["manageArticleForm"]->setDefaults($defaults);
 	}
 
 
-	protected function createComponentActualitiesList(IActualitiesListFactory $factory)
+	protected function createComponentArticlesList(IArticlesListFactory $factory)
 	{
 		return $factory->create();
 	}
 
 
-	protected function createComponentManageActualityForm(ManageActualityFormFactory $factory)
+	protected function createComponentManageArticleForm(ManageArticleFormFactory $factory)
 	{
 		return $factory->create($this->id);
 	}

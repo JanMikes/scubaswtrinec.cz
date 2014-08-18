@@ -29,7 +29,7 @@
 
 				<td class="record-action">
 					<a class="btn btn-info btn-xs" href="{plink ActualityPhoto:default, $row->id}">
-						<i class="glyphicon-picture glyphicon"></i> Fotografie (0)
+						<i class="glyphicon-picture glyphicon"></i> Fotografie ({$row->related("actuality_photo")->where("del_flag", 0)->count("id")})
 					</a>
 				</td>
 
@@ -48,12 +48,6 @@
 				<td class="record-action">
 					<a class="btn btn-primary btn-xs" href="{plink edit, $row->id}">
 						<i class="glyphicon-pencil glyphicon"></i> Editovat
-					</a>
-				</td>
-
-				<td class="record-action">
-					<a class="btn btn-danger btn-xs" n:href="delete!, $row->id" data-confirm="Opravdu smazat?">
-						<i class="glyphicon-remove glyphicon"></i> Zablokovat
 					</a>
 				</td>
 

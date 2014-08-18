@@ -17,16 +17,13 @@
 	</div>
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav">
-			<li n:class="$presenter->isLinkCurrent(':Backend:Actuality:*')? active">
+			<li n:class="$presenter->isLinkCurrent(':Backend:Actuality:*') || $presenter->isLinkCurrent(':Backend:ActualityPhoto:*') ? active">
 				<a n:href=":Backend:Actuality:">Aktuality</a>
 			</li>
-			<li n:class="$presenter->isLinkCurrent(':Backend:Article:*')? active">
+			<li n:class="$presenter->isLinkCurrent(':Backend:Article:*') || $presenter->isLinkCurrent(':Backend:ArticlePhoto:*') ? active">
 				<a n:href=":Backend:Article:">Články</a>
 			</li>
-			<li n:class="$presenter->isLinkCurrent(':Backend:Statement:*')? active">
-				<a n:href=":Backend:Statement:">Zprávy</a>
-			</li>
-			<li n:class="$presenter->isLinkCurrent(':Backend:Gallery:*')? active">
+			<li n:class="$presenter->isLinkCurrent(':Backend:Gallery:*') || $presenter->isLinkCurrent(':Backend:GalleryPhoto:*') ? active">
 				<a n:href=":Backend:Gallery:">Galerie</a>
 			</li>
 			<li n:class="$presenter->isLinkCurrent(':Backend:Discussion:*')? active">
