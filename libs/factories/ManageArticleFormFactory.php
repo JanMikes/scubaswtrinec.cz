@@ -4,7 +4,7 @@ namespace App\Factories;
 
 use Nette,
 	App,
-	App\Database\Entities\ActualityEntity;
+	App\Database\Entities\ArticleEntity;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -18,8 +18,8 @@ final class ManageArticleFormFactory extends Nette\Object
 	/** @var App\Factories\FormFactory */
 	private $formFactory;
 
-	/** @var App\Database\Entities\ActualityEntity */
-	private $actualityEntity;
+	/** @var App\Database\Entities\ArticleEntity */
+	private $articleEntity;
 
 	/** @var Nette\Database\Table\ActiveRow */
 	private $row;
@@ -27,17 +27,17 @@ final class ManageArticleFormFactory extends Nette\Object
 
 	public function __construct(
 		FormFactory $formFactory,
-		ActualityEntity $actualityEntity
+		ArticleEntity $articleEntity
 	) {
 		$this->formFactory = $formFactory;
-		$this->actualityEntity = $actualityEntity;
+		$this->articleEntity = $articleEntity;
 	}
 
 
 	public function create($id)
 	{
 		if ($id) {
-			$this->row = $this->actualityEntity->find($id);
+			$this->row = $this->articleEntity->find($id);
 		}
 
 		$form = $this->formFactory->create();
@@ -78,7 +78,7 @@ final class ManageArticleFormFactory extends Nette\Object
 
 		if (!$this->row) {
 			$values["ins_process"] = __METHOD__;
-			$this->actualityEntity->insert($values);
+			$this->articleEntity->insert($values);
 		} else {
 			$values["upd_process"] = __METHOD__;
 			$this->row->update($values);
