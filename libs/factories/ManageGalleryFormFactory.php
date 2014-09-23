@@ -73,7 +73,7 @@ final class ManageGalleryFormFactory extends Nette\Object
 		$form->addText("name", "Název galerie", 60, 60)
 			->setRequired("Název je povinný!");
 
-		$form->addTextarea("description", "Galerie", 60, 5);
+		$form->addTextarea("description", "Text", 60, 5);
 
 		$form->addUpload("image", "Foto")
 			->addCondition($form::FILLED)

@@ -2,6 +2,7 @@
 	<thead>
 		<tr>
 			<th>Foto</th>
+			<th>Popis</th>
 			<th class="record-action"></th>
 			<th class="record-action">
 				{if $inactiveCnt == 0}
@@ -23,6 +24,8 @@
 		{foreach $rows->order("order DESC") as $row}
 			<tr>
 				<td><a href="{$row->photo|thumb}"><img src="{$row->photo|thumb:'admin'}"></a></td>
+
+				<td>{$row->description}</td>
 
 				<td class="record-action">
 					{if !$iterator->first}
@@ -66,7 +69,7 @@
 
 		{if !count($rows)}
 			<tr>
-				<td colspan="5">Prozatím nebyly přidány žádné záznamy</td>
+				<td colspan="6">Prozatím nebyly přidány žádné záznamy</td>
 			</tr>
 		{/if}
 	</tbody>
