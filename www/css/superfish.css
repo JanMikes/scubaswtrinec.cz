@@ -101,7 +101,8 @@ ul.sf-menu li a:hover{
 	background: #d71921;
 }
 .sf-menu li:hover,
-.sf-menu li.sfHover {
+.sf-menu li.sfHover,
+.sf-menu li.active {
 	background: #2787e1;
 	/* only transition out, not in */
 	-webkit-transition: none;

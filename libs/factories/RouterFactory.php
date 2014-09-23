@@ -30,7 +30,7 @@ final class RouterFactory extends Nette\Object
 
 			// Frontend router
 			$frontendRouter = new RouteList("Frontend");
-			$frontendRouter[] = new Route("<presenter>/<action>[/<id>]", "Homepage:default");
+			$frontendRouter[] = new Route("<presenter>/<action>[/<id>]", "Homepage:aktuality");
 			$router[] = $frontendRouter;
 		} else {
 			$router = new SimpleRouter("Frontend:Homepage:default");

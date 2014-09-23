@@ -38,6 +38,9 @@ final class TemplateFactory extends Nette\Object {
 	/** @var Nette\Application\Application */
 	private $application;
 
+	/** @var App\Services\ThumbnailService */
+	private $thumbnailService;
+
 
 	public function __construct(
 		$appDir,
@@ -47,7 +50,8 @@ final class TemplateFactory extends Nette\Object {
 		Nette\Caching\IStorage $netteCacheStorage,
 		Nette\Http\Response $httpResponse,
 		Nette\Http\Request $httpRequest,
-		App\Services\TemplateHelper $templateHelper
+		App\Services\TemplateHelper $templateHelper,
+		App\Services\ThumbnailService $thumbnailService
 	) {
 		$this->application = $application;
 		$this->appDir = $appDir;
@@ -57,6 +61,7 @@ final class TemplateFactory extends Nette\Object {
 		$this->httpRequest = $httpRequest;
 		$this->translator = $translator;
 		$this->templateHelper = $templateHelper;
+		$this->thumbnailService = $thumbnailService;
 	}
 
 
@@ -115,6 +120,11 @@ final class TemplateFactory extends Nette\Object {
 		$template->registerHelperLoader('\Nette\Templating\Helpers::loader');
 		$template->registerHelperLoader($this->templateHelper->loader);
 
+		$thumbnailService = $this->thumbnailService;
+		$template->registerHelper('thumb', function ($photoRow, $type = null) use ($thumbnailService) {
+			return $thumbnailService->getThumbnailPath($photoRow, $type);
+		});
+
 		$latte = new Nette\Latte\Engine;
 		$template->registerFilter($latte);
 
@@ -142,7 +152,7 @@ final class TemplateFactory extends Nette\Object {
 	/////////////////////
 
 
-		/**
+	/**
 	 * Prepares variables for email template
 	 * @param  Nette\Templating\IFileTemplate$template
 	 * @return Nette\Templating\IFileTemplate

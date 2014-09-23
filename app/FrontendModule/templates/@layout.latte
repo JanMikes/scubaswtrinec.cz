@@ -7,36 +7,29 @@
 
 <!-- Basic Page Needs -->
 <meta charset="utf-8">
-<title>VOLARE - Diving, Sailing, Trekking site template</title>
+<title>SCUBASW</title>
 <meta name="description" content="">
 <meta name="author" content="Ansonika">
-
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
 
 <!-- Mobile Specific Metas -->
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <!-- CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/superfish.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="fontello/css/fontello.css" rel="stylesheet">
-<link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?v=2.1.4">
-<link href="css/weather.css" rel="stylesheet" >
+<link href="{$baseUri}/css/bootstrap.min.css" rel="stylesheet">
+<link href="{$baseUri}/css/superfish.css" rel="stylesheet">
+<link href="{$baseUri}/css/style.css" rel="stylesheet">
+<link href="{$baseUri}/fontello/css/fontello.css" rel="stylesheet">
+<link rel="stylesheet" href="{$baseUri}/js/fancybox/source/jquery.fancybox.css?v=2.1.4">
+<link href="{$baseUri}/css/weather.css" rel="stylesheet" >
 
 <!-- Owl Carousel Assets -->
-<link href="css/owl.carousel.css" rel="stylesheet">
-<link href="css/owl.theme.css" rel="stylesheet">
+<link href="{$baseUri}/css/owl.carousel.css" rel="stylesheet">
+<link href="{$baseUri}/css/owl.theme.css" rel="stylesheet">
 
 <!-- SLIDER REVOLUTION -->
-<link rel="stylesheet" href="css/extralayers.css" media="screen" />	
- <link rel="stylesheet" href="css/navstylechange.css" media="screen" />
-<link rel="stylesheet" href="rs-plugin/css/settings.css" media="screen" />
+<link rel="stylesheet" href="{$baseUri}/css/extralayers.css" media="screen" />	
+ <link rel="stylesheet" href="{$baseUri}/css/navstylechange.css" media="screen" />
+<link rel="stylesheet" href="{$baseUri}/rs-plugin/css/settings.css" media="screen" />
 
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -53,13 +46,13 @@
 		<div class="col-md-12" style="">
 			<div id="mobnav-btn"></div>
 			<ul class="sf-menu">
-				<li><a href="#">Aktuality</a></li>
-				<li><a href="#">Články</a></li>
-				<li><a href="#">Galerie</a></li>
-				<li><a href="#">Instruktoři</a></li>
-				<li><a href="#">Diskuze</a></li>
-				<li><a href="#">Odkazy</a></li>
-				<li><a href="#">Kontakt</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:aktuality')? active"><a n:href="aktuality">Aktuality</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:clanky')? active"><a n:href="clanky">Články</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:galerie')? active"><a n:href="galerie">Galerie</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:instruktori')? active"><a n:href="instruktori">Instruktoři</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:diskuze')? active"><a n:href="diskuze">Diskuze</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:odkazy')? active"><a n:href="odkazy">Odkazy</a></li>
+				<li n:class="$presenter->isLinkCurrent('Homepage:kontakt')? active"><a n:href="kontakt">Kontakt</a></li>
 			</ul>
          </div><!-- End col md 12 -->
     </div><!-- End row -->
@@ -71,8 +64,16 @@
 			<ul>
               <!-- SLIDE  -->
             <li data-transition="fade" data-slotamount="3" data-masterspeed="1000"  data-saveperformance="on" >
-                <!-- MAIN IMAGE -->
-                <img alt="" src="{$baseUri}/images/slides/2.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">        
+                <img alt="" src="{$baseUri}/images/slides/big/1.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">        
+			</li>
+			<li data-transition="fade" data-slotamount="3" data-masterspeed="1000"  data-saveperformance="on" >
+                <img alt="" src="{$baseUri}/images/slides/big/2.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">        
+			</li>
+			<li data-transition="fade" data-slotamount="3" data-masterspeed="1000"  data-saveperformance="on" >
+                <img alt="" src="{$baseUri}/images/slides/big/3.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">        
+			</li>
+			<li data-transition="fade" data-slotamount="3" data-masterspeed="1000"  data-saveperformance="on" >
+                <img alt="" src="{$baseUri}/images/slides/big/4.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">        
 			</li>
 	</ul>
 </div>
@@ -80,8 +81,8 @@
 </div><!-- End slider -->
 
 <div class="container">
-	Obsah
-    
+	
+	{block content}{/block}    
     
 
 </div><!-- End container -->
@@ -91,28 +92,14 @@
 <div class="container">
 	<div class="row">
     	<div class="col-md-4 col-sm-6" id="contact_footer">
-        	<h4>Contacts</h4>
-            <p>Feel free to call us or send a message, we will reply shortly.</p>
+        	<h4>Kontakt</h4>
             <ul>
                 <li><i class="icon-home"></i>11 Fifth Ave - New Jork, US</li>
                 <li><i class="icon-phone"></i> + 61 (2) 8093 3400 </li>
                 <li><i class="icon-email"></i> <a href="#">info@domain.com</a></li>
 		   </ul>
         </div>
-        <div class="col-md-4 col-md-offset-4 col-sm-12">
-        <h4>Newsletter</h4>
-        <div id="message-newsletter"></div>
-			<form method="post" action="assets/newsletter.php" name="newsletter" id="newsletter" class="form-inline add_bottom_30">
-				<input name="email_newsletter" id="email_newsletter" type="email" value="" placeholder="Your Email" class="form-control">
-				<button id="submit-newsletter" class="button_newsletter">Join</button>
-			</form>
-        <h4>Follow us</h4>
-        <ul id="follow_us">
-				<li><a href="#"><i class="icon-facebook"></i></a></li>
-				<li><a href="#"><i class="icon-twitter"></i></a></li>
-				<li><a href="#"><i class=" icon-google"></i></a></li>
-			</ul>
-        </div>
+        
     </div><!-- End row -->
     <hr class="rope_2">
     <div class="row">
