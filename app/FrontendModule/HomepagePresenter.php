@@ -116,7 +116,7 @@ final class HomepagePresenter extends BasePresenter
 
 	public function renderInstruktori()
 	{
-		$this->template->instructors = $this->instructorEntity->findActive();
+		$this->template->instructors = $this->instructorEntity->findActive()->order("order DESC");
 	}
 
 
