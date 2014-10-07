@@ -1,4 +1,20 @@
-{block title}{/block}
-
 {block content}
-<h1>Odkazy</h1>
+<h1 n:block=title>Odkazy</h1>
+
+<hr class="rope_2">
+
+<div class="row">
+	<div class="col-md-6" n:for="$i=0;$i<=6;$i++">
+		<div class="media booking_course">
+			<div class="pull-left">
+				<img src="{$baseUri}/img/thumb_course_1_booking.jpg" alt="" class="img-rounded styled">
+			</div>
+			<div class="media-body">
+				<h4 class="p-title"><a href="diving_course.html" target="_blank">Open Water Diver</a></h4>
+				<p>
+					Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

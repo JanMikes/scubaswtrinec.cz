@@ -3,7 +3,7 @@
 namespace App\BackendModule;
 
 use App,
-	App\Factories\IActualitiesListFactory,
+	App\Factories\IInstructorsListFactory,
 	App\Factories\ManageInstructorFormFactory;
 
 /**
@@ -12,21 +12,44 @@ use App,
  */
 final class InstructorPresenter extends SecuredPresenter
 {
+	/** @persistent int */
+	public $id;
+
 	/** @var App\Database\Entities\InstructorEntity @autowire */
 	protected $instructorEntity;
 
 
-	public function actionDefault()
+	public function startup()
 	{
-		$row = $this->instructorEntity->getLast();		
-		if ($row) {
-			$this["manageInstructorForm"]->setDefaults($row->toArray());
+		parent::startup();
+
+		if ($this->view != "edit") {
+			$this->id = null;
 		}
+	}
+
+
+	public function actionEdit($id)
+	{
+		$this->template->instructor = $this->instructorEntity->find($id);
+		if (!$this->template->instructor) {
+			$this->redirect("default");
+		}
+
+		$defaults = $this->template->instructor->toArray();
+
+		$this["manageInstructorForm"]->setDefaults($defaults);
+	}
+
+
+	protected function createComponentInstructorsList(IInstructorsListFactory $factory)
+	{
+		return $factory->create();
 	}
 
 
 	protected function createComponentManageInstructorForm(ManageInstructorFormFactory $factory)
 	{
-		return $factory->create();
+		return $factory->create($this->id);
 	}
 }

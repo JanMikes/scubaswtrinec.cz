@@ -1,4 +1,60 @@
-{block title}{/block}
-
 {block content}
-<h1>Diskuze</h1>
+<h1 n:block=title>Diskuze</h1>
+
+<hr class="rope_2">
+
+<form method="post" action="assets/contactform_booking.php" id="contactform_booking">
+  
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<input type="text" class="form-control style_2">
+			</div>
+		</div>
+		<div class="col-md-4">
+				<input type="text" class="form-control style_2">
+		</div>
+		<div class="col-md-4">
+			<input type="text" class="form-control style_2">
+		</div>
+	</div><!-- End row -->
+   
+    
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<textarea rows="5" id="message_booking" name="message_booking" class="form-control style_2" placeholder="Additional message" style="height:150px;"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<input type="submit" value="Submit" id="submit-booking">
+	</div>
+</form>
+
+<hr>
+<div id="comments">
+	<ol>
+		<li n:for="$i=0;$i<=2;$i++">
+			<div class="comment_right clearfix">
+				<div class="comment_info">
+					 Posted by <a href="#">Anna Smith</a><span>|</span> 25 apr 2019 <span>|</span><a href="#">Reply</a>
+				</div>
+				<p>Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.</p>
+			</div>
+			<hr class="dashed">
+		</li>
+	</ol>
+</div>
+
+<div class="text-center">
+	<ul class="pagination">
+		<li><a href="#">Prev</a></li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li><a href="#">Next</a></li>
+	</ul><!-- end pagination-->
+</div>

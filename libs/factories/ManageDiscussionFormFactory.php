@@ -4,7 +4,9 @@ namespace App\Factories;
 
 use Nette,
 	App,
-	App\Database\Entities\DiscussionEntity;
+	App\Database\Entities\DiscussionEntity,
+	Nette\Http\Request as HttpRequest,
+	App\Services\DiscussionService;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -24,13 +26,23 @@ final class ManageDiscussionFormFactory extends Nette\Object
 	/** @var Nette\Database\Table\ActiveRow */
 	private $row;
 
+	/** @var App\Services\DiscussionService */
+	private $discussionService;
+
+	/** @var Nette\Http\Request */
+	private $httpRequest;
+
 
 	public function __construct(
 		FormFactory $formFactory,
-		DiscussionEntity $discussionEntity
+		DiscussionEntity $discussionEntity,
+		HttpRequest $httpRequest,
+		DiscussionService $discussionService
 	) {
 		$this->formFactory = $formFactory;
+		$this->httpRequest = $httpRequest;
 		$this->discussionEntity = $discussionEntity;
+		$this->discussionService = $discussionService;
 	}
 
 
@@ -62,7 +74,19 @@ final class ManageDiscussionFormFactory extends Nette\Object
 				->onClick[] = $this->saveAndContinue;
 		}
 
+		$form->onValidate[] = $this->checkBan;
+
 		return $form;
+	}
+
+
+	public function checkBan($form)
+	{
+		$ip = $this->httpRequest->getRemoteAddress();
+
+		if ($this->discussionService->isBanned($ip)) {
+			$form->addError("V diskuzi již nemůžete přispívat!");
+		}
 	}
 
 
@@ -71,6 +95,8 @@ final class ManageDiscussionFormFactory extends Nette\Object
 		$values = $form->getValues(true);
 
 		if (!$this->row) {
+			$values["additional_info"] = $this->httpRequest->getHeader("User-Agent");
+			$values["ip"] = $this->httpRequest->getRemoteAddress();
 			$values["ins_process"] = __METHOD__;
 			$this->discussionEntity->insert($values);
 		} else {

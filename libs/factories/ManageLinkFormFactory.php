@@ -73,8 +73,10 @@ final class ManageLinkFormFactory extends Nette\Object
 		$form->addText("name", "Název", 60, 60)
 			->setRequired("Název je povinný!");
 
-		$form->addText("url", "Odkaz", 60, 60)
+		$form->addText("url", "Odkaz", 200, 200)
 			->setRequired("Odkaz je povinný!");
+
+		$form->addText("description", "Popis", 200, 200);
 
 		$form->addUpload("image", "Ikonka")
 			->addCondition($form::FILLED)

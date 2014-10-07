@@ -1,3 +1,52 @@
-{block title}{/block}
-
 {block content}
+<h1 n:block=title>Kontakt</h1>
+
+<hr class="rope_2">
+
+<p>asdfasdads</p>
+
+<hr>
+
+<h4>Napište nám</h4>
+
+<p>asdf</p>
+
+<div id="message-contact"></div>
+
+<form method="post" action="assets/contact.php" id="contactform">
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			<div class="form-group">
+				<input type="text" class="form-control style_2" id="name_contact" name="name_contact" placeholder="Enter Name">
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div class="form-group">
+				<input type="text" class="form-control style_2" id="lastname_contact" name="lastname_contact" placeholder="Enter Last Name">
+			</div>
+		</div>
+	</div><!-- End row -->
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			<div class="form-group">
+				<input type="email" id="email_contact" name="email_contact" class="form-control style_2" placeholder="Enter Email">
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div class="form-group">
+				<input type="text" id="phone_contact" name="phone_contact" class="form-control style_2" placeholder="Enter Phone number">
+			</div>
+		</div>
+	</div><!-- End row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<textarea rows="5" id="message_contact" name="message_contact" class="form-control style_2" placeholder="Write your message" style="height:150px;"></textarea>
+			</div>
+		</div>
+	</div><!-- End row -->
+	<div class="row">
+		<input type="submit" value="Submit" id="submit-contact">
+	</div><!-- End row -->
+</form>
+

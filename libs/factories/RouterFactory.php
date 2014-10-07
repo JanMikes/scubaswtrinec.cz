@@ -33,7 +33,7 @@ final class RouterFactory extends Nette\Object
 			$frontendRouter[] = new Route("<presenter>/<action>[/<id>]", "Homepage:aktuality");
 			$router[] = $frontendRouter;
 		} else {
-			$router = new SimpleRouter("Frontend:Homepage:default");
+			$router = new SimpleRouter("Frontend:Homepage:aktuality");
 		}
 			return $router;
 	}

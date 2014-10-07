@@ -16,6 +16,7 @@ services:
 	- App\Services\VisitLogger(%productionMode%)
 
 	- App\Database\ContextPool(%database%, @cacheStorage)
+	- App\Services\DiscussionService
 	-
 		class: App\Database\Entities\LogVisitEntity
 		setup: [$connectionName("logs")]
@@ -33,10 +34,13 @@ services:
 	- App\Database\Entities\ContactEntity
 	- App\Database\Entities\DiscussionEntity
 	- App\Database\Entities\DiscussionBanEntity
-	- App\Database\Entities\InstructorEntity
 	
 	-
 		class: App\Database\Entities\ActualityPhotoEntity
+		setup: [$isOrderable(true)]
+
+	-
+		class: App\Database\Entities\InstructorEntity
 		setup: [$isOrderable(true)]
 	
 	-

@@ -8,5 +8,8 @@ namespace App\FrontendModule;
  */
 final class HomepagePresenter extends BasePresenter
 {
-
+	protected function createComponentDiscussionForm(\App\Factories\ManageDiscussionFormFactory $factory)
+	{
+		return $factory->create(null);
+	}
 }
