@@ -15,7 +15,7 @@
 
 	<div class="media list_1">
 		<div class="pull-right" n:inner-foreach="$photos->order('order DESC') as $photo">
-			<a href="{$photo->photo|thumb}" class="fancybox">
+			<a href="{$photo->photo|thumb}" class="fancybox" data-fancybox-group="galerie">
 				<img src="{$photo->photo|thumb:'actuality'}" alt="{$photo->description}" title="{$photo->description}" class="img-rounded styled">
 			</a>
 			{sep}<br>{/sep}
