@@ -82,7 +82,7 @@ final class HomepagePresenter extends BasePresenter
 			$this->redirect("clanky");
 		}
 
-		$this->template->photos = $this->template->actuality->related("article_photo")->where("del_flag", 0)->where("active_flag", 1);
+		$this->template->photos = $this->template->article->related("article_photo")->where("del_flag", 0)->where("active_flag", 1);
 	}
 
 
