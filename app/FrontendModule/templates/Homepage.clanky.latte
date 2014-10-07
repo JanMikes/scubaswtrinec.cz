@@ -9,11 +9,11 @@
 			</ul>
 		</div>
 	</div>
-	<h2><a n:href="detailAktuality, $article->id">{$article->name}</a></h2>
+	<h2><a n:href="detailClanku, $article->id">{$article->name}</a></h2>
 	<p>
 		 {$article->text|striptags|truncate:450|noescape}
 	</p>
-	<a n:href="detailAktuality, $article->id" class="button_medium">Číst více</a>
+	<a n:href="detailClanku, $article->id" class="button_medium">Číst více</a>
 </div>
 
 <div class="text-center" n:if="$paginator->getPageCount() > 1">
