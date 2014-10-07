@@ -73,7 +73,7 @@ final class ManageInstructorFormFactory extends Nette\Object
 		$form->addText("name", "Jméno", 80, 80)
 			->setRequired("Název je povinný!");
 
-		$form->addText("text", "Text", 200, 200)
+		$form->addTextarea("text", "Text", 80, 4)
 			->setAttribute("class", "ckeditor");
 
 		$form->addUpload("image", "Fotka")
