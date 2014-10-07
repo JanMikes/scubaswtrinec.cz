@@ -80,7 +80,7 @@ final class ManageInstructorFormFactory extends Nette\Object
 			->addCondition($form::FILLED)
 				->addRule($form::IMAGE, "Obrázek musí být ve formátu JPG, GIF nebo PNG!");
 
-		if ($this->row) {
+		if ($this->row && $this->row->photo_id) {
 			$origSrc = $this->thumbnailService->getThumbnailPath($this->row->photo);
 			$thumbSrc = $this->thumbnailService->getThumbnailPath($this->row->photo, "admin");
 			$imgInfo = Nette\Utils\Html::el()->setHtml("<a href='$origSrc'><img src='$thumbSrc'></a>");
