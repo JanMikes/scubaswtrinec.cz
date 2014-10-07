@@ -32,6 +32,19 @@
 				</td>
 
 				<td class="record-action">
+					{if !$iterator->first}
+						<a class="btn btn-primary btn-xs" n:href="changeRowOrder!, $row->id, App\Database\IEntity::MOVE_RECORD_UP">
+							<i class="glyphicon-remove glyphicon glyphicon-arrow-up"></i>
+						</a>
+					{/if}
+					{if !$iterator->last}
+						<a class="btn btn-primary btn-xs" n:href="changeRowOrder!, $row->id, App\Database\IEntity::MOVE_RECORD_DOWN">
+							<i class="glyphicon-remove glyphicon glyphicon-arrow-down"></i>
+						</a>
+					{/if}
+				</td>
+
+				<td class="record-action">
 					{if $row->active_flag}
 						<a class="btn btn-success btn-xs" n:href="deactivate!, $row->id">
 							<i class="glyphicon-ok glyphicon"></i> Aktivní

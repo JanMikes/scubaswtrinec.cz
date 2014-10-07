@@ -48,7 +48,7 @@ final class ManageArticleFormFactory extends Nette\Object
 			->setAttribute("placeholder", "dd.mm.rrrr")
 			->addRule($form::PATTERN, "Datum musí být ve formátu dd.mm.rrrr", "(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19|20)\d\d");
 
-		$form->addText("name", "Nadpis", 50, 50)
+		$form->addText("name", "Nadpis", 100, 100)
 			->setRequired("Nadpis je povinný!");
 
 		$form->addTextarea("text", "Text", 50, 4)
