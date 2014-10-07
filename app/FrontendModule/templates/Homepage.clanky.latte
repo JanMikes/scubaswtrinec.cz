@@ -11,7 +11,7 @@
 	</div>
 	<h2><a n:href="detailAktuality, $article->id">{$article->name}</a></h2>
 	<p>
-		 {$article->text|striptags|truncate:200|noescape}
+		 {$article->text|striptags|truncate:450|noescape}
 	</p>
 	<a n:href="detailAktuality, $article->id" class="button_medium">Číst více</a>
 </div>
