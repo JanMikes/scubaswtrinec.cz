@@ -110,7 +110,7 @@ final class HomepagePresenter extends BasePresenter
 			$this->redirect("galerie");
 		}
 
-		$this->template->photos = $this->template->actuality->related("gallery_photo")->where("del_flag", 0)->where("active_flag", 1);
+		$this->template->photos = $this->template->gallery->related("gallery_photo")->where("del_flag", 0)->where("active_flag", 1);
 	}
 
 
