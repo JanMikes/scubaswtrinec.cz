@@ -4,15 +4,15 @@
 <hr class="rope_2">
 
 <div class="row">
-	<div class="col-md-6" n:for="$i=0;$i<=6;$i++">
+	<div class="col-md-6" n:foreach="$links as $link">
 		<div class="media booking_course">
-			<div class="pull-left">
-				<img src="{$baseUri}/img/thumb_course_1_booking.jpg" alt="" class="img-rounded styled">
+			<div class="pull-right">
+				<img src="{$link->photo|thumb:'link'}" alt="{$link->name}" class="img-rounded styled">
 			</div>
 			<div class="media-body">
-				<h4 class="p-title"><a href="diving_course.html" target="_blank">Open Water Diver</a></h4>
-				<p>
-					Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix.
+				<h4 class="p-title"><a href="{$link->url}" target="_blank">{$link->name?:$link->url}</a></h4>
+				<p n:if="$link->description">
+					{$link->description}
 				</p>
 			</div>
 		</div>

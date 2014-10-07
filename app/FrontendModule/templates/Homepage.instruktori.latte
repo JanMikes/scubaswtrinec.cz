@@ -3,14 +3,15 @@
 
 <hr class="rope_2">
 
-<div class="media list_1" n:for="$i=0;$i<=2;$i++">
-	<div class="pull-right">
-		<a href="{$baseUri}/img/point_a.jpg" class="fancybox"><img src="{$baseUri}/img/point_a_thumb.jpg" alt="" class="img-rounded styled"></a>
+<div class="media list_1" n:foreach="$instructors as $instructor">
+	<div class="pull-right" n:if="$instructor->photo_id">
+		<a href="{$instructor->photo|thumb}" class="fancybox" data-fancybox-group="instructors">
+			<img src="{$instructor->photo|thumb:'actuality'}" alt="{$instructor->name}" class="img-rounded styled">
+		</a>
 	</div>
 	<div class="media-body">
-		<h3>Point A</h3>
-		<p>
-			Nec magna primis labores ex, vim cu mazim vocent. Ius modus posse invenire ei, corpora detraxit pro an, malis dolores ut has. Nam ut elit ferri patrioque, zril partem principes cum id. Sea ne assum minim quaestio, at hinc saepe graeco qui. In nec ludus repudiare scribentur, vix agam fabellas ne. Sit dicta aliquid ornatus an, sea laoreet pericula ea. Invenire voluptatum in pro, vel enim latine ne, percipit convenire eu eam.
-		</p>
+		<h3>{$instructor->name}</h3>
+		
+		{$instructor->text|noescape}
 	</div>
 </div>

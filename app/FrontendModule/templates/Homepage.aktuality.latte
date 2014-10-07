@@ -1,18 +1,27 @@
 {block content}
 <h1 n:block=title>Aktuality</h1>
 
-<div class="post" n:for="$i=0;$i<=2;$i++">
+<div class="post" n:foreach="$actualities->order('date DESC') as $actuality">
 	<div class="post_info clearfix">
 		<div class="post-left">
 			<ul>
-				<li><i class="icon-calendar-empty"></i>On <span>12 Nov 2020</span></li>
-				<li><i class="icon-user"></i>By <a href="#">John Smith</a></li>
+				<li><i class="icon-calendar-empty"></i>Dne <span>{$actuality->date|date:"d.m.Y"}</span></li>
 			</ul>
 		</div>
 	</div>
-	<h2><a href="single_post.html" title="single_post.html">Duis aute irure dolor in reprehenderit</a></h2>
+	<h2><a n:href="detailAktuality, $actuality->id">{$actuality->name}</a></h2>
 	<p>
-		 Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec, luctus a, lorem.....
+		 {$actuality->text|striptags|truncate:200}
 	</p>
-	<a href="blog_post.html" class="button_medium">Read more</a>
+	<a n:href="detailAktuality, $actuality->id" class="button_medium">Číst více</a>
+</div>
+
+<div class="text-center" n:if="$paginator->getPageCount() > 1">
+	<ul class="pagination" >
+		{for $i=1 ; $i<=$paginator->getPageCount() ; $i++}
+			<li n:class="$i == $paginator->getPage()? active">
+				<a n:href="this, $i">{$i}</a>
+			</li>
+		{/for}
+	</ul>
 </div>

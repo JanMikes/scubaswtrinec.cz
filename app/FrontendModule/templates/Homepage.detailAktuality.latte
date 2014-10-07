@@ -1,0 +1,27 @@
+{block content}
+<h1 n:block=title>{$actuality->name}</h1>
+
+<p><a n:href="aktuality"><i class="glyphicon glyphicon-arrow-left"></i> Zpět</a></p>
+
+<div class="post">
+	<div class="post_info clearfix">
+		<div class="post-left">
+			<ul>
+				<li><i class="icon-calendar-empty"></i>Dne <span>{$actuality->date|date:'d.m.Y'}</span></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="media list_1">
+		<div class="pull-right" n:inner-foreach="$photos->order('order DESC') as $photo">
+			<a href="{$photo->photo|thumb}" class="fancybox">
+				<img src="{$photo->photo|thumb:'actuality'}" alt="{$photo->description}" title="{$photo->description}" class="img-rounded styled">
+			</a>
+			{sep}<br>{/sep}
+		</div>
+		<div class="media-body">
+			{$actuality->text|noescape}
+		</div>
+	</div>
+</div>

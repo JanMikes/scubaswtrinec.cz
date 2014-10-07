@@ -4,58 +4,20 @@
 <hr class="rope_2">
 
 <div class="row">
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/1.jpg" title="Title" data-gallery="">
-		<span class="gallery-title">ASDF</span>
-		<img src="{$baseUri}/img/gallery/1.jpg" alt="" class="img-responsive">
+	<div class="col-md-4 col-sm-4 col-xs-6 picture" n:foreach="$galleries as $gallery">
+		<a n:href="detailGalerie, $gallery->id" title="Title">
+			<span class="gallery-title">{$gallery->name}</span>
+			<img src="{$gallery->photo|thumb:'gallery'}" alt="{$gallery->name}" class="img-responsive">
 		</a>
 	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/2.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/2.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/3.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/3.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/4.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/4.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/5.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/5.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/6.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/6.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/7.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/7.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/7.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/7.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-6 picture">
-		<a href="{$baseUri}/img/gallery/7.jpg" title="Title" data-gallery="">
-		<span class="gallery-title"></span>
-		<img src="{$baseUri}/img/gallery/7.jpg" alt="" class="img-responsive">
-		</a>
-	</div>
+</div>
+
+<div class="text-center" n:if="$paginator->getPageCount() > 1">
+	<ul class="pagination" >
+		{for $i=1 ; $i<=$paginator->getPageCount() ; $i++}
+			<li n:class="$i == $paginator->getPage()? active">
+				<a n:href="this, $i">{$i}</a>
+			</li>
+		{/for}
+	</ul>
 </div>

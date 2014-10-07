@@ -3,19 +3,25 @@
 
 <hr class="rope_2">
 
-<form method="post" action="assets/contactform_booking.php" id="contactform_booking">
+{form discussionForm}
+
+	{if $form->hasErrors()}
+		{foreach $form->getErrors() as $error}
+			<div class="alert alert-danger">{$error}</div>
+		{/foreach}
+	{/if}
   
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
-				<input type="text" class="form-control style_2">
+				<input type="text" class="form-control style_2" placeholder="Jméno" n:name="author">
 			</div>
 		</div>
 		<div class="col-md-4">
-				<input type="text" class="form-control style_2">
+				<input type="text" class="form-control style_2" placeholder="Email" n:name="email">
 		</div>
 		<div class="col-md-4">
-			<input type="text" class="form-control style_2">
+			<input type="text" class="form-control style_2" placeholder="Předmět" n:name="subject">
 		</div>
 	</div><!-- End row -->
    
@@ -23,38 +29,36 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group">
-				<textarea rows="5" id="message_booking" name="message_booking" class="form-control style_2" placeholder="Additional message" style="height:150px;"></textarea>
+				<textarea rows="3" class="form-control style_2" placeholder="Vaše zpráva" style="height:100px;" n:name="text"></textarea>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<input type="submit" value="Submit" id="submit-booking">
+		<input type="submit" value="Odeslat" n:name="sendForm" class="form-submit-btn">
 	</div>
-</form>
+{/form}
 
 <hr>
 <div id="comments">
 	<ol>
-		<li n:for="$i=0;$i<=2;$i++">
+		<li n:foreach="$discussion->order('id DESC') as $post">
 			<div class="comment_right clearfix">
 				<div class="comment_info">
-					 Posted by <a href="#">Anna Smith</a><span>|</span> 25 apr 2019 <span>|</span><a href="#">Reply</a>
+					 <i class="icon-user"></i> <a href="mailto:{$post->email}">{$post->author}</a><span>|</span> <i class="icon-calendar"></i> {$post->ins_dt|date:'d.m.Y H:i'} {if $post->subject}<span>|</span> {$post->subject}{/if}
 				</div>
-				<p>Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.</p>
+				<p>{$post->text}</p>
 			</div>
 			<hr class="dashed">
 		</li>
 	</ol>
 </div>
 
-<div class="text-center">
-	<ul class="pagination">
-		<li><a href="#">Prev</a></li>
-		<li class="active"><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li><a href="#">Next</a></li>
-	</ul><!-- end pagination-->
+<div class="text-center" n:if="$paginator->getPageCount() > 1">
+	<ul class="pagination" >
+		{for $i=1 ; $i<=$paginator->getPageCount() ; $i++}
+			<li n:class="$i == $paginator->getPage()? active">
+				<a n:href="this, $i">{$i}</a>
+			</li>
+		{/for}
+	</ul>
 </div>

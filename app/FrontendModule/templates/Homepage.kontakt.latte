@@ -3,8 +3,11 @@
 
 <hr class="rope_2">
 
-<p>asdfasdads</p>
+{if $contact}
+	{$contact->text|noescape}
+{/if}
 
+{*
 <hr>
 
 <h4>Napište nám</h4>
@@ -50,3 +53,4 @@
 	</div><!-- End row -->
 </form>
 
+*}

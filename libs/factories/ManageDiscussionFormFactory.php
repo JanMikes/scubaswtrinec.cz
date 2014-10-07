@@ -55,13 +55,17 @@ final class ManageDiscussionFormFactory extends Nette\Object
 		$form = $this->formFactory->create();
 
 		
-		$form->addText("author", "Autor", 50, 50);
+		$form->addText("author", "Autor", 50, 50)
+			->setRequired("Jméno je povinné!");
 
-		$form->addText("email", "E-mail", 50, 50);
+		$form->addText("email", "E-mail", 50, 50)
+			->setRequired("E-mail je povinný!")
+			->addRule($form::EMAIL, "E-mail musí být zadán ve správném formátu!");
 
 		$form->addText("subject", "Předmět", 50, 50);
 
-		$form->addTextarea("text", "Text", 50, 5);
+		$form->addTextarea("text", "Text", 50, 5)
+			->setRequired("Text je povinný!");
 		
 
 		$form->addSubmit("send", $this->row ? "Upravit" : "Přidat")
@@ -73,6 +77,9 @@ final class ManageDiscussionFormFactory extends Nette\Object
 				->setAttribute("class", "btn-primary")
 				->onClick[] = $this->saveAndContinue;
 		}
+
+		$form->addSubmit("sendForm", "Přidat")
+			->onClick[] = $this->processBtn;
 
 		$form->onValidate[] = $this->checkBan;
 
@@ -86,6 +93,14 @@ final class ManageDiscussionFormFactory extends Nette\Object
 
 		if ($this->discussionService->isBanned($ip)) {
 			$form->addError("V diskuzi již nemůžete přispívat!");
+		}
+	}
+
+
+	public function processBtn($button)
+	{
+		if ($button->form->isSuccess()) {
+			$this->process($button->form);
 		}
 	}
 

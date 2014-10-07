@@ -403,7 +403,7 @@ a.button_submenu:hover{
 	background:#00aeef linear-gradient(top,rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%);
 	}
 	
-#submit-contact, #submit-booking{
+#submit-contact, #submit-booking, .form-submit-btn{
 	border:none;
 	background:#09467f;
 	/* Old browsers */
@@ -438,7 +438,7 @@ a.button_submenu:hover{
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
-#submit-contact:hover, #submit-booking:hover {
+#submit-contact:hover, #submit-booking:hover, .form-submit-btn:hover {
 	background:#111;
 	/* Old browsers */
 	background:#111 -moz-linear-gradient(top,rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%);
