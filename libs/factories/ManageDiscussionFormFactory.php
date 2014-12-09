@@ -66,6 +66,8 @@ final class ManageDiscussionFormFactory extends Nette\Object
 
 		$form->addTextarea("text", "Text", 50, 5)
 			->setRequired("Text je povinný!");
+
+		$form->addAntispam();
 		
 
 		$form->addSubmit("send", $this->row ? "Upravit" : "Přidat")
@@ -108,6 +110,9 @@ final class ManageDiscussionFormFactory extends Nette\Object
 	public function process(Nette\Application\UI\Form $form)
 	{
 		$values = $form->getValues(true);
+
+		unset($values["spam"]);
+		unset($values["form_created"]);
 
 		if (!$this->row) {
 			$values["additional_info"] = $this->httpRequest->getHeader("User-Agent");

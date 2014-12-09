@@ -53,6 +53,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 
+		\AntispamControl::register();
+
 		// This is required due to circular reference issue
 		$this->selectionFactory->setUser($this->user);
 
