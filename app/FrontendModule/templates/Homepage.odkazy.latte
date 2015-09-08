@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="col-md-6" n:foreach="$links as $link">
 		<div class="media booking_course">
-			<div class="pull-right">
+			<div class="pull-right" n:if="$link->photo_id">
 				<img src="{$link->photo|thumb:'link'}" alt="{$link->name}" class="img-rounded styled">
 			</div>
 			<div class="media-body">
