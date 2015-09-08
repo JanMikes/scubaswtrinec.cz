@@ -4,7 +4,6 @@
 			<th>Název</th>
 			<th>Odkaz</th>
 			<th class="record-action"></th>
-			<th class="record-action"></th>
 			<th class="record-action">
 				{if $inactiveCnt == 0}
 					<a class="btn btn-success btn-xs disabled" href="#">
@@ -39,12 +38,6 @@
 							<i class="glyphicon-remove glyphicon glyphicon-arrow-down"></i>
 						</a>
 					{/if}
-				</td>
-
-				<td class="record-action">
-					<a class="btn btn-info btn-xs" href="{plink GalleryPhoto:default, $row->id}">
-						<i class="glyphicon-picture glyphicon"></i> Fotografie ({$row->related("gallery_photo")->where("del_flag", 0)->count("id")})
-					</a>
 				</td>
 
 				<td class="record-action">
