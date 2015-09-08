@@ -50,7 +50,7 @@ final class HomepagePresenter extends BasePresenter
 	public function actionDetailAktuality($id)
 	{
 		$this->template->actuality = $this->actualityEntity->findActive($id);
-		if (!$this->template->actuality) {
+		if (!$id || !$this->template->actuality) {
 			$this->redirect("aktuality");
 		}
 
@@ -78,7 +78,7 @@ final class HomepagePresenter extends BasePresenter
 	public function actionDetailClanku($id)
 	{
 		$this->template->article = $this->articleEntity->findActive($id);
-		if (!$this->template->article) {
+		if (!$id || !$this->template->article) {
 			$this->redirect("clanky");
 		}
 
@@ -106,7 +106,7 @@ final class HomepagePresenter extends BasePresenter
 	public function actionDetailGalerie($id)
 	{
 		$this->template->gallery = $this->galleryEntity->findActive($id);
-		if (!$this->template->gallery) {
+		if (!$id || !$this->template->gallery) {
 			$this->redirect("galerie");
 		}
 

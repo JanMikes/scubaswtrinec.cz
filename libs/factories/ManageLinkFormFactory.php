@@ -8,7 +8,7 @@ use Nette,
 	App\Services\PhotoService,
 	App\Services\ImageService,
 	App\Services\ImageUploadService,
-	App\Database\Entities\GalleryEntity;
+	App\Database\Entities\LinkEntity;
 
 /**
  *  @author Jan Mikes <j.mikes@me.com>
@@ -40,7 +40,7 @@ final class ManageLinkFormFactory extends Nette\Object
 	/** @var Nette\Database\Table\ActiveRow */
 	private $row;
 
-	/** @var App\Database\Entities\GalleryEntity */
+	/** @var App\Database\Entities\LinkEntity */
 	private $linkEntity;
 
 
@@ -50,7 +50,7 @@ final class ManageLinkFormFactory extends Nette\Object
 		ImageUploadService $imageUploadService,
 		ThumbnailService $thumbnailService,
 		PhotoService $photoService,
-		GalleryEntity $linkEntity
+		LinkEntity $linkEntity
 	) {
 		$this->formFactory = $formFactory;
 		$this->imageService = $imageService;
