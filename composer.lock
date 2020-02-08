@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "5224d61371e94160e7b8a90a499d5bda",
+    "content-hash": "0453ca42b2821648bcddc8538666fdac",
     "packages": [
         {
             "name": "janmarek/webloader",
@@ -119,16 +120,16 @@
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.4",
+            "version": "v2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604"
+                "reference": "180d31fdae2b91ff6e98d7588d123f3d33f8c1de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604",
-                "reference": "a862bf4cb9a53e7c13c0d4f0b2394b9a2097d604",
+                "url": "https://api.github.com/repos/nette/nette/zipball/180d31fdae2b91ff6e98d7588d123f3d33f8c1de",
+                "reference": "180d31fdae2b91ff6e98d7588d123f3d33f8c1de",
                 "shasum": ""
             },
             "require": {
@@ -136,8 +137,30 @@
                 "ext-tokenizer": "*",
                 "php": ">=5.3.1"
             },
+            "replace": {
+                "latte/latte": "self.version",
+                "nette/application": "self.version",
+                "nette/bootstrap": "self.version",
+                "nette/caching": "self.version",
+                "nette/component-model": "self.version",
+                "nette/database": "self.version",
+                "nette/di": "self.version",
+                "nette/finder": "self.version",
+                "nette/forms": "self.version",
+                "nette/http": "self.version",
+                "nette/mail": "self.version",
+                "nette/neon": "self.version",
+                "nette/php-generator": "self.version",
+                "nette/reflection": "self.version",
+                "nette/robot-loader": "self.version",
+                "nette/safe-stream": "self.version",
+                "nette/security": "self.version",
+                "nette/tokenizer": "self.version",
+                "nette/utils": "self.version",
+                "tracy/tracy": "self.version"
+            },
             "require-dev": {
-                "nette/tester": "~1.1"
+                "nette/tester": "~1.6"
             },
             "suggest": {
                 "ext-fileinfo": "",
@@ -163,15 +186,15 @@
             "authors": [
                 {
                     "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
+                    "homepage": "https://davidgrudl.com"
                 },
                 {
                     "name": "Nette Community",
-                    "homepage": "http://nette.org/contributors"
+                    "homepage": "https://nette.org/contributors"
                 }
             ],
             "description": "Nette Framework - innovative framework for fast and easy development of secured web applications in PHP. Write less, have cleaner code and your work will bring you joy.",
-            "homepage": "http://nette.org",
+            "homepage": "https://nette.org",
             "keywords": [
                 "Forms",
                 "database",
@@ -181,7 +204,7 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2014-05-24 20:35:49"
+            "time": "2015-12-03 04:17:19"
         },
         {
             "name": "oyejorge/less.php",
@@ -240,6 +263,7 @@
                 "php",
                 "stylesheet"
             ],
+            "abandoned": true,
             "time": "2014-06-05 16:09:50"
         },
         {
@@ -339,18 +363,13 @@
             "time": "2013-12-30 23:49:37"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "kdyby/autowired": 20
     },
     "prefer-stable": false,
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
 }
