@@ -23,9 +23,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/** @var App\Factories\TemplateFactory @autowire */
 	protected $templateFactory;
 
-	/** @var App\Services\VisitLogger @autowire */
-	protected $visitLogger;
-
 	/** @var App\Factories\SelectionFactory @autowire */
 	protected $selectionFactory;
 
@@ -41,14 +38,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function shutdown($response)
-	{
-		parent::shutdown($response);
-
-		$this->visitLogger->updateElapsedTime(Debugger::timer("global"));
-	}
-
-
 	protected function startup()
 	{
 		parent::startup();
@@ -59,8 +48,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$this->selectionFactory->setUser($this->user);
 
 		Debugger::timer("global");
-
-		$this->visitLogger->log();
 
 		if (!$this->hasFlashSession() && $this->getParameter(self::FLASH_KEY) ) {
 			unset($this->params[self::FLASH_KEY]);

@@ -13,7 +13,6 @@ services:
 
 	- App\Services\TemplateHelper
 	- App\Services\Mailer(%productionMode%, %mailer.from%, %mailer.developRecipients%, ...)
-	- App\Services\VisitLogger(%productionMode%)
 
 	- App\Database\ContextPool(%database%, @cacheStorage)
 	- App\Services\DiscussionService
