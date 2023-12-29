@@ -17,5 +17,7 @@ www/upload/
 www/img/instructor
 www/img/gallery
 www/img/link
+www/img/article
+www/img/actuality
 
 .docker/mysql-data/
