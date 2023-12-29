@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  web:
+    image: scubaswtrinec
+    restart: unless-stopped
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    environment:
+      NETTE_DEBUG: 1
+      XDEBUG_CONFIG: "remote_host=host.docker.internal"
+      PHP_IDE_CONFIG: "serverName=scubaswtrinec"
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app:cached
+      - ./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mariadb:10.1
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "scubaswtrinec"
+    volumes:
+      - ./.docker/mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  adminer:
+      image: adminer:4.8.0
+      ports:
+          - 8000:8080
+      depends_on:
+          - mysql

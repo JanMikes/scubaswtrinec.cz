@@ -1,15 +1,9 @@
 {
-	"config": {
-        "vendor-dir": "packagist"
-    },
 	"require": {
 		"nette/nette": "2.1.*",
-		"janmarek/WebLoader": "2.2.*",
+		"janmarek/webloader": "2.2.0",
 		"oyejorge/less.php": "~1.5",
 		"kdyby/autowired": "@dev",
 		"twbs/bootstrap": "3.1.*"
-	},
-	"require-dev": {
-		"nette/tester": "~0.9.5"
 	}
 }

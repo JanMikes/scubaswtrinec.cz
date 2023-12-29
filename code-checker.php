@@ -6,7 +6,7 @@
  * This file is part of the Nette Framework (http://nette.org)
  */
 
-require __DIR__ . '/packagist/nette/nette/Nette/loader.php';
+require __DIR__ . '/vendor/nette/nette/Nette/loader.php';
 
 use Nette\Utils\Strings;
 
