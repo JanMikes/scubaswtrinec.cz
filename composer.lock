@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "5224d61371e94160e7b8a90a499d5bda",
-    "content-hash": "0453ca42b2821648bcddc8538666fdac",
+    "content-hash": "86311b460d6dc739d7c7f947bb8a93e1",
     "packages": [
         {
             "name": "janmarek/webloader",
@@ -37,16 +36,14 @@
                     "WebLoader": ""
                 }
             },
-            "notification-url": "https://vendor.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Jan Marek",
-                    "email": "mail@janmarek.net",
-                    "homepage": "http://www.janmarek.net/",
-                    "role": "Author"
+                    "email": "mail@janmarek.net"
                 }
             ],
             "description": "Tool for loading or deploying CSS and JS files into web pages",
@@ -58,7 +55,11 @@
                 "nette",
                 "webloader"
             ],
-            "time": "2014-01-01 16:54:25"
+            "support": {
+                "issues": "https://github.com/janmarek/WebLoader/issues",
+                "source": "https://github.com/janmarek/WebLoader/tree/2.2.0"
+            },
+            "time": "2014-01-01T16:54:25+00:00"
         },
         {
             "name": "kdyby/autowired",
@@ -95,7 +96,7 @@
                     "src/Kdyby/Autowired/exceptions.php"
                 ]
             },
-            "notification-url": "https://vendor.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -116,20 +117,25 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2014-06-14 13:07:52"
+            "support": {
+                "email": "filip@prochazka.su",
+                "issues": "https://github.com/kdyby/autowired/issues",
+                "source": "https://github.com/Kdyby/Autowired/tree/nette-2.1"
+            },
+            "time": "2014-06-14T13:07:52+00:00"
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.12",
+            "version": "v2.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "180d31fdae2b91ff6e98d7588d123f3d33f8c1de"
+                "reference": "5e3bb6b2f48cfd7ac0a2b22cffb32c9a715d4f76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/180d31fdae2b91ff6e98d7588d123f3d33f8c1de",
-                "reference": "180d31fdae2b91ff6e98d7588d123f3d33f8c1de",
+                "url": "https://api.github.com/repos/nette/nette/zipball/5e3bb6b2f48cfd7ac0a2b22cffb32c9a715d4f76",
+                "reference": "5e3bb6b2f48cfd7ac0a2b22cffb32c9a715d4f76",
                 "shasum": ""
             },
             "require": {
@@ -170,14 +176,14 @@
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "Nette/"
-                ],
                 "files": [
                     "Nette/common/shortcuts.php"
+                ],
+                "classmap": [
+                    "Nette/"
                 ]
             },
-            "notification-url": "https://vendor.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -204,24 +210,31 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2015-12-03 04:17:19"
+            "support": {
+                "issues": "https://github.com/nette/nette/issues",
+                "source": "https://github.com/nette/nette/tree/v2.1.13"
+            },
+            "time": "2020-10-07T01:34:28+00:00"
         },
         {
             "name": "oyejorge/less.php",
-            "version": "v1.7.0.2",
+            "version": "v1.7.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oyejorge/less.php.git",
-                "reference": "82372b389386ae1edab55495eae4b400cca3c86c"
+                "reference": "42925c5a01a07d67ca7e82dfc8fb31814d557bc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/82372b389386ae1edab55495eae4b400cca3c86c",
-                "reference": "82372b389386ae1edab55495eae4b400cca3c86c",
+                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/42925c5a01a07d67ca7e82dfc8fb31814d557bc9",
+                "reference": "42925c5a01a07d67ca7e82dfc8fb31814d557bc9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2"
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8.24"
             },
             "bin": [
                 "bin/lessc"
@@ -235,7 +248,7 @@
                     "lessc.inc.php"
                 ]
             },
-            "notification-url": "https://vendor.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -253,7 +266,7 @@
                     "homepage": "https://github.com/oyejorge"
                 }
             ],
-            "description": "PHP port of the Javascript version of LESS http://lesscss.org",
+            "description": "PHP port of the Javascript version of LESS http://lesscss.org (Originally maintained by Josh Schmidt)",
             "homepage": "http://lessphp.gpeasy.com",
             "keywords": [
                 "css",
@@ -263,8 +276,12 @@
                 "php",
                 "stylesheet"
             ],
+            "support": {
+                "issues": "https://github.com/oyejorge/less.php/issues",
+                "source": "https://github.com/oyejorge/less.php/tree/master"
+            },
             "abandoned": true,
-            "time": "2014-06-05 16:09:50"
+            "time": "2017-03-28T22:19:25+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -286,7 +303,7 @@
                     "dev-master": "3.0.x-dev"
                 }
             },
-            "notification-url": "https://vendor.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -306,63 +323,14 @@
                 "bootstrap",
                 "css"
             ],
-            "time": "2014-02-13 17:24:59"
+            "support": {
+                "issues": "https://github.com/twbs/bootstrap/issues",
+                "source": "https://github.com/twbs/bootstrap/tree/v3.1.1"
+            },
+            "time": "2014-02-13T17:24:59+00:00"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "nette/tester",
-            "version": "v0.9.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/tester.git",
-                "reference": "812b5ab2f59b0d742dd30035865467ec0b2f6ee7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/812b5ab2f59b0d742dd30035865467ec0b2f6ee7",
-                "reference": "812b5ab2f59b0d742dd30035865467ec0b2f6ee7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "bin": [
-                "Tester/tester",
-                "Tester/coverage-report"
-            ],
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "Tester/"
-                ]
-            },
-            "notification-url": "https://vendor.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "http://nette.org/contributors"
-                }
-            ],
-            "description": "An easy-to-use PHP Unit Testing framework.",
-            "homepage": "http://nette.org",
-            "keywords": [
-                "nette",
-                "testing",
-                "unit"
-            ],
-            "time": "2013-12-30 23:49:37"
-        }
-    ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
@@ -371,5 +339,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }
