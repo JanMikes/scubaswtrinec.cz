@@ -32,4 +32,10 @@ chmod 777 www/img/instructor/
 mkdir -p www/img/link/
 chmod 777 www/img/link/
 
+mkdir -p www/img/actuality/
+chmod 777 www/img/actuality/
+
+mkdir -p www/img/article/
+chmod 777 www/img/article/
+
 exec "$@"
