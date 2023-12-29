@@ -16,9 +16,6 @@ services:
 
 	- App\Database\ContextPool(%database%, @cacheStorage)
 	- App\Services\DiscussionService
-	-
-		class: App\Database\Entities\LogVisitEntity
-		setup: [$connectionName("logs")]
 
 	- App\Services\ThumbnailService
 	- App\Services\PhotoService

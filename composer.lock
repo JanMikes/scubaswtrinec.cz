@@ -37,7 +37,7 @@
                     "WebLoader": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -95,7 +95,7 @@
                     "src/Kdyby/Autowired/exceptions.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -177,7 +177,7 @@
                     "Nette/common/shortcuts.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -235,7 +235,7 @@
                     "lessc.inc.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -286,7 +286,7 @@
                     "dev-master": "3.0.x-dev"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -337,7 +337,7 @@
                     "Tester/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://vendor.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
