@@ -6,7 +6,15 @@ if [ "${1#-}" != "$1" ]; then
 	set -- apache2-foreground "$@"
 fi
 
-composer install
+# In dev the source tree is bind-mounted over /app, so vendor/ may be missing and
+# composer has to run here. In prod (APP_ENV=prod, set by the Dockerfile's prod
+# stage) dependencies are already baked into the image, and re-running composer on
+# every container start would make BOOTING depend on packagist/github being
+# reachable — turning a registry blip into a failed healthcheck and an aborted
+# blue-green rollout.
+if [ "${APP_ENV}" != "prod" ]; then
+	composer install
+fi
 
 mkdir -p www/webtemp
 chmod 777 www/webtemp
