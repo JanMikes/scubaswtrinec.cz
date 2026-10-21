@@ -1,0 +1,60 @@
+security:
+    password_hashers:
+        # Verify-only hasher for the 2014 md5+static-salt hashes (see the class docblock).
+        legacy_md5:
+            id: App\Security\LegacyMd5PasswordHasher
+        App\Entity\User:
+            algorithm: auto
+            # A legacy hash is verified by legacy_md5 and then transparently re-hashed with `auto`
+            # (UserRepository::upgradePassword) on the user's next successful login.
+            migrate_from:
+                - legacy_md5
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+
+    firewalls:
+        dev:
+            pattern: ^/(_profiler|_wdt|assets|build)/
+            security: false
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                login_path: admin_sign_in
+                check_path: admin_sign_in
+                username_parameter: email
+                password_parameter: password
+                enable_csrf: true
+                default_target_path: admin_dashboard
+                use_referer: false
+            logout:
+                path: admin_sign_out
+                target: admin_sign_in
+            remember_me:
+                secret: '%kernel.secret%'
+                # "Trvalé přihlášení" = 14 days, as in the 2014 app
+                lifetime: 1209600
+                path: /admin
+                remember_me_parameter: remember
+                signature_properties: ['password']
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
+
+    access_control:
+        - { path: ^/admin/sign/in$, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+when@test:
+    security:
+        password_hashers:
+            App\Entity\User:
+                algorithm: auto
+                cost: 4
+                time_cost: 3
+                memory_cost: 10
+                migrate_from:
+                    - legacy_md5

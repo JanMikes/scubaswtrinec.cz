@@ -1,0 +1,26 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 2 %}
+{% block description %}{{ gallery.description ? gallery.description|excerpt(160) : 'Fotogalerie ' ~ gallery.name ~ ' — SCUBA S.W. Třinec' }}{% endblock %}
+{% block hero_eyebrow %}<a href="{{ path('galleries') }}" class="mb-4 inline-flex items-center gap-2 text-sm font-bold text-white/80 hover:text-white">← Galerie</a>{% endblock %}
+{% block page_title %}{{ gallery.name }}{% endblock %}
+{% block content %}
+    <div class="card p-4 sm:p-6">
+        {% if gallery.description %}<p class="mb-6 whitespace-pre-line px-2 leading-7 text-slate-600">{{ gallery.description }}</p>{% endif %}
+        {% if photos is empty %}
+            <p class="p-4 text-slate-600">Galerie zatím neobsahuje žádné fotografie.</p>
+        {% else %}
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3">
+                {% for p in photos %}
+                    {% set large = photo_large(p.photo) %}
+                    {% if large %}
+                        <a href="{{ large }}" class="glightbox group block overflow-hidden rounded-2xl" data-gallery="gallery-{{ gallery.id }}" data-description="{{ p.description }}">
+                            {% include 'partials/photo.html.twig' with {photo: p.photo, type: 'card', class: 'aspect-[4/3] w-full transition duration-500 group-hover:scale-105', alt: p.description ?? gallery.name} only %}
+                        </a>
+                    {% else %}
+                        {% include 'partials/photo.html.twig' with {photo: null, class: 'aspect-[4/3] w-full rounded-2xl', alt: p.description ?? 'Fotografie není k dispozici'} only %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

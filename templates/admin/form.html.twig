@@ -1,0 +1,29 @@
+{% extends 'admin/layout.html.twig' %}
+{% form_theme form 'admin/_form_theme.html.twig' %}
+{% block admin_title %}{{ is_new ? 'Přidat' : 'Upravit' }} {{ section.singular }}{% endblock %}
+{% set back = path('admin_list', {section: section.slug}|merge(parent and section.parentParam ? {(section.parentParam): parent.id} : {})) %}
+{% block content %}
+    <a href="{{ back }}" class="text-sm font-semibold text-ocean-600 hover:text-abyss-700">← zpět na seznam</a>
+    {% if parent %}<p class="mt-3 text-sm text-slate-500">{{ parent.name }}</p>{% endif %}
+    <h1 class="mt-1 font-display text-3xl font-extrabold text-abyss-800">{{ is_new ? 'Přidat' : 'Upravit' }} {{ section.singular }}</h1>
+
+    {{ form_start(form, {attr: {class: 'card mt-6 grid grid-cols-[minmax(0,1fr)] max-w-4xl gap-5 !rounded-2xl p-6 sm:p-8', novalidate: 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        {% if not is_new and record.photo is defined and record.photo %}
+            <div class="flex items-center gap-4">
+                {% include 'partials/photo.html.twig' with {photo: record.photo, type: 'admin', class: 'h-24 w-24 rounded-xl', alt: ''} only %}
+                {% set orig = photo_original(record.photo) %}
+                {% if orig %}<a href="{{ orig }}" target="_blank" class="text-sm font-semibold text-ocean-600">Zobrazit originál ↗</a>{% else %}<span class="text-sm text-amber-700">Původní soubor chybí na disku.</span>{% endif %}
+            </div>
+        {% endif %}
+        {% if section.slug == 'discussion' and not is_new %}
+            <p class="text-sm text-slate-500">IP: <span class="font-mono">{{ record.ip }}</span> · {{ record.insDt|date('d. m. Y H:i') }}<br><span class="text-xs">{{ record.additionalInfo }}</span></p>
+        {% endif %}
+        {{ form_rest(form) }}
+        <div class="flex flex-wrap gap-3 border-t border-slate-100 pt-5">
+            <button type="submit" name="_next" value="list" class="btn-primary">{{ is_new ? 'Přidat' : 'Uložit' }}</button>
+            <button type="submit" name="_next" value="continue" class="btn-light">Uložit a pokračovat v editaci</button>
+            <a href="{{ back }}" class="btn text-slate-500 hover:text-slate-700">Zrušit</a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

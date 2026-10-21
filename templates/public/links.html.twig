@@ -1,0 +1,27 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 3 %}
+{% block hero_eyebrow %}<p class="eyebrow mb-3 text-cyan-400">Doporučujeme</p>{% endblock %}
+{% block page_title %}Odkazy{% endblock %}
+{% block content %}
+    <div class="grid gap-5 sm:grid-cols-2">
+        {% for l in links %}
+            <a href="{{ l.url }}" target="_blank" rel="noopener" class="card group flex items-start gap-4 p-6 transition hover:-translate-y-0.5 hover:shadow-2xl">
+                {% set icon = photo_thumb(l.photo, 'link') %}
+                {% if icon %}
+                    <img src="{{ icon }}" alt="" class="h-14 w-14 shrink-0 rounded-xl object-cover">
+                {% else %}
+                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-ocean-50 text-ocean-600">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+                    </span>
+                {% endif %}
+                <span class="min-w-0">
+                    <span class="block text-lg font-extrabold text-abyss-700 group-hover:text-ocean-600">{{ l.name ?: l.url }}</span>
+                    <span class="mt-0.5 block truncate text-sm text-ocean-600">{{ l.url|replace({'https://': '', 'http://': ''})|trim('/') }}</span>
+                    {% if l.description %}<span class="mt-2 block text-sm leading-6 text-slate-600">{{ l.description }}</span>{% endif %}
+                </span>
+            </a>
+        {% else %}
+            <div class="card p-8 text-slate-600">Zatím zde nic není.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

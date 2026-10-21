@@ -1,24 +1,31 @@
-.DS_Store
-!.gitignore
-!.htaccess
-!web.config
-app/config/config.local.neon
 
-vendor/*
-log/*
-temp/*
-databases/*
-www/webtemp/*
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
 
-*.sublime-project
-*.sublime-workspace
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+###< symfony/asset-mapper ###
 
-_DATA/
-_PSD/
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
 
-www/upload/
-www/img/instructor
-www/img/gallery
-www/img/link
-www/img/article
-www/img/actuality
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> app user data (lily volume in production) ###
+/public/img/
+/public/upload/
+###< app user data ###
+/compose.override.yaml

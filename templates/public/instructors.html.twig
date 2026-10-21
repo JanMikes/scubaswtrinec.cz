@@ -1,0 +1,24 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 1 %}
+{% block hero_eyebrow %}<p class="eyebrow mb-3 text-cyan-400">Kdo vás povede pod vodou</p>{% endblock %}
+{% block page_title %}Instruktoři{% endblock %}
+{% block content %}
+    <div class="space-y-6">
+        {% for i in instructors %}
+            {% set large = photo_large(i.photo) %}
+            <article class="card grid gap-6 p-6 sm:p-8 {{ large ? 'md:grid-cols-[220px_minmax(0,1fr)]' : '' }}">
+                {% if large %}
+                    <a href="{{ large }}" class="glightbox block self-start overflow-hidden rounded-2xl" data-gallery="instructors">
+                        {% include 'partials/photo.html.twig' with {photo: i.photo, type: 'card', class: 'aspect-[3/4] w-full', alt: i.name} only %}
+                    </a>
+                {% endif %}
+                <div class="min-w-0">
+                    <h2 class="text-2xl font-extrabold text-abyss-700">{{ i.name|trim(',') }}</h2>
+                    <div class="prose-dive mt-4">{{ i.text|raw }}</div>
+                </div>
+            </article>
+        {% else %}
+            <div class="card p-8 text-slate-600">Zatím zde nic není.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

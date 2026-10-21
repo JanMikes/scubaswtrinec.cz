@@ -1,0 +1,11 @@
+{% extends 'admin/layout.html.twig' %}
+{% form_theme form 'admin/_form_theme.html.twig' %}
+{% block admin_title %}Kontakt{% endblock %}
+{% block content %}
+    <h1 class="font-display text-3xl font-extrabold text-abyss-800">Editace kontaktu</h1>
+    <p class="mt-2 text-sm text-slate-500">Text stránky <a class="text-ocean-600" href="{{ path('contact') }}" target="_blank">/kontakt</a>. Každé uložení se zapíše jako nová verze (historie zůstává v databázi).</p>
+    {{ form_start(form, {attr: {class: 'card mt-6 grid grid-cols-[minmax(0,1fr)] max-w-4xl gap-5 !rounded-2xl p-6 sm:p-8'}}) }}
+        {{ form_rest(form) }}
+        <div><button type="submit" class="btn-primary">Uložit</button></div>
+    {{ form_end(form) }}
+{% endblock %}

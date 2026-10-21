@@ -1,0 +1,7 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 4 %}
+{% block hero_eyebrow %}<p class="eyebrow mb-3 text-cyan-400">Čtení pro potápěče</p>{% endblock %}
+{% block page_title %}Články{% endblock %}
+{% block content %}
+    {% include 'public/_post_list.html.twig' with {detail_route: 'article_detail'} %}
+{% endblock %}

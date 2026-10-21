@@ -1,0 +1,80 @@
+# Tests — gate for the release (release.yml runs only after this succeeds on main).
+name: Tests
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+permissions:
+    contents: read
+
+env:
+    DATABASE_HOST: mariadb
+    DATABASE_PORT: 3306
+    DATABASE_USER: root
+    DATABASE_PASSWORD: root
+    DATABASE_NAME: scubaswtrinec
+
+jobs:
+    phpunit:
+        runs-on: ubuntu-latest
+        container: ghcr.io/thedevs-cz/php:8.5
+        services:
+            mariadb:
+                # Same engine/version as production (lily apps/scubaswtrinec/compose.yaml). The test
+                # bootstrap sets the production sql_mode (NO_ENGINE_SUBSTITUTION) globally.
+                image: mariadb:11.4.13
+                env:
+                    MARIADB_ROOT_PASSWORD: root
+                options: --health-cmd "healthcheck.sh --connect --innodb_initialized" --health-interval 5s --health-timeout 5s --health-retries 20
+        steps:
+            -   uses: actions/checkout@v4
+            -   run: composer install --no-scripts --no-progress
+            -   run: bin/console importmap:install
+            -   run: bin/console tailwind:build
+            # Functional tests for every public route + legacy URL, admin auth (legacy md5 -> rehash),
+            # admin CRUD per section, and the legacy-database migration replay.
+            -   run: vendor/bin/phpunit
+
+    phpstan:
+        runs-on: ubuntu-latest
+        container: ghcr.io/thedevs-cz/php:8.5
+        steps:
+            -   uses: actions/checkout@v4
+            -   run: composer install --no-scripts --no-progress
+            -   run: DATABASE_PASSWORD=ci bin/console cache:warmup --env=dev
+            -   run: composer run-script phpstan
+
+    cs-check:
+        runs-on: ubuntu-latest
+        container: ghcr.io/thedevs-cz/php:8.5
+        steps:
+            -   uses: actions/checkout@v4
+            -   run: composer install --no-scripts --no-progress
+            -   run: composer run-script cs:check
+
+    lint:
+        runs-on: ubuntu-latest
+        container: ghcr.io/thedevs-cz/php:8.5
+        steps:
+            -   uses: actions/checkout@v4
+            -   run: composer install --no-scripts --no-progress
+            -   run: DATABASE_PASSWORD=ci bin/console lint:twig templates
+            -   run: DATABASE_PASSWORD=ci bin/console lint:container
+            -   run: DATABASE_PASSWORD=ci bin/console doctrine:schema:validate --skip-sync
+
+    docker-build:
+        # Proves the production image builds (no push); the real build+push happens in release.yml.
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: docker/setup-buildx-action@v3
+            -   uses: docker/build-push-action@v6
+                with:
+                    context: .
+                    push: false
+                    platforms: linux/amd64
+                    cache-from: type=gha
+                    cache-to: type=gha,mode=max

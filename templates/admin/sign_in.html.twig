@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Přihlášení do administrace | {% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block importmap %}{{ importmap('app') }}{% endblock %}
+{% block body %}
+<main class="relative isolate grid min-h-screen place-items-center overflow-hidden px-4 py-12">
+    <img src="/images/slides/big/2.jpg" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover">
+    <div class="absolute inset-0 -z-10 bg-abyss-950/75"></div>
+    <div class="w-full max-w-md">
+        <div class="mb-8 flex justify-center">{% include 'partials/logo.html.twig' %}</div>
+        <form method="post" action="{{ path('admin_sign_in') }}" class="card grid gap-5 p-8">
+            <h1 class="font-display text-2xl font-extrabold uppercase text-abyss-800">Administrace</h1>
+            {% if error %}<div class="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800 ring-1 ring-red-200" role="alert">{{ error.messageKey == 'Too many failed login attempts, please try again in %minutes% minute.' or error.messageKey starts with 'Too many' ? 'Příliš mnoho pokusů, zkuste to prosím později.' : 'Byly zadány neplatné přihlašovací údaje!' }}</div>{% endif %}
+            <div class="form-field"><label for="email">E-mail</label><input id="email" type="email" name="email" value="{{ last_username }}" required autofocus autocomplete="username" class="form-input"></div>
+            <div class="form-field"><label for="password">Heslo</label><input id="password" type="password" name="password" required autocomplete="current-password" class="form-input"></div>
+            <label class="flex items-center gap-2 text-sm font-semibold text-slate-600"><input type="checkbox" name="remember" value="1" class="h-4 w-4 rounded border-slate-300 text-abyss-600"> Trvalé přihlášení (14 dní)</label>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit" class="btn-primary w-full !py-3">Přihlásit se</button>
+            <a href="{{ path('home') }}" class="text-center text-sm font-semibold text-ocean-600 hover:text-abyss-700">← zpět na web</a>
+        </form>
+    </div>
+</main>
+{% endblock %}

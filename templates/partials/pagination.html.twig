@@ -1,0 +1,21 @@
+{# The 2014 `?page=N` links, now with prev/next and a windowed page list. #}
+{% if pager.pageCount > 1 %}
+    {% set route = app.request.attributes.get('_route') %}
+    <nav class="mt-10 flex flex-wrap items-center justify-center gap-2" aria-label="Stránkování">
+        {% if pager.page > 1 %}
+            <a href="{{ path(route, pager.page > 2 ? {page: pager.page - 1} : {}) }}" class="btn-light !px-4" rel="prev">← Novější</a>
+        {% endif %}
+        {% for i in 1..pager.pageCount %}
+            {% if i == 1 or i == pager.pageCount or (i >= pager.page - 2 and i <= pager.page + 2) %}
+                <a href="{{ path(route, i > 1 ? {page: i} : {}) }}"
+                   class="grid h-10 min-w-10 place-items-center rounded-full px-3 text-sm font-bold transition {{ i == pager.page ? 'bg-abyss-600 text-white' : 'bg-white/90 text-abyss-700 hover:bg-white' }}"
+                   {% if i == pager.page %}aria-current="page"{% endif %}>{{ i }}</a>
+            {% elseif i == pager.page - 3 or i == pager.page + 3 %}
+                <span class="px-1 text-white/70">…</span>
+            {% endif %}
+        {% endfor %}
+        {% if pager.page < pager.pageCount %}
+            <a href="{{ path(route, {page: pager.page + 1}) }}" class="btn-light !px-4" rel="next">Starší →</a>
+        {% endif %}
+    </nav>
+{% endif %}
