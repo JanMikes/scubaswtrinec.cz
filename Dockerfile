@@ -48,6 +48,8 @@ RUN mkdir /.composer \
         gd
 
 
+COPY ./.docker/php/zz-cve-2026-1096xx.ini /usr/local/etc/php/conf.d/zz-cve-2026-1096xx.ini
+
 COPY ./.docker/apache/site.conf /etc/apache2/sites-available/000-default.conf
 COPY ./.docker/apache/mpm-limits.conf /etc/apache2/conf-available/mpm-limits.conf
 RUN a2enconf mpm-limits
