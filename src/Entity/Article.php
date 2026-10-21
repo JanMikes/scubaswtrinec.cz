@@ -15,7 +15,7 @@ class Article extends Post
 {
     /** @var Collection<int, ArticlePhoto> */
     #[ORM\OneToMany(targetEntity: ArticlePhoto::class, mappedBy: 'article')]
-    #[ORM\OrderBy(['order' => 'DESC'])]
+    #[ORM\OrderBy(['order' => \SortDirection::Descending])]
     private Collection $photos;
 
     public function __construct()

@@ -37,8 +37,8 @@ final class AdminController extends AbstractController
                 'gallery' => (int) $galleries->adminQb()->select('COUNT(r.id)')->getQuery()->getSingleScalarResult(),
                 'discussion' => (int) $discussions->adminQb()->select('COUNT(r.id)')->getQuery()->getSingleScalarResult(),
             ],
-            'latest_posts' => $discussions->adminQb()->orderBy('r.id', 'DESC')->setMaxResults(5)->getQuery()->getResult(),
-            'latest_actualities' => $actualities->adminQb()->orderBy('r.date', 'DESC')->addOrderBy('r.id', 'DESC')->setMaxResults(5)->getQuery()->getResult(),
+            'latest_posts' => $discussions->adminQb()->orderBy('r.id', \SortDirection::Descending)->setMaxResults(5)->getQuery()->getResult(),
+            'latest_actualities' => $actualities->adminQb()->orderBy('r.date', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending)->setMaxResults(5)->getQuery()->getResult(),
         ]);
     }
 

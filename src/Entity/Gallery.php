@@ -29,7 +29,7 @@ class Gallery extends LegacyRecord implements OrderableInterface
 
     /** @var Collection<int, GalleryPhoto> */
     #[ORM\OneToMany(targetEntity: GalleryPhoto::class, mappedBy: 'gallery')]
-    #[ORM\OrderBy(['order' => 'DESC'])]
+    #[ORM\OrderBy(['order' => \SortDirection::Descending])]
     private Collection $photos;
 
     public function __construct()

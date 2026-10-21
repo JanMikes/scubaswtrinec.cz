@@ -25,7 +25,7 @@ class ThumbnailRepository extends LegacyRepository
             ->join('t.type', 'tt')
             ->andWhere('t.photo = :photo')->setParameter('photo', $photo)
             ->andWhere('tt.code = :code')->setParameter('code', $typeCode)
-            ->orderBy('t.id', 'DESC')
+            ->orderBy('t.id', \SortDirection::Descending)
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult();
     }

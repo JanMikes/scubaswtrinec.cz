@@ -21,6 +21,6 @@ class ContactRepository extends LegacyRepository
     public function latest(): ?Contact
     {
         /* @var Contact|null */
-        return $this->adminQb('c')->orderBy('c.id', 'DESC')->setMaxResults(1)->getQuery()->getOneOrNullResult();
+        return $this->adminQb('c')->orderBy('c.id', \SortDirection::Descending)->setMaxResults(1)->getQuery()->getOneOrNullResult();
     }
 }

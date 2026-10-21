@@ -100,7 +100,7 @@ final readonly class AppExtension
     public function recentActualities(int $limit = 3): array
     {
         /* @var list<\App\Entity\Actuality> */
-        return $this->actualities->visibleQb('r')->orderBy('r.date', 'DESC')->addOrderBy('r.id', 'DESC')->setMaxResults($limit)->getQuery()->getResult();
+        return $this->actualities->visibleQb('r')->orderBy('r.date', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending)->setMaxResults($limit)->getQuery()->getResult();
     }
 
     /** @return list<Gallery> */
@@ -108,7 +108,7 @@ final readonly class AppExtension
     public function recentGalleries(int $limit = 3): array
     {
         /* @var list<Gallery> */
-        return $this->galleries->visibleQb('r')->orderBy('r.order', 'DESC')->setMaxResults($limit)->getQuery()->getResult();
+        return $this->galleries->visibleQb('r')->orderBy('r.order', \SortDirection::Descending)->setMaxResults($limit)->getQuery()->getResult();
     }
 
     #[AsTwigFunction('ga_measurement_id')]

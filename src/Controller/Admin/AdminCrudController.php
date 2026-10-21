@@ -59,7 +59,7 @@ final class AdminCrudController extends AbstractController
             'parent' => $parent,
             'rows' => $rows,
             'inactive_count' => \count(array_filter($rows, static fn (LegacyRecord $r): bool => !$r->active)),
-            'bans' => 'discussion' === $section ? $bans->adminQb('b')->orderBy('b.insDt', 'DESC')->getQuery()->getResult() : [],
+            'bans' => 'discussion' === $section ? $bans->adminQb('b')->orderBy('b.insDt', \SortDirection::Descending)->getQuery()->getResult() : [],
             'banned_ips' => 'discussion' === $section ? $bans->bannedIps() : [],
         ]);
     }

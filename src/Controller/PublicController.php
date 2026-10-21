@@ -36,7 +36,7 @@ final class PublicController extends AbstractController
     #[Route('/', name: 'home', methods: ['GET', 'HEAD'])]
     public function home(Request $request): Response
     {
-        $qb = $this->actualities->visibleQb('r')->orderBy('r.date', 'DESC')->addOrderBy('r.id', 'DESC');
+        $qb = $this->actualities->visibleQb('r')->orderBy('r.date', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending);
 
         return $this->render('public/home.html.twig', [
             'pager' => Pager::fromQuery($qb, $request->query->get('page'), 5),
@@ -66,7 +66,7 @@ final class PublicController extends AbstractController
     #[Route('/clanky', name: 'articles', methods: ['GET', 'HEAD'])]
     public function articles(Request $request): Response
     {
-        $qb = $this->articles->visibleQb('r')->orderBy('r.date', 'DESC')->addOrderBy('r.id', 'DESC');
+        $qb = $this->articles->visibleQb('r')->orderBy('r.date', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending);
 
         return $this->render('public/articles.html.twig', [
             'pager' => Pager::fromQuery($qb, $request->query->get('page'), 5),
@@ -87,7 +87,7 @@ final class PublicController extends AbstractController
     #[Route('/galerie', name: 'galleries', methods: ['GET', 'HEAD'])]
     public function galleries(Request $request): Response
     {
-        $qb = $this->galleries->visibleQb('r')->orderBy('r.order', 'DESC')->addOrderBy('r.id', 'DESC');
+        $qb = $this->galleries->visibleQb('r')->orderBy('r.order', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending);
 
         return $this->render('public/galleries.html.twig', [
             'pager' => Pager::fromQuery($qb, $request->query->get('page'), 9),
@@ -112,7 +112,7 @@ final class PublicController extends AbstractController
     public function instructors(InstructorRepository $instructors): Response
     {
         return $this->render('public/instructors.html.twig', [
-            'instructors' => $instructors->visibleQb('r')->orderBy('r.order', 'DESC')->getQuery()->getResult(),
+            'instructors' => $instructors->visibleQb('r')->orderBy('r.order', \SortDirection::Descending)->getQuery()->getResult(),
         ]);
     }
 
@@ -120,7 +120,7 @@ final class PublicController extends AbstractController
     public function links(LinkRepository $links): Response
     {
         return $this->render('public/links.html.twig', [
-            'links' => $links->visibleQb('r')->orderBy('r.order', 'DESC')->addOrderBy('r.id', 'ASC')->getQuery()->getResult(),
+            'links' => $links->visibleQb('r')->orderBy('r.order', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Ascending)->getQuery()->getResult(),
         ]);
     }
 

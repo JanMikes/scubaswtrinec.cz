@@ -1,0 +1,3 @@
+framework:
+    # Per-container file lock: serialises image decoding inside one web container (PhotoStorage).
+    lock: flock

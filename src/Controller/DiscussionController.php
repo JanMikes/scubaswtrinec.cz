@@ -61,7 +61,7 @@ final class DiscussionController extends AbstractController
             }
         }
 
-        $qb = $discussions->visibleQb('r')->orderBy('r.id', 'DESC');
+        $qb = $discussions->visibleQb('r')->orderBy('r.id', \SortDirection::Descending);
 
         return $this->render('public/discussion.html.twig', [
             'form' => $form,

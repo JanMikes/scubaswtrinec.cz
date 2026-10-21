@@ -35,7 +35,7 @@ final readonly class RecordActions
             $qb->andWhere('r.'.$section->parentField.' = :parent')->setParameter('parent', $parent);
         }
         foreach ($section->listOrder as $field => $dir) {
-            $qb->addOrderBy('r.'.$field, $dir);
+            $qb->addOrderBy('r.'.$field, 'DESC' === $dir ? \SortDirection::Descending : \SortDirection::Ascending);
         }
 
         /* @var list<LegacyRecord> */

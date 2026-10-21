@@ -39,9 +39,9 @@ final class SystemController extends AbstractController
     public function sitemap(ActualityRepository $actualities, ArticleRepository $articles, GalleryRepository $galleries): Response
     {
         $response = $this->render('public/sitemap.xml.twig', [
-            'actualities' => $actualities->visibleQb('r')->orderBy('r.date', 'DESC')->getQuery()->getResult(),
-            'articles' => $articles->visibleQb('r')->orderBy('r.date', 'DESC')->getQuery()->getResult(),
-            'galleries' => $galleries->visibleQb('r')->orderBy('r.order', 'DESC')->getQuery()->getResult(),
+            'actualities' => $actualities->visibleQb('r')->orderBy('r.date', \SortDirection::Descending)->getQuery()->getResult(),
+            'articles' => $articles->visibleQb('r')->orderBy('r.date', \SortDirection::Descending)->getQuery()->getResult(),
+            'galleries' => $galleries->visibleQb('r')->orderBy('r.order', \SortDirection::Descending)->getQuery()->getResult(),
         ]);
         $response->headers->set('Content-Type', 'application/xml; charset=UTF-8');
 
