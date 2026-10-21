@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
  * Why: the lily Infisical project `scubaswtrinec` holds only DB_PASSWORD/DB_ROOT_PASSWORD. Deriving
  * the kernel secret (HMAC with a fixed label, so the value is unrelated to the password itself) lets
  * the rebuilt app ship without a new secret; set APP_SECRET in Infisical to override it any time
- * (that only invalidates remember-me cookies). Decision: lily.srv docs/decisions.md D82.
+ * (that only invalidates remember-me cookies). Decision: lily.srv docs/decisions.md D83.
  */
 final class AppSecretEnvVarProcessor implements EnvVarProcessorInterface
 {

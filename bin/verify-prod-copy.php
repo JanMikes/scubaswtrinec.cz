@@ -34,8 +34,12 @@ $root->exec('CREATE DATABASE `'.$db.'` CHARACTER SET latin1 COLLATE latin1_swedi
 
 $restore = Process::fromShellCommandline(sprintf(
     'mariadb -h%s -P%s -u%s -p%s --default-character-set=binary %s < %s',
-    escapeshellarg($_ENV['DATABASE_HOST']), escapeshellarg($_ENV['DATABASE_PORT']), escapeshellarg($_ENV['DATABASE_USER']),
-    escapeshellarg($_ENV['DATABASE_PASSWORD']), $db, escapeshellarg($dump),
+    escapeshellarg($_ENV['DATABASE_HOST']),
+    escapeshellarg($_ENV['DATABASE_PORT']),
+    escapeshellarg($_ENV['DATABASE_USER']),
+    escapeshellarg($_ENV['DATABASE_PASSWORD']),
+    $db,
+    escapeshellarg($dump),
 ));
 if (0 !== $restore->setTimeout(600)->run()) {
     // The FrankenPHP image has no mariadb client: fall back to PDO (the dump is plain SQL).
