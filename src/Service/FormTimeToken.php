@@ -12,8 +12,8 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
  */
 final readonly class FormTimeToken
 {
-    public const int MIN_SECONDS = 5;
-    public const int MAX_SECONDS = 86400;
+    public const int MIN_SECONDS = 3;
+    public const int MAX_SECONDS = 6 * 3600;
 
     public function __construct(#[Autowire('%kernel.secret%')] private string $secret)
     {

@@ -49,14 +49,19 @@ if (0 !== $restore->setTimeout(600)->run()) {
 }
 
 $tables = ['actuality', 'actuality_photo', 'article', 'article_photo', 'contact', 'discussion', 'discussion_ban',
-    'gallery', 'gallery_photo', 'instructor', 'link', 'lst_thumbnail_tp', 'photo', 'thumbnail', 'user', 'aa'];
+    'gallery', 'gallery_photo', 'instructor', 'link', 'lst_thumbnail_tp', 'photo', 'thumbnail', 'user'];
 
 $fingerprint = static function () use ($dsn, $db, $tables): array {
     $pdo = new PDO($dsn.';dbname='.$db.';charset=utf8mb4', $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $out = [];
     foreach ($tables as $t) {
         // lst_thumbnail_tp gains two rows (card, large); compare the 2014 rows only.
-        $sql = 'lst_thumbnail_tp' === $t ? "SELECT * FROM `$t` WHERE code NOT IN ('card','large') ORDER BY id" : "SELECT * FROM `$t` ORDER BY id";
+        $sql = match ($t) {
+            'lst_thumbnail_tp' => "SELECT * FROM `$t` WHERE code NOT IN ('card','large') ORDER BY id",
+            // Version20261022100000 hides the 11 bot posts of 2026 on purpose; checked separately below.
+            'discussion' => "SELECT * FROM `$t` WHERE id NOT BETWEEN 24 AND 34 ORDER BY id",
+            default => "SELECT * FROM `$t` ORDER BY id",
+        };
         $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         $out[$t] = count($rows).' rows, md5 '.md5(serialize($rows));
     }
@@ -93,6 +98,11 @@ foreach ($after as $t => $f) {
 echo "\n== doctrine:schema:validate\n".$console(['doctrine:schema:validate']);
 
 $pdo = new PDO($dsn.';dbname='.$db.';charset=utf8mb4', $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD']);
+$spam = $pdo->query('SELECT id, del_flag FROM discussion WHERE id BETWEEN 24 AND 34 ORDER BY id')->fetchAll(PDO::FETCH_KEY_PAIR);
+$hidden = count(array_filter($spam, static fn ($d): bool => 1 === (int) $d));
+printf("\n== guest-book spam (ids 24-34): %d rows, %d hidden\n", count($spam), $hidden);
+$ok = $ok && (0 === count($spam) || 11 === $hidden);
+
 echo "\n== users (hash scheme only)\n";
 foreach ($pdo->query('SELECT id, del_flag, password FROM `user` ORDER BY id') as $u) {
     $scheme = preg_match('/^[0-9a-f]{32}$/', (string) $u['password']) ? 'legacy md5 -> verified by LegacyMd5PasswordHasher, upgraded on next login'

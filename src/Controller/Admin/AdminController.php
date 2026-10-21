@@ -36,6 +36,7 @@ final class AdminController extends AbstractController
                 'article' => (int) $articles->adminQb()->select('COUNT(r.id)')->getQuery()->getSingleScalarResult(),
                 'gallery' => (int) $galleries->adminQb()->select('COUNT(r.id)')->getQuery()->getSingleScalarResult(),
                 'discussion' => (int) $discussions->adminQb()->select('COUNT(r.id)')->getQuery()->getSingleScalarResult(),
+                'pending' => (int) $discussions->adminQb()->select('COUNT(r.id)')->andWhere('r.active = false')->getQuery()->getSingleScalarResult(),
             ],
             'latest_posts' => $discussions->adminQb()->orderBy('r.id', \SortDirection::Descending)->setMaxResults(5)->getQuery()->getResult(),
             'latest_actualities' => $actualities->adminQb()->orderBy('r.date', \SortDirection::Descending)->addOrderBy('r.id', \SortDirection::Descending)->setMaxResults(5)->getQuery()->getResult(),

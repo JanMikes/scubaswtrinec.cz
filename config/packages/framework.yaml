@@ -1,9 +1,11 @@
 framework:
     secret: '%env(app_secret:APP_SECRET)%'
     default_locale: cs
-    # Traefik -> FrankenPHP: trust the docker-network proxies so client IPs (discussion log/bans)
-    # and https URLs are correct.
-    trusted_proxies: 'private_ranges'
+    # Traefik -> FrankenPHP: the only peer that reaches this container is Traefik on a docker network
+    # (RFC 1918). Trust exactly those ranges (+ loopback) for X-Forwarded-*, so the guest book logs and
+    # rate-limits the REAL client IP; Symfony's `private_ranges` shortcut would also trust CGNAT, 6to4,
+    # Teredo and documentation ranges, which is broader than this hop needs.
+    trusted_proxies: '127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
     trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
 
     session:

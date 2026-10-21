@@ -49,7 +49,8 @@ INSERT INTO `link` (`id`, `photo_id`, `order`, `name`, `url`, `description`, `in
 
 INSERT INTO `discussion` (`id`, `ip`, `author`, `subject`, `email`, `text`, `additional_info`, `ins_dt`, `active_flag`) VALUES
     (1, '192.0.2.10', 'Potápěč', 'Dotaz', 'diver@example.invalid', 'Kdy je další trénink?', 'Mozilla', '2026-07-28 13:58:52', 1),
-    (2, '192.0.2.66', 'Spammer', NULL, 'spam@example.invalid', 'buy pills', 'bot', '2026-07-29 03:00:00', 1);
+    (2, '192.0.2.66', 'Spammer', NULL, 'spam@example.invalid', 'buy pills', 'bot', '2026-07-29 03:00:00', 1),
+    (3, '198.51.100.40', 'Čekatel', NULL, 'wait@example.invalid', 'Held for moderation https://a.example https://b.example https://c.example', 'Mozilla', '2026-10-22 08:00:00', 0);
 
 INSERT INTO `discussion_ban` (`id`, `ip`, `reason`, `ins_dt`) VALUES
     (1, '192.0.2.99', 'Zablokovaný - spam@example.invalid', '2014-11-29 22:55:28');

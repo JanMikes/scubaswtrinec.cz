@@ -2,6 +2,11 @@
 {% block admin_title %}Přehled{% endblock %}
 {% block content %}
     <h1 class="font-display text-3xl font-extrabold text-abyss-800">Vítejte{{ app.user.name ? ', ' ~ app.user.name : '' }}</h1>
+    {% if counts.pending > 0 %}
+        <a href="{{ path('admin_list', {section: 'discussion', stav: 'ke-schvaleni'}) }}" class="mt-6 flex items-center justify-between gap-4 rounded-2xl bg-amber-50 px-5 py-4 font-semibold text-amber-900 ring-1 ring-amber-200 hover:bg-amber-100">
+            <span>V diskuzi {{ counts.pending == 1 ? 'čeká 1 příspěvek' : 'čeká ' ~ counts.pending ~ ' příspěvků' }} na schválení.</span><span aria-hidden="true">→</span>
+        </a>
+    {% endif %}
     <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {% for key, label in {actuality: 'Aktuality', article: 'Články', gallery: 'Galerie', discussion: 'Příspěvky v diskuzi'} %}
             <a href="{{ path('admin_list', {section: key}) }}" class="card block !rounded-2xl p-6 transition hover:-translate-y-0.5">

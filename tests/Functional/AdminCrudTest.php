@@ -252,6 +252,30 @@ final class AdminCrudTest extends WebTestCase
         self::assertTrue($this->reload(DiscussionBan::class, (int) $ban->getId())->deleted);
     }
 
+    public function testPendingFilterShowsHeldPostsAndApprovePublishesThem(): void
+    {
+        $this->client->request('GET', '/admin');
+        self::assertSelectorTextContains('main', 'čeká 1 příspěvek na schválení');
+
+        $crawler = $this->client->request('GET', '/admin/discussion?stav=ke-schvaleni');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('main', 'Čekatel');
+        self::assertSelectorTextNotContains('table', 'Potápěč', 'only held posts are listed');
+        $token = (string) $crawler->filter('input[name=_token]')->first()->attr('value');
+
+        $this->client->request('GET', '/diskuze');
+        self::assertSelectorTextNotContains('main', 'Held for moderation');
+
+        $this->client->request('POST', '/admin/discussion/3/activate', ['_token' => $token]);
+        self::assertResponseRedirects();
+        self::assertTrue($this->reload(Discussion::class, 3)->active);
+
+        $this->client->request('GET', '/admin/discussion?stav=ke-schvaleni');
+        self::assertSelectorTextContains('main', 'Žádné příspěvky nečekají na schválení.');
+        $this->client->request('GET', '/diskuze');
+        self::assertSelectorTextContains('main', 'Held for moderation');
+    }
+
     public function testDiscussionEdit(): void
     {
         $crawler = $this->client->request('GET', '/admin/discussion/edit/1');

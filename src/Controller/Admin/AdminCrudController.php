@@ -53,12 +53,19 @@ final class AdminCrudController extends AbstractController
             return $parent;
         }
         $rows = $this->actions->list($s, $parent);
+        $inactiveCount = \count(array_filter($rows, static fn (LegacyRecord $r): bool => !$r->active));
+        // Guest book: "Ke schválení" = posts held by the spam rules (stored hidden) awaiting a decision.
+        $pendingOnly = 'discussion' === $section && 'ke-schvaleni' === $request->query->get('stav');
+        if ($pendingOnly) {
+            $rows = array_values(array_filter($rows, static fn (LegacyRecord $r): bool => !$r->active));
+        }
 
         return $this->render($s->listTemplate, [
             'section' => $s,
             'parent' => $parent,
             'rows' => $rows,
-            'inactive_count' => \count(array_filter($rows, static fn (LegacyRecord $r): bool => !$r->active)),
+            'inactive_count' => $inactiveCount,
+            'pending_only' => $pendingOnly,
             'bans' => 'discussion' === $section ? $bans->adminQb('b')->orderBy('b.insDt', \SortDirection::Descending)->getQuery()->getResult() : [],
             'banned_ips' => 'discussion' === $section ? $bans->bannedIps() : [],
         ]);

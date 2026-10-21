@@ -117,7 +117,7 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
 | item | new | status |
 |---|---|---|
 | discussion form (author*, e-mail*, subject, text*), stores IP + user agent, published immediately | same | [x] |
-| antispam: hidden "clear this field" input + ≥5 s submit delay | honeypot + signed time token + per-IP rate limit + CSRF | [x] |
+| antispam: hidden "clear this field" input + ≥5 s submit delay | honeypot + signed time token (3 s–6 h) + real-IP rate limit + IP bans + CSRF + content classifier with moderation queue (2026-10-22, `docs/guestbook-spam.md`) | [x] |
 | banned IP cannot post ("V diskuzi již nemůžete přispívat!") | same | [x] |
 | e-mail | none sent by the old app (Mailer was never called) → no SMTP needed | [x] |
 
@@ -176,10 +176,9 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
 ## 7. Operator follow-ups (not blocking)
 
 * `scubaswtrinec_sessions` volume (2014 PHP session files) can be removed.
-* Old tables are all kept and still used — nothing to clean up. `aa` (empty 2014 leftover) is
-  untouched; it can be dropped whenever convenient.
+* Old tables are all kept and still used. `aa` (empty 2014 leftover) was dropped on 2026-10-22
+  (`Version20261022100100`, reversible).
 * ~750 of 921 photo originals were already missing before this rebuild (see §0) — restore them from
   an older backup if one exists; they appear automatically.
 * The 2014 repo history contains `.docker/mysql-data/` (a dev MariaDB datadir) in this public repo.
-* Recent discussion posts look like bot spam — review/deactivate in the admin.
 * Optional: a dedicated `APP_SECRET` key in Infisical project `scubaswtrinec` (see D83).

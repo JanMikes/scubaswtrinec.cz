@@ -3,18 +3,26 @@
 {% block admin_title %}{{ section.title }}{% endblock %}
 {% block content %}
     {{ m.list_header(section, parent, inactive_count) }}
+    <nav class="mb-4 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Filtr příspěvků">
+        <a href="{{ path('admin_list', {section: 'discussion'}) }}" class="rounded-full px-4 py-1.5 {{ pending_only ? 'bg-white text-abyss-700 ring-1 ring-slate-200' : 'bg-abyss-600 text-white' }}">Všechny</a>
+        <a href="{{ path('admin_list', {section: 'discussion', stav: 'ke-schvaleni'}) }}" class="rounded-full px-4 py-1.5 {{ pending_only ? 'bg-abyss-600 text-white' : 'bg-white text-abyss-700 ring-1 ring-slate-200' }}">Ke schválení <span class="ml-1 rounded-full {{ inactive_count > 0 ? 'bg-amber-400 text-abyss-950' : 'bg-slate-200 text-slate-600' }} px-2">{{ inactive_count }}</span></a>
+    </nav>
+    {% if pending_only %}<p class="mb-4 max-w-3xl text-sm text-slate-600">Příspěvky, které antispamová pravidla zachytila jako podezřelé. Na webu se nezobrazují, dokud je neschválíte. Spam smažte, případně zablokujte IP adresu.</p>{% endif %}
     <div class="card overflow-x-auto !rounded-2xl">
         <table class="adm-table">
             <thead><tr><th>Autor</th><th>E-mail</th><th>IP</th><th>Text</th><th class="text-right">Akce</th></tr></thead>
             <tbody>
             {% for row in rows %}
                 <tr id="r{{ row.id }}" class="{{ row.active ? '' : 'opacity-60' }}">
-                    <td class="font-semibold text-abyss-800">{{ row.author }}<div class="text-xs font-normal text-slate-400">{{ row.insDt|date('d. m. Y H:i') }}</div></td>
+                    <td class="font-semibold text-abyss-800">{{ row.author }}{% if not row.active %} <span class="ml-1 rounded bg-amber-100 px-1.5 py-0.5 text-[11px] font-bold uppercase text-amber-800">čeká</span>{% endif %}<div class="text-xs font-normal text-slate-400">{{ row.insDt|date('d. m. Y H:i') }}</div></td>
                     <td class="text-slate-600">{{ row.email }}</td>
                     <td class="whitespace-nowrap font-mono text-xs text-slate-500">{{ row.ip }}</td>
                     <td class="max-w-md text-slate-600">{{ row.text|length > 100 ? row.text|slice(0, 100) ~ '…' : row.text }}</td>
                     <td>
                         <div class="flex flex-wrap justify-end gap-1.5">
+                            {% if not row.active %}
+                                {{ m.action(path('admin_record_action', {section: 'discussion', id: row.id, op: 'activate'}), 'Schválit', 'adm-pill bg-emerald-600 text-white hover:bg-emerald-700', null, 'Schválit a zobrazit na webu') }}
+                            {% endif %}
                             {% if row.ip in banned_ips %}
                                 <span class="adm-pill bg-red-600 text-white">Blokován</span>
                             {% elseif row.ip %}
@@ -25,7 +33,7 @@
                     </td>
                 </tr>
             {% else %}
-                <tr><td colspan="5" class="text-slate-500">Prozatím nebyly přidány žádné záznamy.</td></tr>
+                <tr><td colspan="5" class="text-slate-500">{{ pending_only ? 'Žádné příspěvky nečekají na schválení.' : 'Prozatím nebyly přidány žádné záznamy.' }}</td></tr>
             {% endfor %}
             </tbody>
         </table>
