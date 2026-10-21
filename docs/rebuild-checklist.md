@@ -2,7 +2,7 @@
 
 Rebuild of the 2014 Nette 2.1 / PHP 7.1 site (CVE-2026-109618/109619: PHP 7.1 gets no fix) as a new
 Symfony app on `ghcr.io/thedevs-cz/php:8.5`. **Every** existing feature is kept; the existing MariaDB
-database and the user-data volume are reused as-is. Infra decision: lily.srv `docs/decisions.md` → D82.
+database and the user-data volume are reused as-is. Infra decision: lily.srv `docs/decisions.md` → D83.
 
 Verification: 114 PHPUnit tests (every public route, every legacy URL shape, admin auth incl. the
 legacy-hash proof, admin CRUD for every section, the legacy-DB migration replay), PHPStan level 8,
@@ -138,7 +138,7 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
 | PHP ≥ 8.5.12 (FrankenPHP base image) | [ ] (local: 8.5.12; box check at cutover) |
 | healthcheck hits the DB (`/-/health-check/readiness`) | [x] |
 | migrations run as a one-off in `deploy.sh` before the web container starts | [ ] (verified at cutover) |
-| no new Infisical keys (APP_SECRET derived from DB_PASSWORD, see D82) | [x] |
+| no new Infisical keys (APP_SECRET derived from DB_PASSWORD, see D83) | [x] |
 | user data volume mounted at the same public paths | [ ] (verified at cutover) |
 | backups (`backup.mysql`, `backup.files`) labels kept, paths updated | [ ] (verified at cutover) |
 | tests gate the release (PHPUnit, PHPStan, CS, migrations) | [x] |
@@ -168,4 +168,4 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
   an older backup if one exists; they appear automatically.
 * The 2014 repo history contains `.docker/mysql-data/` (a dev MariaDB datadir) in this public repo.
 * Recent discussion posts look like bot spam — review/deactivate in the admin.
-* Optional: a dedicated `APP_SECRET` key in Infisical project `scubaswtrinec` (see D82).
+* Optional: a dedicated `APP_SECRET` key in Infisical project `scubaswtrinec` (see D83).
