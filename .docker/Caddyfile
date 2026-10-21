@@ -1,0 +1,49 @@
+# Same as the base image's /etc/caddy/Caddyfile, plus: the user-data directories (the lily volume
+# mounted under public/) and the static design images are served as plain files ONLY — a file in
+# them is never handed to PHP, whatever its name (the 2014 app executed any *.php under www/).
+{
+    servers {
+        trusted_proxies static private_ranges
+        max_header_size 128kb
+        protocols h1 h2 h2c h3
+        enable_full_duplex
+    }
+
+    log {
+        format console
+    }
+
+    frankenphp {
+        {$FRANKENPHP_CONFIG}
+    }
+
+    {$CADDY_GLOBAL_OPTIONS}
+}
+
+{$SERVER_NAME::80} {
+    root * /app/public
+    encode zstd gzip
+
+    @userdata path /img/* /upload/* /images/*
+    handle @userdata {
+        header Cache-Control "public, max-age=604800"
+        header X-Content-Type-Options nosniff
+        @dotfiles path */.*
+        respond @dotfiles 403
+        file_server
+    }
+
+    # Compiled assets (prod); in dev they do not exist on disk and Symfony serves them.
+    @assets {
+        path /assets/*
+        file
+    }
+    handle @assets {
+        header Cache-Control "public, max-age=31536000, immutable"
+        file_server
+    }
+
+    handle {
+        php_server
+    }
+}

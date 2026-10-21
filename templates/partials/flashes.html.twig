@@ -1,0 +1,7 @@
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="mb-6 flex items-start gap-3 rounded-2xl px-5 py-4 text-sm font-semibold shadow-lg {{ type == 'success' ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200' : (type == 'danger' or type == 'error' ? 'bg-red-50 text-red-800 ring-1 ring-red-200' : 'bg-ocean-50 text-abyss-700 ring-1 ring-ocean-200') }}" role="status">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}

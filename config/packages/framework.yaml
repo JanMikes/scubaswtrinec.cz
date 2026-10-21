@@ -1,0 +1,38 @@
+framework:
+    secret: '%env(app_secret:APP_SECRET)%'
+    default_locale: cs
+    # Traefik -> FrankenPHP: trust the docker-network proxies so client IPs (discussion log/bans)
+    # and https URLs are correct.
+    trusted_proxies: 'private_ranges'
+    trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
+
+    session:
+        # Sessions live in MariaDB (table `sessions`), so a deploy never logs the admin out
+        # and no session volume is needed.
+        handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        cookie_secure: auto
+        cookie_samesite: lax
+        name: SCUBASW
+
+    rate_limiter:
+        discussion_post:
+            policy: sliding_window
+            limit: 3
+            interval: '10 minutes'
+            cache_pool: app.rate_limiter_cache
+
+    cache:
+        pools:
+            app.rate_limiter_cache:
+                adapter: cache.app
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
+            handler_id: null
+        cache:
+            pools:
+                app.rate_limiter_cache:
+                    adapter: cache.adapter.filesystem

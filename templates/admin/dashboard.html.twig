@@ -1,0 +1,31 @@
+{% extends 'admin/layout.html.twig' %}
+{% block admin_title %}Přehled{% endblock %}
+{% block content %}
+    <h1 class="font-display text-3xl font-extrabold text-abyss-800">Vítejte{{ app.user.name ? ', ' ~ app.user.name : '' }}</h1>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {% for key, label in {actuality: 'Aktuality', article: 'Články', gallery: 'Galerie', discussion: 'Příspěvky v diskuzi'} %}
+            <a href="{{ path('admin_list', {section: key}) }}" class="card block !rounded-2xl p-6 transition hover:-translate-y-0.5">
+                <p class="text-sm font-semibold text-slate-500">{{ label }}</p>
+                <p class="mt-2 font-display text-4xl font-black text-abyss-700">{{ counts[key] }}</p>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="mt-8 grid gap-6 xl:grid-cols-2">
+        <section class="card !rounded-2xl p-6">
+            <div class="flex items-center justify-between"><h2 class="font-display text-lg font-extrabold text-abyss-800">Poslední aktuality</h2><a href="{{ path('admin_add', {section: 'actuality'}) }}" class="btn-primary !py-2">+ Přidat</a></div>
+            <ul class="mt-4 divide-y divide-slate-100">
+                {% for a in latest_actualities %}
+                    <li class="flex items-center justify-between gap-3 py-3"><a href="{{ path('admin_edit', {section: 'actuality', id: a.id}) }}" class="font-semibold text-abyss-700 hover:text-ocean-600">{{ a.name }}</a><span class="shrink-0 text-xs text-slate-400">{{ a.date ? a.date|date('d. m. Y') }}</span></li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="card !rounded-2xl p-6">
+            <h2 class="font-display text-lg font-extrabold text-abyss-800">Poslední příspěvky v diskuzi</h2>
+            <ul class="mt-4 divide-y divide-slate-100">
+                {% for d in latest_posts %}
+                    <li class="py-3"><a href="{{ path('admin_edit', {section: 'discussion', id: d.id}) }}" class="font-semibold text-abyss-700 hover:text-ocean-600">{{ d.author }}</a> <span class="text-xs text-slate-400">{{ d.insDt|date('d. m. Y H:i') }} · {{ d.ip }}</span><p class="truncate text-sm text-slate-500">{{ d.text }}</p></li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+{% endblock %}

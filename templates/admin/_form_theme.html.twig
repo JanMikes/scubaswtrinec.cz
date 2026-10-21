@@ -1,0 +1,37 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+    <div class="form-field">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {% if help is not empty %}<p class="mt-1 text-xs text-slate-500">{{ help|trans }}</p>{% endif %}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
+
+{% block form_errors %}
+    {% for error in errors %}<p class="form-error">{{ error.message }}</p>{% endfor %}
+{% endblock %}
+
+{% block form_label %}
+    {% if label is not same as(false) %}
+        <label for="{{ id }}" class="mb-1.5 block text-sm font-semibold text-abyss-800">{{ label ?? name|humanize }}{% if required %} <span class="text-flag-500">*</span>{% endif %}</label>
+    {% endif %}
+{% endblock %}
+
+{% block form_widget_simple %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-input')|trim}) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block textarea_widget %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-input')|trim}) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block file_widget %}
+    {% set attr = attr|merge({class: 'block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-abyss-600 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-abyss-800'}) %}
+    {{ block('form_widget_simple') }}
+{% endblock %}
+
+{% block repeated_row %}{{ block('form_rows') }}{% endblock %}

@@ -1,0 +1,45 @@
+# Local development only. Production runs from TheDevs-cz/lily.srv apps/scubaswtrinec/compose.yaml.
+services:
+    web:
+        image: ghcr.io/thedevs-cz/php:8.5
+        restart: unless-stopped
+        volumes:
+            - .:/app
+            - ./.docker/on-startup.sh:/docker-entrypoint.d/on-startup.sh
+            - ./.docker/Caddyfile:/etc/caddy/Caddyfile:ro
+        depends_on:
+            db:
+                condition: service_healthy
+        ports:
+            - "${WEB_PORT:-8080}:80"
+        environment:
+            DATABASE_HOST: db
+            XDEBUG_MODE: "off"
+
+    db:
+        # Same engine, version and flags as production (lily apps/scubaswtrinec/compose.yaml).
+        image: mariadb:11.4.13
+        environment:
+            MARIADB_ROOT_PASSWORD: root
+            MARIADB_DATABASE: scubaswtrinec
+        command: ["mariadbd", "--sql-mode=NO_ENGINE_SUBSTITUTION", "--character-set-server=latin1", "--collation-server=latin1_swedish_ci"]
+        ports:
+            - "${DB_PORT:-3306}:3306"
+        volumes:
+            - db_data:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
+
+    tailwind:
+        image: ghcr.io/thedevs-cz/php:8.5
+        volumes:
+            - .:/app
+        command: bin/console tailwind:build --watch
+        restart: unless-stopped
+        profiles: [assets]
+
+volumes:
+    db_data:

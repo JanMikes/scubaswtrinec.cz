@@ -1,0 +1,52 @@
+{% extends 'admin/layout.html.twig' %}
+{% import 'admin/_macros.html.twig' as m %}
+{% block admin_title %}{{ section.title }}{% endblock %}
+{% block content %}
+    {{ m.list_header(section, parent, inactive_count) }}
+    <div class="card overflow-x-auto !rounded-2xl">
+        <table class="adm-table">
+            <thead><tr><th>Autor</th><th>E-mail</th><th>IP</th><th>Text</th><th class="text-right">Akce</th></tr></thead>
+            <tbody>
+            {% for row in rows %}
+                <tr id="r{{ row.id }}" class="{{ row.active ? '' : 'opacity-60' }}">
+                    <td class="font-semibold text-abyss-800">{{ row.author }}<div class="text-xs font-normal text-slate-400">{{ row.insDt|date('d. m. Y H:i') }}</div></td>
+                    <td class="text-slate-600">{{ row.email }}</td>
+                    <td class="whitespace-nowrap font-mono text-xs text-slate-500">{{ row.ip }}</td>
+                    <td class="max-w-md text-slate-600">{{ row.text|length > 100 ? row.text|slice(0, 100) ~ '…' : row.text }}</td>
+                    <td>
+                        <div class="flex flex-wrap justify-end gap-1.5">
+                            {% if row.ip in banned_ips %}
+                                <span class="adm-pill bg-red-600 text-white">Blokován</span>
+                            {% elseif row.ip %}
+                                {{ m.action(path('admin_discussion_ban', {section: 'discussion', id: row.id}), 'Zablokovat', 'adm-pill bg-red-50 text-red-700 hover:bg-red-100', 'Opravdu zablokovat uživatele (IP ' ~ row.ip ~ ')?') }}
+                            {% endif %}
+                            {{ m.row_actions(section, row, loop, parent) }}
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5" class="text-slate-500">Prozatím nebyly přidány žádné záznamy.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="mb-4 mt-10 font-display text-xl font-extrabold text-abyss-800">Zablokovaní uživatelé</h2>
+    <div class="card overflow-x-auto !rounded-2xl">
+        <table class="adm-table">
+            <thead><tr><th>IP</th><th>Přezdívka a e-mail</th><th>Od</th><th class="text-right">Akce</th></tr></thead>
+            <tbody>
+            {% for ban in bans %}
+                <tr>
+                    <td class="font-mono text-xs">{{ ban.ip }}</td>
+                    <td>{{ ban.reason }}</td>
+                    <td class="text-slate-500">{{ ban.insDt|date('d. m. Y') }}</td>
+                    <td class="text-right">{{ m.action(path('admin_discussion_unban', {section: 'discussion', banId: ban.id}), 'Odblokovat', 'adm-pill bg-emerald-100 text-emerald-800 hover:bg-emerald-200') }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4" class="text-slate-500">Nikdo není zablokován.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

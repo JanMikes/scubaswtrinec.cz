@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Chyba {{ status_code }} | SCUBASW</title>
+    <style>
+        body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: system-ui, sans-serif; color: #fff; background: linear-gradient(180deg, #3392ea, #09467f); }
+        main { max-width: 32rem; padding: 2rem; text-align: center; }
+        h1 { font-size: 2.2rem; text-transform: uppercase; margin: 0 0 1rem; }
+        a { color: #fff; font-weight: 700; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>{{ status_code == 403 ? 'Přístup odepřen' : 'Něco se pokazilo' }}</h1>
+    <p>{{ status_code >= 500 ? 'Na serveru došlo k chybě. Zkuste to prosím za chvíli znovu.' : 'Požadavek nelze zpracovat.' }}</p>
+    <p><a href="/">Zpět na úvodní stránku</a></p>
+    <p style="opacity:.6;font-size:.8rem">Chyba {{ status_code }}</p>
+</main>
+</body>
+</html>

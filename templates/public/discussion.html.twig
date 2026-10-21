@@ -1,0 +1,48 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 4 %}
+{% block hero_eyebrow %}<p class="eyebrow mb-3 text-cyan-400">Ptejte se, sdílejte, domlouvejte se</p>{% endblock %}
+{% block page_title %}Diskuze{% endblock %}
+{% block content %}
+    <section class="card p-6 sm:p-8" aria-labelledby="novy-prispevek">
+        <h2 id="novy-prispevek" class="font-display text-xl font-extrabold uppercase text-abyss-700">Nový příspěvek</h2>
+        {{ form_start(form, {attr: {class: 'mt-5 grid gap-4', novalidate: 'novalidate'}}) }}
+            {% for error in form.vars.errors %}
+                <div class="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800 ring-1 ring-red-200" role="alert">{{ error.message }}</div>
+            {% endfor %}
+            <div class="grid gap-4 sm:grid-cols-3">
+                {% for field in [form.author, form.email, form.subject] %}
+                    <div class="form-field">
+                        {{ form_label(field) }}
+                        {{ form_widget(field, {attr: {class: 'form-input'}}) }}
+                        {% for e in field.vars.errors %}<p class="form-error">{{ e.message }}</p>{% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-field">
+                {{ form_label(form.text) }}
+                {{ form_widget(form.text, {attr: {class: 'form-input'}}) }}
+                {% for e in form.text.vars.errors %}<p class="form-error">{{ e.message }}</p>{% endfor %}
+            </div>
+            <div class="hp-field" aria-hidden="true">{{ form_label(form.website) }}{{ form_widget(form.website, {attr: {tabindex: '-1', autocomplete: 'off'}}) }}</div>
+            {{ form_widget(form.ts, {value: ts}) }}
+            <div><button type="submit" class="btn-primary">Odeslat příspěvek</button></div>
+        {{ form_end(form) }}
+    </section>
+
+    <section class="mt-8 space-y-4" aria-label="Příspěvky">
+        {% for post in pager.items %}
+            <article class="card p-6">
+                <header class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                    <span class="grid h-9 w-9 place-items-center rounded-full bg-ocean-100 font-display font-extrabold uppercase text-abyss-700">{{ post.author|default('?')|first }}</span>
+                    <span class="font-bold text-abyss-700">{{ post.author }}</span>
+                    <time class="text-slate-400" datetime="{{ post.insDt|date('c') }}">{{ post.insDt|date('d. m. Y H:i') }}</time>
+                    {% if post.subject %}<span class="rounded-full bg-ocean-50 px-3 py-0.5 text-xs font-bold text-ocean-700">{{ post.subject }}</span>{% endif %}
+                </header>
+                <p class="mt-3 whitespace-pre-line break-words leading-7 text-slate-700">{{ post.text }}</p>
+            </article>
+        {% else %}
+            <div class="card p-8 text-slate-600">Zatím žádné příspěvky.</div>
+        {% endfor %}
+    </section>
+    {% include 'partials/pagination.html.twig' %}
+{% endblock %}

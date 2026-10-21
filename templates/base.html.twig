@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}{% block title_suffix %}SCUBASW{% endblock %}</title>
+    <meta name="description" content="{% block description %}Potápěčský klub SCUBA S.W. Třinec — potápění všeho druhu od roku 1986. Aktuality, články, galerie, instruktoři a kontakt.{% endblock %}">
+    {% block meta %}{% endblock %}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#09467f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800;900&display=swap" rel="stylesheet">
+    {% block importmap %}{{ importmap(['app', 'public']) }}{% endblock %}
+    {% set ga = ga_measurement_id() %}
+    {% if ga %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga }}"></script>
+        <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga|e('js') }}');</script>
+    {% endif %}
+</head>
+<body class="{% block body_class %}{% endblock %}" {% block body_attrs %}{% endblock %}>
+    {% block body %}{% endblock %}
+</body>
+</html>

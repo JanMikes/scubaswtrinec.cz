@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% block admin_title %}Administrace{% endblock %} | {% endblock %}
+{% block title_suffix %}SCUBASW admin{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block importmap %}{{ importmap(['app', 'admin']) }}{% endblock %}
+{% block body_class %}!bg-none bg-slate-100{% endblock %}
+{% block body_attrs %}data-editor-upload="{{ path('admin_editor_upload') }}" data-editor-csrf="{{ csrf_token('editor-upload') }}"{% endblock %}
+
+{% set admin_nav = [
+    {label: 'Přehled', href: path('admin_dashboard'), active: app.request.attributes.get('_route') starts with 'admin_dashboard'},
+    {label: 'Aktuality', href: path('admin_list', {section: 'actuality'}), active: app.request.attributes.get('section') in ['actuality', 'actuality-photo']},
+    {label: 'Články', href: path('admin_list', {section: 'article'}), active: app.request.attributes.get('section') in ['article', 'article-photo']},
+    {label: 'Galerie', href: path('admin_list', {section: 'gallery'}), active: app.request.attributes.get('section') in ['gallery', 'gallery-photo']},
+    {label: 'Diskuze', href: path('admin_list', {section: 'discussion'}), active: app.request.attributes.get('section') == 'discussion'},
+    {label: 'Kontakt', href: path('admin_contact'), active: app.request.attributes.get('_route') starts with 'admin_contact'},
+    {label: 'Instruktoři', href: path('admin_list', {section: 'instructor'}), active: app.request.attributes.get('section') == 'instructor'},
+    {label: 'Odkazy', href: path('admin_list', {section: 'link'}), active: app.request.attributes.get('section') == 'link'},
+] %}
+
+{% block body %}
+<div class="min-h-screen lg:grid lg:grid-cols-[260px_minmax(0,1fr)]">
+    <aside class="bg-abyss-950 text-white lg:sticky lg:top-0 lg:h-screen">
+        <div class="flex items-center justify-between gap-4 px-5 py-4 lg:block lg:py-6">
+            <a href="{{ path('admin_dashboard') }}">{% include 'partials/logo.html.twig' %}</a>
+            <button type="button" class="grid h-10 w-10 place-items-center rounded-full ring-1 ring-white/20 lg:hidden" data-admin-nav-toggle aria-label="Menu">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+        </div>
+        <nav class="hidden px-3 pb-6 lg:block" data-admin-nav>
+            <ul class="space-y-1">
+                {% for item in admin_nav %}
+                    <li><a href="{{ item.href }}" class="block rounded-xl px-4 py-2.5 text-sm font-semibold transition {{ item.active ? 'bg-ocean-500 text-white' : 'text-ocean-100/80 hover:bg-white/10 hover:text-white' }}">{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="mt-8 border-t border-white/10 pt-6 text-sm">
+                <p class="px-4 text-xs uppercase tracking-wider text-ocean-200/60">Přihlášen</p>
+                <p class="mt-1 truncate px-4 font-semibold">{{ app.user.name ?? app.user.userIdentifier }}</p>
+                <a href="{{ path('admin_change_password') }}" class="mt-3 block rounded-xl px-4 py-2 text-ocean-100/80 hover:bg-white/10 hover:text-white">Změna hesla</a>
+                <a href="{{ path('admin_sign_out') }}" class="block rounded-xl px-4 py-2 text-ocean-100/80 hover:bg-white/10 hover:text-white">Odhlásit</a>
+                <a href="{{ path('home') }}" target="_blank" class="block rounded-xl px-4 py-2 text-ocean-100/80 hover:bg-white/10 hover:text-white">Zobrazit web ↗</a>
+            </div>
+        </nav>
+    </aside>
+    <main class="min-w-0 px-4 py-6 sm:px-8 lg:py-10">
+        {% include 'partials/flashes.html.twig' %}
+        {% block content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

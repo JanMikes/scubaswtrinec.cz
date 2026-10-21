@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if block('page_title') is defined and block('page_title')|trim is not empty %}{{ block('page_title')|striptags|trim }} | {% endif %}{% endblock %}
+
+{% block meta %}
+    <link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.pathInfo }}{{ app.request.query.get('page') and app.request.query.get('page') > 1 ? '?page=' ~ app.request.query.get('page') : '' }}">
+    <meta property="og:site_name" content="SCUBA S.W. Třinec">
+    <meta property="og:title" content="{{ block('title')|trim }}SCUBASW">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/images/slides/big/2.jpg">
+    <meta property="og:locale" content="cs_CZ">
+{% endblock %}
+
+{% set nav = [
+    {route: 'home', label: 'Aktuality', match: ['home', 'actuality_detail']},
+    {route: 'articles', label: 'Články', match: ['articles', 'article_detail']},
+    {route: 'galleries', label: 'Galerie', match: ['galleries', 'gallery_detail']},
+    {route: 'instructors', label: 'Instruktoři', match: ['instructors']},
+    {route: 'discussion', label: 'Diskuze', match: ['discussion']},
+    {route: 'links', label: 'Odkazy', match: ['links']},
+    {route: 'contact', label: 'Kontakt', match: ['contact']},
+] %}
+{% set current = app.request.attributes.get('_route') %}
+
+{% block body_class %}flex min-h-screen flex-col{% endblock %}
+
+{% block body %}
+<a href="#obsah" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-abyss-700">Přeskočit na obsah</a>
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-abyss-950/85 backdrop-blur-md">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-6">
+        <a href="{{ path('home') }}" aria-label="SCUBA S.W. Třinec — úvod">{% include 'partials/logo.html.twig' %}</a>
+        <button type="button" class="grid h-11 w-11 place-items-center rounded-full text-white ring-1 ring-white/20 lg:hidden" data-nav-toggle aria-expanded="false" aria-controls="hlavni-menu">
+            <span class="sr-only">Menu</span>
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <nav id="hlavni-menu" class="hidden lg:block" aria-label="Hlavní navigace">
+            <ul class="flex items-center gap-1">
+                {% for item in nav %}
+                    <li><a href="{{ path(item.route) }}" class="rounded-full px-4 py-2 text-[13px] font-bold uppercase tracking-wider transition {{ current in item.match ? 'bg-ocean-500 text-white shadow-lg shadow-ocean-500/30' : 'text-white/80 hover:bg-white/10 hover:text-white' }}" {% if current in item.match %}aria-current="page"{% endif %}>{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    <nav class="hidden border-t border-white/10 lg:hidden" data-nav-menu aria-label="Mobilní navigace">
+        <ul class="mx-auto grid max-w-7xl gap-1 px-4 py-3">
+            {% for item in nav %}
+                <li><a href="{{ path(item.route) }}" class="block rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider {{ current in item.match ? 'bg-ocean-500 text-white' : 'text-white/85 hover:bg-white/10' }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
+
+{% block hero %}
+    {# Sub-page band: one diver photo, page title on top (2014: a 250 px slider strip). #}
+    <section class="relative isolate overflow-hidden">
+        <img src="/images/slides/big/{{ hero_image|default(3) }}.jpg" alt="" class="absolute inset-0 -z-20 h-full w-full animate-kenburns object-cover">
+        <div class="absolute inset-0 -z-10 bg-gradient-to-r from-abyss-950/85 via-abyss-800/60 to-ocean-600/30"></div>
+        <div class="mx-auto max-w-7xl px-4 pb-20 pt-14 sm:px-6 sm:pb-24 sm:pt-20">
+            {% block hero_eyebrow %}{% endblock %}
+            <h1 class="page-title max-w-4xl">{% block page_title %}{% endblock %}</h1>
+            {% block hero_after %}{% endblock %}
+        </div>
+        {% include 'partials/wave.html.twig' %}
+    </section>
+{% endblock %}
+
+<main id="obsah" class="relative flex-1">
+    <div class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 {% block main_offset %}-mt-6{% endblock %}">
+        {% block layout_content %}
+            <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+                <div class="min-w-0">
+                    {% include 'partials/flashes.html.twig' %}
+                    {% block content %}{% endblock %}
+                </div>
+                {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="relative mt-10 bg-abyss-950 text-white">
+    <svg class="absolute -top-[39px] left-0 h-10 w-full text-abyss-950" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 22c120-18 240-18 360 0s240 18 360 0 240-18 360 0 240 18 360 0v18H0Z"/></svg>
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
+        <div>
+            {% include 'partials/logo.html.twig' %}
+            <p class="mt-5 max-w-sm text-sm leading-6 text-ocean-100/80">Potápěčský klub z Třince založený v roce 1986. Potápění všeho druhu, stálá členská základna a dobrý kolektiv.</p>
+        </div>
+        <div>
+            <h2 class="eyebrow text-cyan-400">Kontakt</h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="font-bold">Roman Kudela</li>
+                <li><a href="tel:+420723007349" class="text-ocean-100 hover:text-white">+420 723 007 349</a></li>
+                <li><a href="mailto:kudela@email.cz" class="text-ocean-100 hover:text-white">kudela@email.cz</a></li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="eyebrow text-transparent max-md:hidden">Kontakt</h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="font-bold">Martin Šajnar</li>
+                <li><a href="tel:+420603308093" class="text-ocean-100 hover:text-white">+420 603 308 093</a></li>
+                <li><a href="mailto:sajnar.martin@post.cz" class="text-ocean-100 hover:text-white">sajnar.martin@post.cz</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-white/10">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-xs text-ocean-100/60 sm:px-6">
+            <p>© 1986–{{ 'now'|date('Y') }} SCUBA S.W. Třinec · Web vytvořil <a href="https://janmikes.cz" class="underline hover:text-white">Jan Mikeš</a></p>
+            <a href="#obsah" class="hover:text-white">Nahoru ↑</a>
+        </div>
+    </div>
+</footer>
+{% endblock %}
