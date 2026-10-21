@@ -1,0 +1,45 @@
+{% macro action(url, label, class, confirm = null, title = null) %}
+    <form method="post" action="{{ url }}" class="inline" {% if confirm %}data-confirm="{{ confirm }}"{% endif %}>
+        <input type="hidden" name="_token" value="{{ csrf_token('admin-action') }}">
+        <button type="submit" class="{{ class }}" {% if title %}title="{{ title }}" aria-label="{{ title }}"{% endif %}>{{ label|raw }}</button>
+    </form>
+{% endmacro %}
+
+{% macro row_actions(section, row, loop, parent) %}
+    {% import _self as m %}
+    <div class="flex flex-wrap items-center justify-end gap-1.5">
+        {% if section.orderable %}
+            {% if not loop.first %}{{ m.action(path('admin_record_action', {section: section.slug, id: row.id, op: 'up'}), '↑', 'adm-icon', null, 'Posunout výš') }}{% endif %}
+            {% if not loop.last %}{{ m.action(path('admin_record_action', {section: section.slug, id: row.id, op: 'down'}), '↓', 'adm-icon', null, 'Posunout níž') }}{% endif %}
+        {% endif %}
+        {% if row.active %}
+            {{ m.action(path('admin_record_action', {section: section.slug, id: row.id, op: 'deactivate'}), 'Aktivní', 'adm-pill bg-emerald-100 text-emerald-800 hover:bg-emerald-200', null, 'Skrýt z webu') }}
+        {% else %}
+            {{ m.action(path('admin_record_action', {section: section.slug, id: row.id, op: 'activate'}), 'Neaktivní', 'adm-pill bg-amber-100 text-amber-800 hover:bg-amber-200', null, 'Zobrazit na webu') }}
+        {% endif %}
+        <a href="{{ path('admin_edit', {section: section.slug, id: row.id}) }}" class="adm-pill bg-ocean-100 text-abyss-700 hover:bg-ocean-200">Upravit</a>
+        {{ m.action(path('admin_record_action', {section: section.slug, id: row.id, op: 'delete'}), 'Smazat', 'adm-pill bg-red-50 text-red-700 hover:bg-red-100', 'Opravdu smazat?') }}
+    </div>
+{% endmacro %}
+
+{% macro list_header(section, parent, inactive_count) %}
+    {% import _self as m %}
+    {% set parent_params = parent and section.parentParam ? {(section.parentParam): parent.id} : {} %}
+    <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+            {% if parent %}
+                <a href="{{ path('admin_list', {section: section.parentSlug}) }}" class="text-sm font-semibold text-ocean-600 hover:text-abyss-700">← zpět</a>
+                <p class="mt-2 text-sm text-slate-500">{{ parent.name }}</p>
+            {% endif %}
+            <h1 class="font-display text-3xl font-extrabold text-abyss-800">{{ section.title }}</h1>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            {% if inactive_count > 0 %}
+                {{ m.action(path('admin_activate_all', {section: section.slug}|merge(parent_params)), 'Aktivovat vše (' ~ inactive_count ~ ')', 'btn-light') }}
+            {% endif %}
+            {% if section.canAdd %}
+                <a href="{{ path('admin_add', {section: section.slug}|merge(parent_params)) }}" class="btn-primary">+ Přidat {{ section.singular }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

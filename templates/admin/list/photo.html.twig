@@ -1,0 +1,27 @@
+{% extends 'admin/layout.html.twig' %}
+{% import 'admin/_macros.html.twig' as m %}
+{% block admin_title %}{{ section.title }} — {{ parent.name }}{% endblock %}
+{% block content %}
+    {{ m.list_header(section, parent, inactive_count) }}
+    <div class="card overflow-x-auto !rounded-2xl">
+        <table class="adm-table">
+            <thead><tr><th class="w-24">Foto</th><th>Popis</th><th class="text-right">Akce</th></tr></thead>
+            <tbody>
+            {% for row in rows %}
+                <tr id="r{{ row.id }}" class="{{ row.active ? '' : 'opacity-60' }}">
+                    <td>
+                        {% set orig = photo_original(row.photo) %}
+                        {% if orig %}<a href="{{ orig }}" target="_blank">{% endif %}
+                        {% include 'partials/photo.html.twig' with {photo: row.photo, type: 'admin', class: 'adm-thumb', alt: row.description} only %}
+                        {% if orig %}</a>{% endif %}
+                    </td>
+                    <td>{{ row.description }}{% if not orig %}<span class="ml-2 text-xs font-semibold text-amber-700">soubor chybí na disku</span>{% endif %}</td>
+                    <td>{{ m.row_actions(section, row, loop, parent) }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-slate-500">Prozatím nebyly přidány žádné fotografie.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

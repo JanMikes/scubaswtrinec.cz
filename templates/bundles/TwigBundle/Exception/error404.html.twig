@@ -1,0 +1,13 @@
+{% extends 'public/layout.html.twig' %}
+{% block meta %}<meta name="robots" content="noindex">{% endblock %}
+{% block page_title %}Stránka nenalezena{% endblock %}
+{% block content %}
+    <div class="card p-8 sm:p-10">
+        <p class="text-lg leading-8 text-slate-700">Omlouváme se, ale požadovaná stránka nebyla nalezena. Zkontrolujte prosím adresu — je také možné, že hledaná stránka již neexistuje nebo se přesunula.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a href="{{ path('home') }}" class="btn-primary">Na úvodní stránku</a>
+            <a href="{{ path('galleries') }}" class="btn-light">Galerie</a>
+        </div>
+        <p class="mt-6 text-xs text-slate-400">Chyba 404</p>
+    </div>
+{% endblock %}

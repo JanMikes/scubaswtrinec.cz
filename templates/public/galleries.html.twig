@@ -1,0 +1,20 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = 2 %}
+{% block hero_eyebrow %}<p class="eyebrow mb-3 text-cyan-400">Z našich ponorů</p>{% endblock %}
+{% block page_title %}Galerie{% endblock %}
+{% block content %}
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {% for g in pager.items %}
+            <a href="{{ path('gallery_detail', {id: g.id}) }}" class="card group relative block overflow-hidden">
+                {% include 'partials/photo.html.twig' with {photo: cover_photo(g), type: 'card', class: 'aspect-[4/3] w-full transition duration-500 group-hover:scale-105', alt: g.name} only %}
+                <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss-950/90 to-transparent p-5 pt-16">
+                    <span class="block font-display text-lg font-extrabold uppercase leading-tight text-white">{{ g.name }}</span>
+                    <span class="mt-1 block text-xs font-semibold text-ocean-100">{{ visible(g.photos)|length }} fotografií</span>
+                </span>
+            </a>
+        {% else %}
+            <div class="card p-8 text-slate-600">Zatím zde nejsou žádné galerie.</div>
+        {% endfor %}
+    </div>
+    {% include 'partials/pagination.html.twig' %}
+{% endblock %}

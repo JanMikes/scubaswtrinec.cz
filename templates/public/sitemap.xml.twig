@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for route in ['home', 'articles', 'galleries', 'instructors', 'discussion', 'links', 'contact'] %}
+    <url><loc>{{ url(route) }}</loc></url>
+{% endfor %}
+{% for a in actualities %}
+    <url><loc>{{ url('actuality_detail', {id: a.id}) }}</loc>{% if a.date %}<lastmod>{{ a.date|date('Y-m-d') }}</lastmod>{% endif %}</url>
+{% endfor %}
+{% for a in articles %}
+    <url><loc>{{ url('article_detail', {id: a.id}) }}</loc>{% if a.date %}<lastmod>{{ a.date|date('Y-m-d') }}</lastmod>{% endif %}</url>
+{% endfor %}
+{% for g in galleries %}
+    <url><loc>{{ url('gallery_detail', {id: g.id}) }}</loc></url>
+{% endfor %}
+</urlset>

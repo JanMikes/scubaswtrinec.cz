@@ -1,0 +1,27 @@
+{# The 2014 sidebar: "Poslední aktuality" + "Poslední galerie" on every page except the home page. #}
+<aside class="space-y-6 lg:pt-0">
+    <section class="card p-6">
+        <h2 class="eyebrow text-ocean-600">Poslední aktuality</h2>
+        <ul class="mt-4 divide-y divide-slate-100">
+            {% for a in recent_actualities() %}
+                <li class="py-3 first:pt-0 last:pb-0">
+                    <time class="text-xs font-semibold text-slate-400" datetime="{{ a.date ? a.date|date('Y-m-d') }}">{{ a.date ? a.date|date('d. m. Y') }}</time>
+                    <a href="{{ path('actuality_detail', {id: a.id}) }}" class="mt-0.5 block font-semibold leading-snug text-abyss-700 hover:text-ocean-600">{{ a.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section class="card p-6">
+        <h2 class="eyebrow text-ocean-600">Poslední galerie</h2>
+        <ul class="mt-4 space-y-3">
+            {% for g in recent_galleries() %}
+                <li>
+                    <a href="{{ path('gallery_detail', {id: g.id}) }}" class="group flex items-center gap-3">
+                        {% include 'partials/photo.html.twig' with {photo: cover_photo(g), type: 'admin', class: 'h-14 w-14 shrink-0 rounded-xl', alt: g.name} only %}
+                        <span class="font-semibold leading-snug text-abyss-700 group-hover:text-ocean-600">{{ g.name }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</aside>

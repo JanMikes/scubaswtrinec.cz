@@ -1,27 +1,22 @@
 # Release: build+push this app's image, then trigger its deploy on lily.
 #
-# This app's deploy.sh + compose live in the INFRA repo (TheDevs-cz/lily.srv,
-# apps/scubaswtrinec). This workflow does NOT deploy directly (no SSH key here):
-# it builds+pushes the ghcr image and triggers the deploy via the shared reusable
-# workflow, which HMAC-POSTs https://deploy.lily.srv.thedevs.cz/hooks/scubaswtrinec.
-# The box's receiver verifies the per-app HMAC and a root systemd executor runs
-# /srv/scubaswtrinec/deploy.sh <tag>. A leak of the secret below can therefore
-# only ever redeploy THIS app from THIS image — nothing else.
+# Runs only after the `Tests` workflow succeeded on main (tests gate the release, same pattern as
+# tipovacka/wtips and dmarc/sendvery). This app's deploy.sh + compose live in the INFRA repo
+# (TheDevs-cz/lily.srv, apps/scubaswtrinec). No SSH key here: the shared reusable workflow builds
+# + pushes the ghcr image and HMAC-POSTs https://deploy.lily.srv.thedevs.cz/hooks/scubaswtrinec;
+# the box's executor runs /srv/scubaswtrinec/deploy.sh <tag> (Contract G: dump_secrets ->
+# migrations one-off -> rollout). A leak of the secret can only redeploy THIS app from THIS image.
 #
-# Requires GH secret DEPLOY_WEBHOOK_SECRET (per-app HMAC key). Passed EXPLICITLY,
-# NOT via `secrets: inherit` — inherit does not cross owners and the shared CI repo
-# (TheDevs-cz) is a different owner than this one. GITHUB_TOKEN is automatic.
-#
-# Replaces the previous hand-rolled build-only workflow (docker/metadata-action +
-# build-push-action). The deploy used to be triggered from the TheDevs-cz/spare.srv
-# repo, path-filtered on its deployment dir — so a code push here rebuilt the image
-# but never actually redeployed anything. Migrated spare.srv -> lily 2026-09-03.
+# Requires GH secret DEPLOY_WEBHOOK_SECRET (per-app HMAC key), passed EXPLICITLY (secrets: inherit
+# does not cross owners). GITHUB_TOKEN is automatic.
 
 name: Release
 
-# push to main ONLY — public repo, so never pull_request_target / untrusted PR code.
 on:
-    push:
+    workflow_run:
+        workflows: [Tests]
+        types:
+            - completed
         branches:
             - main
 
@@ -31,28 +26,19 @@ permissions:
 
 jobs:
     ship:
+        if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
         uses: TheDevs-cz/ci/.github/workflows/_ship.yml@v1
         secrets:
             DEPLOY_WEBHOOK_SECRET: ${{ secrets.DEPLOY_WEBHOOK_SECRET }}
         with:
-            # app id == hook id == apps/scubaswtrinec/ == /srv/scubaswtrinec/ on
-            # the box == the Infisical project name. NOT the repo name.
+            # app id == hook id == apps/scubaswtrinec/ == /srv/scubaswtrinec/ == Infisical project.
             app: scubaswtrinec
-            # Explicit: the ghcr package is named after the REPO (scubaswtrinec.cz,
-            # with the TLD), which differs from the app id above. Must match
-            # `image:` in the infra repo's apps/scubaswtrinec/compose.yaml.
+            # The ghcr package is named after the REPO (with the TLD) — must match `image:` in
+            # lily.srv apps/scubaswtrinec/compose.yaml.
             image: ghcr.io/janmikes/scubaswtrinec.cz
             deploy_host: lily.srv.thedevs.cz
-            # The Dockerfile has dev/prod stages; prod is last today, but pin it
-            # explicitly so an added stage can never silently ship the dev image
-            # (which expects a bind-mounted source tree and runs composer at boot).
-            target: prod
-            # Deploy the exact immutable sha-<git-sha> tag this run just built,
-            # instead of the floating "main" — re-runnable and unambiguous.
+            # Deploy the exact immutable sha-<git-sha> tag this run built.
             deploy_sha: true
-            # Fire-and-forget: this run goes green once the box ACCEPTS the signed
-            # trigger, not when the deploy finishes. Waiting for the real result
-            # (D27) needs a per-app fine-grained checks:write PAT seeded in the box's
-            # /srv/deploy/checks.env — not set up for this repo. Deploy logs live on
-            # the box: Grafana app="deploy" / journalctl -u lily-deploy-runner.
+            build_args: APP_VERSION=${{ github.event.workflow_run.head_sha }}
+            # Fire-and-forget (no per-repo checks:write PAT on the box yet — lily backlog).
             await_deploy: false

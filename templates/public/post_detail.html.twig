@@ -1,0 +1,30 @@
+{% extends 'public/layout.html.twig' %}
+{% set hero_image = kind == 'article' ? 4 : 1 %}
+{% block description %}{{ post.text|excerpt(160) }}{% endblock %}
+{% block hero_eyebrow %}
+    <a href="{{ kind == 'article' ? path('articles') : path('home') }}" class="mb-4 inline-flex items-center gap-2 text-sm font-bold text-white/80 hover:text-white">← {{ kind == 'article' ? 'Články' : 'Aktuality' }}</a>
+{% endblock %}
+{% block page_title %}{{ post.name }}{% endblock %}
+{% block hero_after %}
+    {% if post.date %}<p class="mt-4 text-sm font-semibold text-ocean-100"><time datetime="{{ post.date|date('Y-m-d') }}">{{ post.date|date('d. m. Y') }}</time></p>{% endif %}
+{% endblock %}
+{% block content %}
+    <article class="card p-6 sm:p-10">
+        <div class="prose-dive">{{ post.text|raw }}</div>
+        {% if photos is not empty %}
+            <h2 class="mt-10 font-display text-lg font-extrabold uppercase tracking-wider text-abyss-700">Fotografie</h2>
+            <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {% for p in photos %}
+                    {% set large = photo_large(p.photo) %}
+                    {% if large %}
+                        <a href="{{ large }}" class="glightbox group block overflow-hidden rounded-2xl" data-gallery="post-{{ post.id }}" data-description="{{ p.description }}">
+                            {% include 'partials/photo.html.twig' with {photo: p.photo, type: 'card', class: 'aspect-[4/3] w-full transition duration-500 group-hover:scale-105', alt: p.description ?? post.name} only %}
+                        </a>
+                    {% else %}
+                        {% include 'partials/photo.html.twig' with {photo: null, class: 'aspect-[4/3] w-full rounded-2xl', alt: p.description ?? 'Fotografie není k dispozici'} only %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </article>
+{% endblock %}

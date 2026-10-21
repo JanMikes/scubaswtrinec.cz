@@ -1,0 +1,19 @@
+parameters:
+    # Web root. User data (img/*, upload/) is the lily volume mounted under it at the same
+    # relative paths the 2014 app used, so `photo.path` values stay valid.
+    app.public_dir: '%kernel.project_dir%/public'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            string $publicDir: '%app.public_dir%'
+
+    App\:
+        resource: '../src/'
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - 'mysql:host=%env(DATABASE_HOST)%;port=%env(DATABASE_PORT)%;dbname=%env(DATABASE_NAME)%;charset=utf8mb4'
+            - { db_table: sessions, db_username: '%env(DATABASE_USER)%', db_password: '%env(DATABASE_PASSWORD)%', lock_mode: 0 }

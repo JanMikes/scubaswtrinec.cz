@@ -1,0 +1,22 @@
+{% extends 'admin/layout.html.twig' %}
+{% import 'admin/_macros.html.twig' as m %}
+{% block admin_title %}{{ section.title }}{% endblock %}
+{% block content %}
+    {{ m.list_header(section, parent, inactive_count) }}
+    <div class="card overflow-x-auto !rounded-2xl">
+        <table class="adm-table">
+            <thead><tr><th class="w-24">Foto</th><th>Jméno</th><th class="text-right">Akce</th></tr></thead>
+            <tbody>
+            {% for row in rows %}
+                <tr id="r{{ row.id }}" class="{{ row.active ? '' : 'opacity-60' }}">
+                    <td>{% include 'partials/photo.html.twig' with {photo: row.photo, type: 'admin', class: 'adm-thumb', alt: row.name} only %}</td>
+                    <td class="font-semibold text-abyss-800">{{ row.name }}</td>
+                    <td>{{ m.row_actions(section, row, loop, parent) }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-slate-500">Prozatím nebyly přidány žádné záznamy.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

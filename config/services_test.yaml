@@ -1,0 +1,3 @@
+parameters:
+    # Tests write uploads/thumbnails here instead of public/.
+    app.public_dir: '%kernel.project_dir%/var/test-public'

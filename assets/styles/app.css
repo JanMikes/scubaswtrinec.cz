@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@source "../../templates";
+
+/*
+ * SCUBA S.W. Třinec — design tokens.
+ * Palette taken from the 2014 site: ocean blue page (#3392ea), abyss-navy buttons (#09467f),
+ * cyan accent (#00aeef), dive-flag red (#c95754). Fonts: Raleway (headings) + Open Sans (body),
+ * both already used by the 2014 theme.
+ */
+@theme {
+    --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Raleway", "Open Sans", ui-sans-serif, sans-serif;
+
+    --color-ocean-50: #eef6fe;
+    --color-ocean-100: #d9ebfc;
+    --color-ocean-200: #b5d8fa;
+    --color-ocean-300: #84bef6;
+    --color-ocean-400: #57a6f0;
+    --color-ocean-500: #3392ea;
+    --color-ocean-600: #1f77cc;
+    --color-ocean-700: #155fa6;
+    --color-abyss-500: #0d5a9e;
+    --color-abyss-600: #09467f;
+    --color-abyss-700: #083a69;
+    --color-abyss-800: #062c50;
+    --color-abyss-900: #041d36;
+    --color-abyss-950: #021226;
+    --color-cyan-400: #2cc2f5;
+    --color-cyan-500: #00aeef;
+    --color-flag-500: #c95754;
+    --color-flag-600: #b0403d;
+    --color-ink: #0b1f33;
+
+    --animate-kenburns: kenburns 18s ease-in-out infinite alternate;
+    --animate-rise: rise 9s linear infinite;
+}
+
+@keyframes kenburns {
+    from { transform: scale(1.02) translate3d(0, 0, 0); }
+    to { transform: scale(1.14) translate3d(-2%, -1.5%, 0); }
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) scale(.6); opacity: 0; }
+    15% { opacity: .55; }
+    100% { transform: translateY(-260px) scale(1); opacity: 0; }
+}
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    body {
+        @apply font-sans text-ink antialiased;
+        background: linear-gradient(180deg, var(--color-ocean-500) 0, var(--color-ocean-600) 900px, var(--color-abyss-600) 100%);
+        min-height: 100vh;
+    }
+    h1, h2, h3, h4 { @apply font-display; }
+    :focus-visible { @apply outline-2 outline-offset-2 outline-cyan-500; }
+}
+
+@layer components {
+    .btn, .btn-primary, .btn-cyan, .btn-ghost, .btn-light {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold tracking-wide transition
+               focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 cursor-pointer;
+    }
+    .btn-primary { @apply bg-abyss-600 text-white shadow-md shadow-abyss-900/20 hover:bg-abyss-800; }
+    .btn-cyan { @apply bg-cyan-500 text-abyss-950 hover:bg-cyan-400; }
+    .btn-ghost { @apply border border-white/40 text-white hover:bg-white/10; }
+    .btn-light { @apply bg-white text-abyss-700 ring-1 ring-ocean-100 hover:bg-ocean-50; }
+
+    .card { @apply rounded-3xl bg-white shadow-xl shadow-abyss-900/15 ring-1 ring-black/5; }
+
+    .eyebrow { @apply font-display text-xs font-extrabold uppercase tracking-[.2em]; }
+
+    .page-title { @apply font-display text-3xl font-extrabold uppercase tracking-tight text-white sm:text-5xl; }
+
+    /* Admin-authored HTML (CKEditor 4 legacy + CKEditor 5). */
+    .prose-dive { @apply text-[15px] leading-7 text-slate-700; }
+    .prose-dive > * + * { @apply mt-4; }
+    .prose-dive h2 { @apply mt-8 text-2xl font-extrabold text-abyss-700; }
+    .prose-dive h3 { @apply mt-6 text-xl font-bold text-abyss-700; }
+    .prose-dive a { @apply font-semibold text-ocean-600 underline decoration-ocean-200 underline-offset-2 hover:text-abyss-600; }
+    .prose-dive ul { @apply list-disc pl-6; }
+    .prose-dive ol { @apply list-decimal pl-6; }
+    .prose-dive img { @apply h-auto max-w-full rounded-xl; }
+    .prose-dive iframe { @apply aspect-video h-auto w-full max-w-full rounded-xl; }
+    .prose-dive table { @apply w-full border-collapse text-sm; }
+    .prose-dive td, .prose-dive th { @apply border border-slate-200 px-3 py-2; }
+    .prose-dive .small { @apply text-sm text-slate-500; }
+    .prose-dive strong { @apply text-ink; }
+
+    /* Placeholder for photos whose original is missing on disk (most 2014 originals were lost). */
+    .photo-placeholder {
+        @apply relative flex items-center justify-center overflow-hidden text-white/80;
+        background:
+            radial-gradient(circle at 20% 80%, rgb(255 255 255 / .18) 0 6px, transparent 7px),
+            radial-gradient(circle at 70% 30%, rgb(255 255 255 / .14) 0 4px, transparent 5px),
+            radial-gradient(circle at 40% 45%, rgb(255 255 255 / .10) 0 9px, transparent 10px),
+            linear-gradient(160deg, var(--color-ocean-400), var(--color-abyss-700));
+    }
+
+    .form-field label { @apply mb-1.5 block text-sm font-semibold text-abyss-800; }
+    .form-input {
+        @apply block w-full rounded-xl border-0 bg-ocean-50/60 px-4 py-3 text-ink ring-1 ring-ocean-200 transition
+               placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-ocean-500 focus:outline-none;
+    }
+    .form-error { @apply mt-1 text-sm font-semibold text-flag-600; }
+
+    .hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+}
+
+@layer components {
+    .adm-icon { @apply grid h-8 w-8 place-items-center rounded-lg bg-slate-100 text-sm font-bold text-slate-600 hover:bg-slate-200 cursor-pointer; }
+    .adm-pill { @apply inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-bold transition cursor-pointer; }
+    .adm-table { @apply w-full text-left text-sm; }
+    .adm-table th { @apply border-b border-slate-200 bg-slate-50 px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-500; }
+    .adm-table td { @apply border-b border-slate-100 px-4 py-3 align-middle; }
+    .adm-table tr:target td { @apply bg-ocean-50; }
+    .adm-thumb { @apply h-16 w-16 rounded-lg object-cover; }
+}
