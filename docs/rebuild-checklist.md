@@ -135,12 +135,12 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
 
 | item | status |
 |---|---|
-| PHP ≥ 8.5.12 (FrankenPHP base image) | [ ] (local: 8.5.12; box check at cutover) |
+| PHP ≥ 8.5.12 (FrankenPHP base image) | [x] box: 8.5.12, display_errors/expose_php off |
 | healthcheck hits the DB (`/-/health-check/readiness`) | [x] |
-| migrations run as a one-off in `deploy.sh` before the web container starts | [ ] (verified at cutover) |
+| migrations run as a one-off in `deploy.sh` before the web container starts | [x] verified on the box |
 | no new Infisical keys (APP_SECRET derived from DB_PASSWORD, see D83) | [x] |
-| user data volume mounted at the same public paths | [ ] (verified at cutover) |
-| backups (`backup.mysql`, `backup.files`) labels kept, paths updated | [ ] (verified at cutover) |
+| user data volume mounted at the same public paths | [x] verified on the box |
+| backups (`backup.mysql`, `backup.files`) labels kept, paths updated | [x] verified on the box |
 | tests gate the release (PHPUnit, PHPStan, CS, migrations) | [x] |
 | old tables kept, nothing dropped | [x] |
 
@@ -160,8 +160,22 @@ Recent discussion posts (2026) look like bot spam (random strings) — data left
 * **Admin**: every admin screen 200 with an existing session; CKEditor 5 loads existing posts with
   their YouTube iframes intact (headless Chrome, prod mode).
 
+## 6b. Production cutover (2026-10-21, lily journal + D83)
+
+* Deploy `sha-5f3b189` 21:48Z: migrations one-off OK (1.4 s), db container not re-created, production
+  rows re-fingerprinted read-only: every 2014 row identical.
+* Incident 21:49Z: the first verification crawl OOM-killed web (32 default FrankenPHP threads decoding
+  originals for first-time thumbnails); auto-restarted in seconds. Fixed in `8ebff07` + lily `c0be9f9`
+  (4 workers, `max_requests 500`, one image decode at a time, Imagick RAM cap, thumbnail warm-up in
+  deploy). Re-verified: 380/380 page URLs as expected, 499/500 files 200 (`.htaccess` 403 as before),
+  memory flat ~364 MiB / 768, 0 restarts, 0 errors.
+* Not done on production by design: no login with the real accounts (their passwords are not known to
+  us); the legacy-hash path is covered by tests and by the unchanged md5 hashes in the live table.
+* Design overview: https://claude.ai/artifact/CJarc4HSWMRrRXvK9DYxk7
+
 ## 7. Operator follow-ups (not blocking)
 
+* `scubaswtrinec_sessions` volume (2014 PHP session files) can be removed.
 * Old tables are all kept and still used — nothing to clean up. `aa` (empty 2014 leftover) is
   untouched; it can be dropped whenever convenient.
 * ~750 of 921 photo originals were already missing before this rebuild (see §0) — restore them from
