@@ -29,3 +29,6 @@
 /public/upload/
 ###< app user data ###
 /compose.override.yaml
+
+# Local database files - never commit (removed from history 2026-10-22)
+.docker/mysql-data/
